@@ -116,6 +116,22 @@ function StarRow({ count=8, filled=8, size=16 }) {
   );
 }
 
+// ─── Heart row ────────────────────────────────────────────────────────────
+function HeartRow({ count=8, filled=8, size=16 }) {
+  return (
+    <div style={{display:'inline-flex', gap:2, flexWrap:'nowrap'}}>
+      {Array.from({length:count}).map((_,i)=>(
+        <svg key={i} width={size} height={size} viewBox="0 0 24 24"
+          fill={i<filled ? '#E53E3E' : 'transparent'}
+          stroke={i<filled ? '#C53030' : BR.deep20}
+          strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/>
+        </svg>
+      ))}
+    </div>
+  );
+}
+
 // ─── App data ─────────────────────────────────────────────────────────────
 const { useState: aUseState, useEffect: aUseEffect, useRef: aUseRef } = React;
 
@@ -241,69 +257,65 @@ function Hero() {
   const [activeS, setActiveS] = aUseState(null);
   return (
     <section id="about" className="br-fadeup" style={{position:'relative', padding:'40px 0 60px'}}>
-      <div style={{display:'grid', gridTemplateColumns:'160px auto 1fr', gap:40, alignItems:'flex-start'}}>
+      <div style={{display:'grid', gridTemplateColumns:'160px auto 1fr', gap:40, alignItems:'center'}}>
 
         {/* Left: Vertical stats panel */}
         <div style={{
-          display:'flex', flexDirection:'column', gap:22,
-          background:'#fff', borderRadius:16, padding:'22px 18px',
+          display:'flex', flexDirection:'column', gap:24,
+          background:'#fff', borderRadius:16, padding:'24px 20px',
           boxShadow:'0 1px 2px rgba(26,58,58,.06), 0 8px 24px rgba(26,58,58,.06)',
-          marginTop:20,
         }}>
           <div>
-            <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:8}}>
+            <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:10}}>
               <Icon name="telescope" size={12} color={BR.teal}/>
               <span className="br-cap" style={{color:BR.deep70}}>Qualitative</span>
             </div>
-            <div style={{height:6, background:BR.deep10, borderRadius:999, overflow:'hidden', marginBottom:5}}>
+            <div style={{height:10, background:BR.deep10, borderRadius:999, overflow:'hidden'}}>
               <div style={{width:'100%', height:'100%', background:BR.teal, borderRadius:999}}/>
             </div>
-            <span style={{fontFamily:'Nunito', fontWeight:700, fontSize:12, color:BR.deep}}>100%</span>
           </div>
           <div>
-            <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:8}}>
+            <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:10}}>
               <Icon name="telescope" size={12} color={BR.sky}/>
               <span className="br-cap" style={{color:BR.deep70}}>Quantitative</span>
             </div>
-            <div style={{height:6, background:BR.deep10, borderRadius:999, overflow:'hidden', marginBottom:5}}>
+            <div style={{height:10, background:BR.deep10, borderRadius:999, overflow:'hidden'}}>
               <div style={{width:'90%', height:'100%', background:BR.sky, borderRadius:999}}/>
             </div>
-            <span style={{fontFamily:'Nunito', fontWeight:700, fontSize:12, color:BR.deep}}>90%</span>
           </div>
           <div>
-            <span className="br-cap" style={{color:BR.deep70, display:'block', marginBottom:8}}>Years XP</span>
-            <StarRow count={8} filled={8} size={13}/>
-            <span style={{fontFamily:'Nunito', fontWeight:700, fontSize:12, color:BR.deep, display:'block', marginTop:5}}>8 yrs</span>
+            <span className="br-cap" style={{color:BR.deep70, display:'block', marginBottom:10}}>8 Years XP</span>
+            <HeartRow count={8} filled={8} size={12}/>
           </div>
         </div>
 
-        {/* Center: Character */}
-        <div style={{position:'relative'}}>
-          <CharacterScene/>
+        {/* Center: Character — full-height wrapper to stretch alongside right column */}
+        <div style={{position:'relative', alignSelf:'stretch', minHeight:340}}>
+          <div style={{position:'sticky', top:0}}>
+            <CharacterScene/>
+          </div>
         </div>
 
-        {/* Right: Text content */}
-        <div style={{display:'flex', flexDirection:'column', gap:22, paddingTop:20}}>
-          <div>
-            <div className="br-cap" style={{marginBottom:10}}>
-              <Icon name="sparkles" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
-              Adventure awaits.
-            </div>
-            <h1 className="br-h1" style={{margin:0}}>
-              Hi, I'm{' '}
-              <span className="br-display italic" style={{color:BR.teal}}>Mai Someya.</span>
-            </h1>
-            <p className="br-body" style={{maxWidth:520, marginTop:14, color:BR.deep70}}>
-              Mixed-methods UX researcher with 8 years spanning market research and UX research, a combination that brings both business-level strategy and deep user understanding to every study.
-            </p>
-            <p className="br-body" style={{maxWidth:520, marginTop:10, color:BR.deep70}}>
-              From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
-            </p>
+        {/* Right: Title + intro + strengths */}
+        <div style={{display:'flex', flexDirection:'column', gap:16}}>
+          <div className="br-cap">
+            <Icon name="sparkles" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
+            Adventure awaits.
           </div>
+          <h1 className="br-h1" style={{margin:0}}>
+            Hi, I'm{' '}
+            <span className="br-display italic" style={{color:BR.teal}}>Mai Someya.</span>
+          </h1>
+          <p className="br-body" style={{maxWidth:520, color:BR.deep70}}>
+            Mixed-methods UX researcher with 8 years spanning market research and UX research, a combination that brings both business-level strategy and deep user understanding to every study.
+          </p>
+          <p className="br-body" style={{maxWidth:520, color:BR.deep70}}>
+            From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
+          </p>
 
-          {/* Strength chips */}
-          <div>
-            <div className="br-cap" style={{marginBottom:10}}>
+          {/* Key strengths */}
+          <div style={{marginTop:8}}>
+            <div className="br-cap" style={{marginBottom:12}}>
               <Icon name="bulb" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
               Key strengths
             </div>
@@ -488,6 +500,18 @@ function IslandMap({ onOpen }) {
           }}/>
           <WaterPattern/>
           <IslandSVG hovered={hovered} onHover={setHovered} onOpen={(id)=>onOpen(PROJECTS.find(p=>p.id===id))}/>
+
+          {/* Alfie alongside Mai */}
+          <div style={{
+            position:'absolute',
+            left:`${target.x}%`, top:`${target.y}%`,
+            transform:'translate(4px, -90%)',
+            transition:'left .9s cubic-bezier(.5,.15,.3,1), top .9s cubic-bezier(.5,.15,.3,1)',
+            pointerEvents:'none', zIndex:5,
+            filter:'drop-shadow(0 3px 0 rgba(26,58,58,.12))',
+          }}>
+            <Sprite src={window.__resources.alfieFront} width={44} height={76} walking={!!hovered}/>
+          </div>
 
           {/* Mai walking */}
           <div style={{
@@ -685,14 +709,18 @@ function Pin({ project, hovered, onEnter, onLeave, onClick }) {
 }
 
 function HoverPopover({ project }) {
-  const onLeft = project.pos.x < 50;
-  const left = project.pos.x + (onLeft ? 7 : -7);
-  const top  = project.pos.y - 4;
+  const onLeft  = project.pos.x < 50;
+  const isTop   = project.pos.y < 50;
+  const left    = project.pos.x + (onLeft ? 7 : -7);
+  const top     = isTop ? project.pos.y + 8 : project.pos.y - 4;
+  const transform = isTop
+    ? (onLeft ? 'translate(0, 0)' : 'translate(-100%, 0)')
+    : (onLeft ? 'translate(0, -100%)' : 'translate(-100%, -100%)');
   return (
     <div style={{
       position:'absolute',
       left:`${left}%`, top:`${top}%`,
-      transform: onLeft ? 'translate(0, -100%)' : 'translate(-100%, -100%)',
+      transform,
       zIndex:10, pointerEvents:'none', width:280,
     }}>
       <div className="br-card br-slidein" style={{
