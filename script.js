@@ -163,37 +163,37 @@ const PROJECTS = [
 ];
 
 const STRENGTHS = [
-  { label: 'Research roadmap ownership',
-    evidence: 'I owned the research roadmap end-to-end for a 40-person product team — from spotting where research was needed, to scoping, running, and packaging long-term strategy artifacts.' },
-  { label: 'Cross-functional influence',
-    evidence: 'My research shaped exec read-outs, product strategy docs, and design decisions across PM, Design, Engineering, and Marketing partners — with executive-level visibility.' },
-  { label: 'Research democratization',
-    evidence: 'I built lightweight rituals (research guilds, office hours, templates) that let non-researchers run studies safely and helped the org self-serve faster.' },
+  { label: 'Product Strategist',
+    evidence: 'I translate research into decisions that stick — challenging pricing assumptions, redirecting roadmaps, and reframing engineering constraints as launch risks before teams build in the wrong direction.' },
+  { label: 'Mixed Methods',
+    evidence: 'I match method to question across the full spectrum, from behavioral data analysis and large-scale surveys to moderated prototype testing and foundational frameworks, with equal fluency in qual and quant.'},
+  { label: 'AI-Powered Researcher',
+    evidence: 'I build what I need. From automated charting tools to SQL recruitment queries to R and Python scraping scripts (and yes, this site too), I use AI to move faster so more time goes toward the thinking that actually requires a human.' },
 ];
 
-const INTRO_DEFAULT = `Mixed-methods UX researcher with 8 years across payments & digital products. As sole researcher for a 40-person cross-functional team, I owned my research roadmap end-to-end — from identifying where research was needed to creating long-term artifacts that shaped product and team strategy.`;
+const INTRO_DEFAULT = `I'm a mixed-methods UX researcher with 8 years spanning market research and UX research, a combination that brings both business-level strategy and deep user understanding to every study. As a sole researcher for a 40-person cross-functional team, I owned my research roadmap end-to-end — from identifying where research was needed to creating long-term artifacts that shaped product and team strategy.`;
 
-const TAGLINE_DEFAULT = `Pick a destination and see what I built there.`;
+const TAGLINE_DEFAULT = `Pick a destination and see what I've accomplished'.`;
 
 // ─── Top Nav ──────────────────────────────────────────────────────────────
 function Nav({ onOpen }) {
   return (
     <header style={{
       display:'flex', alignItems:'center', justifyContent:'space-between',
-      padding:'18px 0', position:'relative', zIndex:5,
+      padding:'14px 0', position:'relative', zIndex:5,
     }}>
-      <nav style={{display:'flex', gap:6, alignItems:'center', marginLeft:'auto'}}>
-        <a className="br-btn outline" href="#map">
-          <Icon name="map" size={16}/> Projects
+      <nav style={{display:'flex', gap:4, alignItems:'center', marginLeft:'auto'}}>
+        <a className="br-btn outline" href="#map" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="map" size={14}/> Projects
         </a>
-        <a className="br-btn outline" href="#projects">
-          <Icon name="compass" size={16}/> Side Quests
+        <a className="br-btn outline" href="#projects" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="compass" size={14}/> Side Quests
         </a>
-        <a className="br-btn outline" href="https://www.linkedin.com/in/mai-someya/" target="_blank" rel="noopener noreferrer">
-          <Icon name="linkedin" size={16}/> LinkedIn
+        <a className="br-btn outline" href="https://www.linkedin.com/in/mai-someya/" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="linkedin" size={14}/> LinkedIn
         </a>
-        <a className="br-btn primary" href="https://drive.google.com/file/d/1FI5s8yIk56g6DIPGYpn6A01yYOdvoXWb/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-          <Icon name="file-text" size={16}/> Resume
+        <a className="br-btn primary" href="https://drive.google.com/file/d/1FI5s8yIk56g6DIPGYpn6A01yYOdvoXWb/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="file-text" size={14}/> Resume
         </a>
       </nav>
     </header>
@@ -241,27 +241,63 @@ function Hero() {
   const [activeS, setActiveS] = aUseState(null);
   return (
     <section id="about" className="br-fadeup" style={{position:'relative', padding:'40px 0 60px'}}>
-      <StatsBanner/>
-      <div style={{display:'grid', gridTemplateColumns:'auto 1fr', gap:48, alignItems:'flex-start'}}>
-        {/* Character + speech bubble */}
-        <div style={{position:'relative', minWidth:280}}>
+      <div style={{display:'grid', gridTemplateColumns:'160px auto 1fr', gap:40, alignItems:'flex-start'}}>
+
+        {/* Left: Vertical stats panel */}
+        <div style={{
+          display:'flex', flexDirection:'column', gap:22,
+          background:'#fff', borderRadius:16, padding:'22px 18px',
+          boxShadow:'0 1px 2px rgba(26,58,58,.06), 0 8px 24px rgba(26,58,58,.06)',
+          marginTop:20,
+        }}>
+          <div>
+            <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:8}}>
+              <Icon name="telescope" size={12} color={BR.teal}/>
+              <span className="br-cap" style={{color:BR.deep70}}>Qualitative</span>
+            </div>
+            <div style={{height:6, background:BR.deep10, borderRadius:999, overflow:'hidden', marginBottom:5}}>
+              <div style={{width:'100%', height:'100%', background:BR.teal, borderRadius:999}}/>
+            </div>
+            <span style={{fontFamily:'Nunito', fontWeight:700, fontSize:12, color:BR.deep}}>100%</span>
+          </div>
+          <div>
+            <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:8}}>
+              <Icon name="telescope" size={12} color={BR.sky}/>
+              <span className="br-cap" style={{color:BR.deep70}}>Quantitative</span>
+            </div>
+            <div style={{height:6, background:BR.deep10, borderRadius:999, overflow:'hidden', marginBottom:5}}>
+              <div style={{width:'90%', height:'100%', background:BR.sky, borderRadius:999}}/>
+            </div>
+            <span style={{fontFamily:'Nunito', fontWeight:700, fontSize:12, color:BR.deep}}>90%</span>
+          </div>
+          <div>
+            <span className="br-cap" style={{color:BR.deep70, display:'block', marginBottom:8}}>Years XP</span>
+            <StarRow count={8} filled={8} size={13}/>
+            <span style={{fontFamily:'Nunito', fontWeight:700, fontSize:12, color:BR.deep, display:'block', marginTop:5}}>8 yrs</span>
+          </div>
+        </div>
+
+        {/* Center: Character */}
+        <div style={{position:'relative'}}>
           <CharacterScene/>
         </div>
-        {/* Right column */}
+
+        {/* Right: Text content */}
         <div style={{display:'flex', flexDirection:'column', gap:22, paddingTop:20}}>
           <div>
             <div className="br-cap" style={{marginBottom:10}}>
               <Icon name="sparkles" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
-              Hi, I'm <Editable id="name" defaultValue="Mai Someya"/>
+              Adventure awaits.
             </div>
             <h1 className="br-h1" style={{margin:0}}>
-              <Editable id="hero_h1_a" defaultValue="Hi, I'm"/>{' '}
-              <span className="br-display italic" style={{color:BR.teal}}>
-                <Editable id="hero_h1_b" defaultValue="Mai Someya."/>
-              </span>
+              Hi, I'm{' '}
+              <span className="br-display italic" style={{color:BR.teal}}>Mai Someya.</span>
             </h1>
-            <p className="br-body" style={{maxWidth:580, marginTop:14, color:BR.deep70}}>
-              <Editable id="intro" defaultValue={INTRO_DEFAULT} multiline/>
+            <p className="br-body" style={{maxWidth:520, marginTop:14, color:BR.deep70}}>
+              Mixed-methods UX researcher with 8 years spanning market research and UX research, a combination that brings both business-level strategy and deep user understanding to every study.
+            </p>
+            <p className="br-body" style={{maxWidth:520, marginTop:10, color:BR.deep70}}>
+              From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
             </p>
           </div>
 
@@ -283,19 +319,20 @@ function Hero() {
             </div>
             {activeS!=null && (
               <div className="br-card br-fadeup" style={{
-                marginTop:14, padding:'16px 20px', maxWidth:600,
+                marginTop:14, padding:'16px 20px', maxWidth:520,
                 background:'linear-gradient(180deg, #fff 0%, #FFFBEB 100%)',
                 borderLeft:`4px solid ${BR.gold}`, borderRadius:12,
               }}>
                 <div className="br-cap" style={{color:'#A07820', marginBottom:6}}>Evidence</div>
                 <div className="br-body" style={{fontSize:16}}>
                   <Editable id={`evidence_${activeS}`}
-                    defaultValue={STRENGTHS[activeS].evidence} multiline/>
+                    defaultValue={STRENGTHS[activeS].evidence}/>
                 </div>
               </div>
             )}
           </div>
         </div>
+
       </div>
     </section>
   );
@@ -402,7 +439,7 @@ function Cartographer() {
             </div>
             <div className="br-body" style={{fontSize:18}}>
               <Editable id="npc_line" multiline
-                defaultValue="Welcome, traveler! Four paths lie ahead — each a project I've helped ship. Hover any to glimpse what's along the road. Click to walk it and read the full tale."/>
+                defaultValue="Welcome, traveler! Four paths lie ahead — each a project. Hover any to glimpse what's along the road. Click to walk it and read the full tale."/>
             </div>
           </div>
         </div>
