@@ -1,0 +1,165 @@
+/* ─── Base reset ──────────────────────────────────────────────────────── */
+html, body { margin: 0; padding: 0; background: #F2F8F8; font-family: 'Nunito', system-ui, sans-serif; }
+* { box-sizing: border-box; }
+kbd { font-family: inherit; }
+
+
+/* ─── CSS custom properties ──────────────────────────────────────────── */
+:root {
+  --c-sky: #7DD4E0;
+  --c-teal: #3BBFB0;
+  --c-meadow: #A8DFA0;
+  --c-gold: #F5C842;
+  --c-deep: #1A3A3A;
+  --c-foam: #F2F8F8;
+}
+
+/* ─── Brand root ─────────────────────────────────────────────────────── */
+.br-root {
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  color: #1A3A3A;
+  font-weight: 400;
+  background: #F2F8F8;
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────── */
+.br-display { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; line-height: 1.05; letter-spacing: -.01em; }
+.br-display.italic { font-style: italic; }
+.br-h1 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 54px; line-height: 1.08; letter-spacing: -.01em; }
+.br-h2 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.12; letter-spacing: -.005em; }
+.br-h3 { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: .01em; }
+.br-body { font-family: 'Nunito', sans-serif; font-weight: 400; font-size: 17px; line-height: 1.55; }
+.br-cap { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(26,58,58,.72); }
+
+/* ─── Editable text ──────────────────────────────────────────────────── */
+.br-edit {
+  outline: none; cursor: text; border-radius: 4px;
+  padding: 0 2px; margin: 0 -2px;
+  transition: background .15s, box-shadow .15s;
+}
+.br-edit:hover { background: rgba(245,200,66,.18); box-shadow: 0 0 0 2px rgba(245,200,66,.45); }
+.br-edit:focus { background: #FFF9E4; box-shadow: 0 0 0 2px #F5C842; }
+.br-edit[data-empty="1"]:not(:focus)::before { content: attr(data-placeholder); color: rgba(26,58,58,.5); }
+
+/* ─── Buttons ────────────────────────────────────────────────────────── */
+.br-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border-radius: 8px; padding: 9px 18px; font-family: 'Nunito', sans-serif;
+  font-weight: 600; font-size: 15px; line-height: 1; cursor: pointer;
+  border: 1.5px solid transparent; user-select: none;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+}
+.br-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,58,58,.12); }
+.br-btn.primary { background: #3BBFB0; color: #fff; }
+.br-btn.primary:hover { background: #2DAB9D; }
+.br-btn.outline { background: transparent; color: #1A3A3A; border-color: #1A3A3A; }
+.br-btn.outline:hover { background: rgba(26,58,58,.05); }
+.br-btn.ghost { background: transparent; color: #1A3A3A; }
+.br-btn.ghost:hover { background: rgba(26,58,58,.05); }
+.br-btn.accent { background: #F5C842; color: #1A3A3A; }
+.br-btn.accent:hover { background: #E9B935; }
+.br-btn.sky { background: #7DD4E0; color: #1A3A3A; }
+.br-btn.sky:hover { background: #6BC9D6; }
+
+/* ─── Card ───────────────────────────────────────────────────────────── */
+.br-card {
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(26,58,58,.06), 0 8px 24px rgba(26,58,58,.06);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.br-card.hover:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(26,58,58,.08), 0 16px 32px rgba(26,58,58,.12); }
+
+/* ─── Tag / Badge ────────────────────────────────────────────────────── */
+.br-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 999px; background: #F2F8F8;
+  border: 1px solid rgba(26,58,58,.1); color: rgba(26,58,58,.72);
+  font-family: 'Nunito', sans-serif; font-weight: 600;
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+}
+.br-tag.gold { background: rgba(245,200,66,.25); color: #1A3A3A; border-color: rgba(245,200,66,.6); }
+.br-tag.teal { background: rgba(59,191,176,.16); color: #1f7e75; border-color: rgba(59,191,176,.4); }
+.br-tag.meadow { background: rgba(168,223,160,.28); color: #3a6b35; border-color: rgba(168,223,160,.6); }
+.br-tag.sky { background: rgba(125,212,224,.22); color: #1f6671; border-color: rgba(125,212,224,.5); }
+
+/* ─── Strength chip ──────────────────────────────────────────────────── */
+.br-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 999px;
+  background: #fff; border: 1.5px solid #1A3A3A; color: #1A3A3A;
+  font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 14px;
+  cursor: pointer; transition: all .18s ease;
+}
+.br-chip:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,58,58,.1); }
+.br-chip.active { background: #F5C842; border-color: #F5C842; }
+
+/* ─── Stat bar ───────────────────────────────────────────────────────── */
+.br-stat { display: flex; align-items: center; gap: 10px; }
+.br-stat-label { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(26,58,58,.72); min-width: 130px; }
+.br-stat-track { flex: 1; height: 10px; background: rgba(26,58,58,.1); border-radius: 999px; overflow: hidden; }
+.br-stat-fill { height: 100%; border-radius: 999px; }
+.br-stat-val { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px; color: #1A3A3A; min-width: 42px; text-align: right; }
+
+/* ─── Sprite ─────────────────────────────────────────────────────────── */
+.br-sprite { image-rendering: pixelated; image-rendering: -moz-crisp-edges; display: block; }
+
+/* ─── Animations ─────────────────────────────────────────────────────── */
+@keyframes br-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.15); opacity: .85; }
+}
+@keyframes br-ring {
+  0%   { transform: scale(.6); opacity: .8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.br-pulse { animation: br-pulse 1.8s ease-in-out infinite; transform-origin: center; }
+.br-ring  { animation: br-ring 1.8s ease-out infinite; transform-origin: center; }
+
+@keyframes br-fadeup {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.br-fadeup { opacity: 1; }
+.br-fadeup.in { animation: br-fadeup .45s ease both; }
+
+@keyframes br-wave { 0% { transform: translateX(0) } 100% { transform: translateX(-32px) } }
+.br-wave { animation: br-wave 6s linear infinite; }
+
+@keyframes br-slidein { from { transform: translateY(20px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+.br-slidein { animation: br-slidein .35s ease-out both; }
+
+@keyframes br-walk { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-3px) } }
+.br-walking { animation: br-walk .35s steps(2) infinite; }
+
+@keyframes br-bob { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-2px) } }
+.br-bob { animation: br-bob 2.4s ease-in-out infinite; }
+
+/* ─── Speech bubble ──────────────────────────────────────────────────── */
+.br-bubble {
+  position: relative; background: #fff; padding: 18px 22px; border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(26,58,58,.06), 0 10px 30px rgba(26,58,58,.08);
+}
+.br-bubble.tail-left::after {
+  content: ''; position: absolute; left: -10px; top: 32px; width: 20px; height: 20px;
+  background: #fff; clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}
+.br-bubble.tail-bl::after {
+  content: ''; position: absolute; left: 40px; bottom: -10px; width: 22px; height: 14px;
+  background: #fff; clip-path: polygon(0 0, 100% 0, 30% 100%);
+}
+
+/* ─── Inventory icon button ──────────────────────────────────────────── */
+.br-inv {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; border-radius: 12px; background: #fff;
+  border: 1.5px solid rgba(26,58,58,.1); cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 13px;
+  color: #1A3A3A; transition: all .18s ease;
+}
+.br-inv:hover { border-color: #3BBFB0; color: #3BBFB0; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,58,58,.08); }
+
+/* ─── Dotted background ──────────────────────────────────────────────── */
+.br-dots { background-image: radial-gradient(rgba(26,58,58,.18) 1px, transparent 1px); background-size: 14px 14px; }
+
+/* ─── Selection ──────────────────────────────────────────────────────── */
+::selection { background: #F5C842; color: #1A3A3A; }
