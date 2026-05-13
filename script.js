@@ -151,7 +151,17 @@ const PROJECTS = [
       { name:'Objective', icon:'flag',
         body:'Define how service-based businesses adopt tools across their workflow, identify the jobs those tools are hired to do, and determine where Square has the strongest opportunity to close the gap — so the team could prioritize the product roadmap with confidence rather than assumption.' },
       { name:'Approach', icon:'tools',
-        body:'I scoped and ran a multi-method study — literature review, stakeholder workshops, and qualitative interviews — to identify where Square had the strongest opportunity to close the gap.' },
+        layout:'approach',
+        intro:'Foundational research requires rigor. I designed a multi-method approach to ensure comprehensive coverage before drawing conclusions.',
+        preSpeech:'I initially tried to explore internal data, but realized we need primary research since it was common that tool usage happened outside of Square.',
+        postSpeech:'The workshop added critical nuance to our hypothesis that leads management was the biggest opportunity, breaking it into two distinct jobs: generating leads and managing leads. Generating leads pointed to API and partnership conversations for marketing, while managing leads was something the product team could build and solve for.',
+        methods:[
+          { num:'1/', title:'Lit Review',  body:'Synthesized existing research to identify gaps, build hypotheses, and shape the discussion guide.' },
+          { num:'2/', title:'Interviews',  body:"Twelve, 60-minute moderated conversations because internal data couldn't capture workflows happening outside Square's ecosystem." },
+          { num:'3/', title:'Workshop',    body:'I designed the workshop as a start to my analysis, by bringing product and marketing into the same room to gut-check early JTBD framing before finalizing the output.' },
+          { num:'4/', title:'Deliverable', body:'Delivered as a deck with the JsTBD framework, presented to a cross-functional audience of 50 across Product, Design, Engineering, Marketing, and Research.' },
+        ],
+      },
       { name:'Findings', icon:'bulb',
         bullets:[
           'Tools are hired in acute moments, not planned in advance. Sellers adopt tools reactively at each growth stage — payments and websites at launch, lead management and scheduling as they scale.',
@@ -163,11 +173,6 @@ const PROJECTS = [
           '2 product roadmap items added (Messages & Projects cohesion; Estimates & Appointments cohesion), each spawning follow-on research: a navigation usability study and prototype testing that resolved critical gaps before launch.',
           'Directly informed one of three core pillars of the Services 2025 + 2026 strategy — improving cohesion of customer growth and re-engagement tools.',
           '2 net-new research initiatives generated: Generative + Evaluative.',
-        ] },
-      { name:'Reflection', icon:'book',
-        bullets:[
-          'With an overwhelming number of jobs-to-be-done in a seller\'s workflow, I introduced a shared JTBD definition framework to drive clarity and consistency across a complex, multi-stakeholder study.',
-          'The analysis was complex — tools didn\'t map cleanly to single jobs and were often hired for different purposes depending on lifecycle stage. Clear visuals helped stakeholders navigate the nuance without getting lost.',
         ] },
     ],
   },
@@ -1068,8 +1073,37 @@ function QuestPage({ project, onClose }) {
   );
 }
 
+// ─── Character speech bubble (used in Approach section) ──────────────────
+function CharSpeech({ text }) {
+  return (
+    <div style={{display:'flex', gap:12, alignItems:'flex-start'}}>
+      {/* Avatar — taller rectangle so the head is never clipped */}
+      <div style={{
+        width:50, height:64, borderRadius:12, overflow:'hidden', flexShrink:0,
+        background:`linear-gradient(180deg, ${BR.sky} 0%, ${BR.meadow} 100%)`,
+        display:'flex', alignItems:'flex-start', justifyContent:'center',
+        boxShadow:'0 3px 10px rgba(26,58,58,.18)',
+        border:'2px solid rgba(255,255,255,.35)',
+      }}>
+        <img src={window.__resources.maiFront} width={48} draggable={false} className="br-sprite"/>
+      </div>
+      <div style={{
+        background:'rgba(59,191,176,.08)',
+        border:'1.5px solid rgba(59,191,176,.25)',
+        borderRadius:'4px 14px 14px 14px',
+        padding:'12px 16px', flex:1,
+      }}>
+        <p style={{
+          fontFamily:'Nunito', fontSize:13.5, lineHeight:1.6,
+          color:'#1A6A62', margin:0, fontStyle:'italic',
+        }}>{text}</p>
+      </div>
+    </div>
+  );
+}
+
 function SceneCard({ idx, scene, pid, accent }) {
-  const hasContent = scene.body || scene.bullets;
+  const hasContent = scene.body || scene.bullets || scene.layout;
   return (
     <div style={{
       borderRadius:16, overflow:'hidden',
@@ -1108,7 +1142,55 @@ function SceneCard({ idx, scene, pid, accent }) {
           ? 'linear-gradient(180deg, #fff 0%, #FAFDF8 100%)'
           : '#fff',
       }}>
-        {scene.bullets ? (
+        {scene.layout === 'approach' ? (
+          <>
+            {/* Framing statement */}
+            <p className="br-body" style={{
+              fontSize:15, color:BR.deep, margin:'0 0 20px 0',
+              lineHeight:1.65, fontWeight:600,
+            }}>{scene.intro}</p>
+
+            {/* Character speech — Lit Review context (left-anchored, stops ~halfway) */}
+            <div style={{maxWidth:'55%', marginBottom:20}}>
+              <CharSpeech text={scene.preSpeech}/>
+            </div>
+
+            {/* 4 method cards — brand typography */}
+            <div style={{
+              display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:12,
+              marginBottom:20,
+            }}>
+              {scene.methods.map((m, i) => (
+                <div key={i} style={{
+                  background:'#2B5A27', borderRadius:16, padding:'20px 18px',
+                  display:'flex', flexDirection:'column', gap:10,
+                  boxShadow:'0 4px 14px rgba(26,58,58,.22)',
+                }}>
+                  <div>
+                    <span style={{
+                      fontFamily:'Nunito', fontWeight:800, fontSize:11,
+                      letterSpacing:'.1em', textTransform:'uppercase',
+                      color:BR.gold, display:'block', marginBottom:4,
+                    }}>{m.num}</span>
+                    <h4 className="br-display" style={{
+                      fontSize:18, lineHeight:1.1, color:'#fff',
+                      margin:0,
+                    }}>{m.title}</h4>
+                  </div>
+                  <p className="br-body" style={{
+                    fontSize:13, lineHeight:1.6,
+                    color:'rgba(255,255,255,.75)', margin:0,
+                  }}>{m.body}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Character speech — Workshop (aligned to 3rd column, bubble to the right) */}
+            <div style={{marginLeft:'calc(50% + 4px)'}}>
+              <CharSpeech text={scene.postSpeech}/>
+            </div>
+          </>
+        ) : scene.bullets ? (
           <div style={{display:'flex', flexDirection:'column', gap:14}}>
             {scene.bullets.map((b, i) => (
               <div key={i} style={{display:'flex', gap:14, alignItems:'flex-start'}}>
