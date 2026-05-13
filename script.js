@@ -143,7 +143,7 @@ const PROJECTS = [
     method:'Literature review · stakeholder workshops · qualitative interviews',
     highlight:'Artifact Adopted by Leadership',
     color: BR.meadow, colorDk:'#6FB370',
-    pos:{ x:22, y:33 },
+    pos:{ x:33, y:42 },
     bg:'linear-gradient(180deg, #BFE9D0 0%, #A8DFA0 100%)',
     scenes:[
       { name:'Intro', icon:'telescope',
@@ -178,7 +178,7 @@ const PROJECTS = [
     method:'AI-assisted market sizing · interviews · rapid prototype testing',
     highlight:'Ambiguous Brief, AI Workflow',
     color: BR.sky, colorDk:'#56AFC1',
-    pos:{ x:76, y:23 },
+    pos:{ x:51, y:26 },
     bg:'linear-gradient(180deg, #BFE9EE 0%, #F2E2BD 100%)',
   },
   { id:'mountain', tag:'Generative + Evaluative Research', icon:'mountain',
@@ -188,7 +188,7 @@ const PROJECTS = [
     method:'Interviews · concept testing',
     highlight:'Executive Visibility, Engineer Constraints',
     color:'#D9E3E5', colorDk:'#8FA8AB',
-    pos:{ x:20, y:77 },
+    pos:{ x:38, y:74 },
     bg:'linear-gradient(180deg, #C5D5D8 0%, #8FA8AB 100%)',
   },
   { id:'town',     tag:'Generative Research', icon:'home',
@@ -198,7 +198,7 @@ const PROJECTS = [
     method:'Survey',
     highlight:'Self-Initiated Research',
     color: BR.gold, colorDk:'#C99E25',
-    pos:{ x:68, y:63 },
+    pos:{ x:59, y:47 },
     bg:'linear-gradient(180deg, #F8D673 0%, #F5C842 100%)',
   },
 ];
@@ -470,7 +470,18 @@ function IslandMap({ onOpen }) {
   const [hovered, setHovered] = aUseState(null);
   const target = hovered
     ? PROJECTS.find(p => p.id === hovered).pos
-    : { x:50, y:53 };
+    : { x:50, y:50 };
+
+  // Hotspot zones over map2.png displayed with objectFit:'contain'.
+  // Image is square (1254×1254) in a 16:10 container → rendered at 62.5% of width,
+  // centred with 18.75% margins each side.
+  // Zone left/width are already converted: container_x = 18.75 + img_x * 0.625
+  const ZONES = [
+    { id:'beach',    zIndex:5, style:{ left:'34%', top:'2%',  width:'34%', height:'50%' } }, // Mountains
+    { id:'forest',   zIndex:4, style:{ left:'20%', top:'12%', width:'27%', height:'57%' } }, // Forest
+    { id:'town',     zIndex:4, style:{ left:'46%', top:'22%', width:'28%', height:'50%' } }, // City
+    { id:'mountain', zIndex:6, style:{ left:'21%', top:'58%', width:'34%', height:'36%' } }, // Beach
+  ];
 
   return (
     <section id="map" className="br-fadeup" style={{padding:'24px 0 40px'}}>
@@ -481,15 +492,15 @@ function IslandMap({ onOpen }) {
             The Map
           </div>
           <h2 className="br-h2">
-            <Editable id="map_h2_a" defaultValue="Pick a destination,"/>{' '}
+            Pick a destination,{' '}
             <span className="br-display italic" style={{color:BR.teal}}>
-              <Editable id="map_h2_b" defaultValue="see what I've accomplished'"/>
+              see what I built there.
             </span>
           </h2>
         </div>
         <div className="br-cap" style={{color:BR.deep50}}>
           <Icon name="mood-happy" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
-          Hover any zone · Click to begin a quest
+          Hover any zone · Click for details
         </div>
       </div>
 
@@ -497,56 +508,67 @@ function IslandMap({ onOpen }) {
         padding:0, overflow:'hidden', position:'relative', borderRadius:24,
         boxShadow:'0 4px 12px rgba(26,58,58,.08), 0 24px 60px rgba(26,58,58,.12)',
       }}>
-        <div style={{ position:'relative', aspectRatio:'16/10' }}>
-          {/* Ocean background */}
-          <div style={{
-            position:'absolute', inset:0,
-            background:`linear-gradient(160deg, #3BAEC8 0%, #2A96B0 50%, #3BAEC8 100%)`,
-          }}/>
-          <WaterPattern/>
-          <IslandSVG hovered={hovered} onHover={setHovered} onOpen={(id)=>onOpen(PROJECTS.find(p=>p.id===id))}/>
+        {/* Ocean teal background fills the side margins from objectFit:contain */}
+        <div style={{position:'relative', aspectRatio:'16/10', userSelect:'none', background:'#1A5870'}}>
 
-          {/* Alfie alongside Mai */}
+          {/* ── Map image — contain keeps it pixel-perfect with no stretching ── */}
+          <img
+            src="images/map2.png"
+            alt="Adventure Map"
+            draggable={false}
+            style={{
+              position:'absolute', inset:0,
+              width:'100%', height:'100%',
+              objectFit:'contain', objectPosition:'center',
+              display:'block',
+            }}
+          />
+
+          {/* ── Clickable/hoverable zone hotspots ── */}
+          {ZONES.map(z => {
+            const proj = PROJECTS.find(p => p.id === z.id);
+            return (
+              <div
+                key={z.id}
+                style={{
+                  position:'absolute', cursor:'pointer',
+                  ...z.style, zIndex: z.zIndex,
+                  background: hovered === z.id ? 'rgba(245,200,66,.10)' : 'transparent',
+                  transition:'background .2s ease',
+                }}
+                onMouseEnter={() => setHovered(z.id)}
+                onMouseLeave={() => setHovered(null)}
+                onClick={() => onOpen(proj)}
+              />
+            );
+          })}
+
+          {/* ── Alfie alongside Mai ── */}
           <div style={{
             position:'absolute',
             left:`${target.x}%`, top:`${target.y}%`,
             transform:'translate(4px, -90%)',
             transition:'left .9s cubic-bezier(.5,.15,.3,1), top .9s cubic-bezier(.5,.15,.3,1)',
-            pointerEvents:'none', zIndex:5,
-            filter:'drop-shadow(0 3px 0 rgba(26,58,58,.12))',
+            pointerEvents:'none', zIndex:10,
+            filter:'drop-shadow(0 3px 0 rgba(26,58,58,.18))',
           }}>
             <Sprite src={window.__resources.alfieFront} width={44} height={76} walking={!!hovered}/>
           </div>
 
-          {/* Mai walking */}
+          {/* ── Mai ── */}
           <div style={{
             position:'absolute',
             left:`${target.x}%`, top:`${target.y}%`,
             transform:'translate(-50%, -90%)',
             transition:'left .9s cubic-bezier(.5,.15,.3,1), top .9s cubic-bezier(.5,.15,.3,1)',
-            pointerEvents:'none', zIndex:6,
-            filter:'drop-shadow(0 4px 0 rgba(26,58,58,.15))',
+            pointerEvents:'none', zIndex:11,
+            filter:'drop-shadow(0 4px 0 rgba(26,58,58,.2))',
           }}>
             <Sprite src={window.__resources.maiFront} width={56} height={98} walking={!!hovered}/>
           </div>
 
-          {hovered && <HoverPopover project={PROJECTS.find(p=>p.id===hovered)}/>}
-
-          {/* Compass */}
-          <div style={{position:'absolute', left:18, bottom:18, display:'flex', gap:10, alignItems:'center'}}>
-            <div style={{
-              width:48, height:48, borderRadius:'50%',
-              background:'rgba(255,255,255,.92)',
-              boxShadow:'0 4px 12px rgba(26,58,58,.18)',
-              display:'grid', placeItems:'center',
-            }}>
-              <Icon name="compass" size={28} color={BR.deep} stroke={1.8}/>
-            </div>
-            <div className="br-cap" style={{
-              padding:'6px 10px', background:'rgba(255,255,255,.92)',
-              borderRadius:8, boxShadow:'0 4px 12px rgba(26,58,58,.12)',
-            }}>4 paths · 4 projects</div>
-          </div>
+          {/* ── Hover popup ── */}
+          {hovered && <HoverPopover project={PROJECTS.find(p => p.id === hovered)}/>}
 
         </div>
       </div>
@@ -570,181 +592,236 @@ function WaterPattern() {
 }
 
 function IslandSVG({ hovered, onHover, onOpen }) {
-  // Hardcoded SVG endpoints for trails (in viewBox 0 0 100 60 coords)
-  const ENDS = { forest:{x:22,y:18}, beach:{x:76,y:14}, mountain:{x:20,y:46}, town:{x:68,y:38} };
+  // SVG zone centers (viewBox 0 0 100 60) — used for character movement targets via pos
+  const ENDS = { forest:{x:20,y:25}, beach:{x:58,y:11}, mountain:{x:44,y:50}, town:{x:74,y:34} };
 
-  // Helper: one pine tree
+  // Helper: layered pine tree
   const Pine = ({x, y, s=1}) => (
     <g>
-      <path d={`M ${x} ${y-7*s} L ${x-4*s} ${y} L ${x+4*s} ${y} Z`} fill="#2D6040"/>
-      <path d={`M ${x} ${y-10*s} L ${x-3*s} ${y-4*s} L ${x+3*s} ${y-4*s} Z`} fill="#3A7848"/>
-      <path d={`M ${x} ${y-13*s} L ${x-2*s} ${y-8*s} L ${x+2*s} ${y-8*s} Z`} fill="#4A8E54"/>
-      <rect x={x-.6*s} y={y} width={1.2*s} height={2*s} fill="#7A5030"/>
+      <rect x={x-.55*s} y={y} width={1.1*s} height={2.2*s} fill="#7A5030"/>
+      <path d={`M ${x} ${y-7*s} L ${x-3.8*s} ${y} L ${x+3.8*s} ${y} Z`} fill="#1E4A26"/>
+      <path d={`M ${x} ${y-10*s} L ${x-2.8*s} ${y-5*s} L ${x+2.8*s} ${y-5*s} Z`} fill="#2A6032"/>
+      <path d={`M ${x} ${y-13*s} L ${x-1.8*s} ${y-9*s} L ${x+1.8*s} ${y-9*s} Z`} fill="#387040"/>
     </g>
   );
 
   return (
     <svg viewBox="0 0 100 60" preserveAspectRatio="none"
       style={{position:'absolute', inset:0, width:'100%', height:'100%'}}>
+      <defs>
+        <pattern id="map-grid" width="3.5" height="3.5" patternUnits="userSpaceOnUse">
+          <path d="M 3.5 0 L 0 0 0 3.5" fill="none" stroke="rgba(255,255,255,.035)" strokeWidth=".35"/>
+        </pattern>
+        <radialGradient id="island-vignette" cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stopColor="rgba(0,0,0,0)"/>
+          <stop offset="100%" stopColor="rgba(0,0,0,.18)"/>
+        </radialGradient>
+      </defs>
 
-      {/* ── Deeper ocean tint ── */}
-      <rect x="0" y="0" width="100" height="60" fill="#3A9BB0" opacity=".35"/>
+      {/* Parchment grid overlay */}
+      <rect x="0" y="0" width="100" height="60" fill="url(#map-grid)"/>
 
-      {/* ── Sandy beach coastline ── */}
-      <path d="M 8 44 Q 5 28 14 16 Q 24 6 46 5 Q 64 3 80 10 Q 92 16 94 30
-               Q 96 46 84 53 Q 70 59 52 58 Q 34 59 20 54 Q 8 49 8 44 Z"
-        fill="#D4B878" stroke="#C4A058" strokeWidth=".4"/>
+      {/* Ocean swirl waves */}
+      <path d="M 0 8 Q 5 5 10 9 Q 15 13 20 8 Q 25 3 30 8" stroke="rgba(255,255,255,.07)" strokeWidth="1.2" fill="none"/>
+      <path d="M 0 16 Q 4 13 8 17 Q 12 21 16 16" stroke="rgba(255,255,255,.06)" strokeWidth="1" fill="none"/>
+      <path d="M 80 55 Q 86 52 92 56 Q 96 58 100 54" stroke="rgba(255,255,255,.07)" strokeWidth="1.2" fill="none"/>
+      <path d="M 0 50 Q 4 47 7 51" stroke="rgba(255,255,255,.07)" strokeWidth="1" fill="none"/>
+      <path d="M 90 6 Q 94 4 98 8" stroke="rgba(255,255,255,.06)" strokeWidth="1" fill="none"/>
+      <path d="M 93 20 Q 96 18 99 22" stroke="rgba(255,255,255,.06)" strokeWidth="1" fill="none"/>
 
-      {/* ── Green meadow interior ── */}
-      <path d="M 14 43 Q 11 28 20 18 Q 30 10 48 9 Q 66 8 80 16 Q 90 22 90 34
-               Q 90 48 78 53 Q 64 57 48 56 Q 30 57 20 52 Q 13 47 14 43 Z"
-        fill="#5A8A4A" stroke="#4A7A3A" strokeWidth=".3"/>
+      {/* ── Sandy coastline (outer island) ── */}
+      <path d="M 12 48 Q 6 36 8 22 Q 10 10 24 7 Q 38 3 54 4 Q 68 4 80 10
+               Q 90 15 93 27 Q 96 40 90 50 Q 82 57 65 58 Q 48 60 32 57 Q 14 53 12 48 Z"
+        fill="#C8A044" stroke="#A88030" strokeWidth=".4" strokeLinejoin="round"/>
 
-      {/* ── Dirt paths across island ── */}
-      <path d="M 22 18 Q 36 26 50 32" stroke="#C4A060" strokeWidth="1.4" fill="none" opacity=".55" strokeLinecap="round"/>
-      <path d="M 76 14 Q 64 22 50 32" stroke="#C4A060" strokeWidth="1.4" fill="none" opacity=".55" strokeLinecap="round"/>
-      <path d="M 20 46 Q 34 40 50 32" stroke="#C4A060" strokeWidth="1.4" fill="none" opacity=".55" strokeLinecap="round"/>
-      <path d="M 68 38 Q 60 36 50 32" stroke="#C4A060" strokeWidth="1.4" fill="none" opacity=".55" strokeLinecap="round"/>
+      {/* ── Rocky cliff edges (left coast) ── */}
+      <path d="M 12 48 Q 9 42 10 34 Q 11 26 13 18" stroke="#7A6030" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity=".55"/>
+      {[[11,46],[10,40],[10,34],[11,26],[12,20]].map(([x,y],i)=>(
+        <ellipse key={i} cx={x} cy={y} rx="2.8" ry="1.6" fill="#8A7040" opacity=".45"/>
+      ))}
+      {/* Right coast rocks */}
+      <path d="M 90 50 Q 92 44 92 36 Q 92 28 91 20" stroke="#7A6030" strokeWidth="2" fill="none" strokeLinecap="round" opacity=".4"/>
 
-      {/* ══════════ FOREST ZONE (upper-left) ══════════ */}
-      <g opacity={hovered==='forest' ? 1 : .88} style={{cursor:'pointer'}}
-        onClick={()=>onOpen('forest')} onMouseEnter={()=>onHover('forest')} onMouseLeave={()=>onHover(null)}>
-        {hovered==='forest' && <rect x="8" y="8" width="30" height="22" rx="3" fill="rgba(245,200,66,.14)" stroke={BR.gold} strokeWidth=".7" strokeDasharray="2 1.5"/>}
-        {/* Dark forest floor */}
-        <ellipse cx="22" cy="22" rx="12" ry="7" fill="#3A6A38" opacity=".5"/>
-        {/* Pine trees at varied positions/sizes */}
-        <Pine x={13} y={24} s={.72}/>
-        <Pine x={18} y={20} s={.88}/>
-        <Pine x={24} y={16} s={1}/>
-        <Pine x={30} y={20} s={.92}/>
-        <Pine x={35} y={24} s={.78}/>
-        <Pine x={20} y={26} s={.65}/>
-        <Pine x={28} y={25} s={.7}/>
-        {/* Small pond */}
-        <ellipse cx="30" cy="28" rx="4" ry="2" fill="#5ABED4" opacity=".75" stroke="#4AAEC4" strokeWidth=".3"/>
-        <ellipse cx="29.5" cy="27.5" rx="1.5" ry=".6" fill="#8AD8E8" opacity=".5"/>
-        {/* Hit area */}
-        <rect x="8" y="8" width="30" height="22" fill="transparent"/>
-      </g>
+      {/* ── Green grass interior ── */}
+      <path d="M 17 47 Q 13 35 15 23 Q 18 13 28 10 Q 42 7 56 7 Q 70 6 80 14
+               Q 88 20 88 32 Q 88 44 80 51 Q 68 57 52 57 Q 34 57 24 53 Q 17 50 17 47 Z"
+        fill="#4A7830" stroke="#3A6822" strokeWidth=".35"/>
 
-      {/* ══════════ MOUNTAIN ZONE (upper-right, project id='beach') ══════════ */}
-      <g opacity={hovered==='beach' ? 1 : .88} style={{cursor:'pointer'}}
-        onClick={()=>onOpen('beach')} onMouseEnter={()=>onHover('beach')} onMouseLeave={()=>onHover(null)}>
-        {hovered==='beach' && <rect x="62" y="6" width="30" height="22" rx="3" fill="rgba(245,200,66,.14)" stroke={BR.gold} strokeWidth=".7" strokeDasharray="2 1.5"/>}
-        {/* Rocky base */}
-        <ellipse cx="76" cy="22" rx="14" ry="6" fill="#8A9EAA" opacity=".6"/>
+      {/* ── River from mountains down ── */}
+      <path d="M 62 20 Q 60 26 56 30 Q 52 34 50 38 Q 48 42 46 48"
+        stroke="#5AABCC" strokeWidth="1.8" fill="none" strokeLinecap="round" opacity=".7"/>
+      <path d="M 62 20 Q 60 26 56 30 Q 52 34 50 38 Q 48 42 46 48"
+        stroke="#8ACCE0" strokeWidth=".8" fill="none" strokeLinecap="round" opacity=".45"/>
+
+      {/* ══════════ MOUNTAINS (upper center, project='beach') ══════════ */}
+      <g style={{cursor:'pointer'}} onClick={()=>onOpen('beach')}
+        onMouseEnter={()=>onHover('beach')} onMouseLeave={()=>onHover(null)}
+        opacity={hovered==='beach' ? 1 : .92}>
+        {/* Base foliage at mountain feet */}
+        <path d="M 38 28 Q 50 23 66 23 Q 78 23 88 28" fill="#3A6822" opacity=".7"/>
         {/* Left peak */}
-        <path d="M 64 24 L 71 8 L 78 24 Z" fill="#7A8E9E"/>
-        <path d="M 64 24 L 71 8 L 78 24 Z" fill="url(#mtn-shade)" opacity=".3"/>
-        <path d="M 69 13 L 71 8 L 73 13 Z" fill="#DDE8F4"/>
-        {/* Right taller peak */}
-        <path d="M 70 24 L 80 5 L 90 24 Z" fill="#8A9EAE"/>
-        <path d="M 76 11 L 80 5 L 84 11 Z" fill="#EEF4FA"/>
-        <path d="M 78 8 L 80 5 L 82 8 Z" fill="#fff"/>
-        {/* Rock details */}
-        <path d="M 64 24 Q 70 20 76 24" fill="#9AAEBB" opacity=".4"/>
-        <path d="M 70 24 Q 78 18 86 24" fill="#9AAEBB" opacity=".35"/>
-        {/* Cave */}
-        <ellipse cx="74" cy="24" rx="2.2" ry="1.4" fill="#2A3848" opacity=".8"/>
-        {/* Small waterfall */}
-        <path d="M 80 18 Q 79 22 78 26" stroke="#8AD4E8" strokeWidth=".9" fill="none" opacity=".7" strokeLinecap="round"/>
+        <path d="M 40 28 L 50 10 L 60 28 Z" fill="#7888A2"/>
+        <path d="M 40 28 L 50 10 L 45 28 Z" fill="#5A6880" opacity=".35"/>
+        <path d="M 47 16 L 50 10 L 53 16 Z" fill="#D4E4F4"/>
+        <path d="M 48.5 13 L 50 10 L 51.5 13 Z" fill="#EEF6FF"/>
+        {/* Center peak (tallest) */}
+        <path d="M 50 28 L 62 5 L 74 28 Z" fill="#6878A0"/>
+        <path d="M 50 28 L 62 5 L 56 28 Z" fill="#505870" opacity=".35"/>
+        <path d="M 58 13 L 62 5 L 66 13 Z" fill="#D8ECFC"/>
+        <path d="M 60 9 L 62 5 L 64 9 Z" fill="#EEF6FF"/>
+        <path d="M 61 7 L 62 5 L 63 7 Z" fill="#fff"/>
+        {/* Right peak */}
+        <path d="M 64 28 L 74 9 L 84 28 Z" fill="#7888A8"/>
+        <path d="M 64 28 L 74 9 L 69 28 Z" fill="#5A6880" opacity=".3"/>
+        <path d="M 70 16 L 74 9 L 78 16 Z" fill="#D4E4F4"/>
+        <path d="M 72 13 L 74 9 L 76 13 Z" fill="#EEF6FF"/>
+        {/* Far-right smaller peak */}
+        <path d="M 76 28 L 82 16 L 88 28 Z" fill="#8898B0"/>
+        <path d="M 80 22 L 82 16 L 84 22 Z" fill="#DDEEFA"/>
+        {/* Rocky texture at base */}
+        <path d="M 40 28 Q 55 24 70 25 Q 80 24 88 28" fill="none" stroke="#8898A8" strokeWidth=".8" opacity=".5"/>
+        {/* Tree line at base */}
+        <Pine x={42} y={28} s={.6}/> <Pine x={47} y={27} s={.65}/> <Pine x={84} y={28} s={.55}/> <Pine x={88} y={27} s={.6}/>
         {/* Hit area */}
-        <rect x="62" y="6" width="30" height="22" fill="transparent"/>
+        <rect x="36" y="4" width="54" height="26" fill="transparent"/>
       </g>
 
-      {/* ══════════ BEACH ZONE (lower-left, project id='mountain') ══════════ */}
-      <g opacity={hovered==='mountain' ? 1 : .88} style={{cursor:'pointer'}}
-        onClick={()=>onOpen('mountain')} onMouseEnter={()=>onHover('mountain')} onMouseLeave={()=>onHover(null)}>
-        {hovered==='mountain' && <rect x="8" y="38" width="26" height="18" rx="3" fill="rgba(245,200,66,.14)" stroke={BR.gold} strokeWidth=".7" strokeDasharray="2 1.5"/>}
-        {/* Sandy beach patch */}
-        <ellipse cx="18" cy="50" rx="11" ry="5" fill="#D8BB78" opacity=".9"/>
-        {/* Dock/pier */}
-        <rect x="8" y="52" width="10" height="1.4" fill="#9A6E40" rx=".4"/>
-        <rect x="8.5"  y="52" width=".7" height="2.8" fill="#7A5030"/>
-        <rect x="11"   y="52" width=".7" height="2.8" fill="#7A5030"/>
-        <rect x="13.5" y="52" width=".7" height="2.8" fill="#7A5030"/>
-        <rect x="16.5" y="52" width=".7" height="2.8" fill="#7A5030"/>
-        {/* Small boat */}
-        <path d="M 5 54 Q 7 55.5 10 54" fill="#C07840" stroke="#8B4820" strokeWidth=".4"/>
-        <rect x="7" y="52.5" width=".5" height="2" fill="#7A4020"/>
+      {/* ══════════ FOREST (left side, project='forest') ══════════ */}
+      <g style={{cursor:'pointer'}} onClick={()=>onOpen('forest')}
+        onMouseEnter={()=>onHover('forest')} onMouseLeave={()=>onHover(null)}
+        opacity={hovered==='forest' ? 1 : .92}>
+        {/* Forest floor shadow */}
+        <ellipse cx="22" cy="36" rx="13" ry="9" fill="#1E4220" opacity=".45"/>
+        {/* Background small trees */}
+        {[[15,30],[20,26],[26,24],[31,26],[35,30]].map(([x,y],i)=>(
+          <Pine key={`bg${i}`} x={x} y={y} s={.58}/>
+        ))}
+        {/* Mid-layer trees */}
+        {[[14,36],[19,32],[25,29],[30,33],[35,37]].map(([x,y],i)=>(
+          <Pine key={`mid${i}`} x={x} y={y} s={.78}/>
+        ))}
+        {/* Foreground tall trees */}
+        {[[18,40],[24,36],[29,39]].map(([x,y],i)=>(
+          <Pine key={`fg${i}`} x={x} y={y} s={.92}/>
+        ))}
+        {/* Rocky outcrops on forest floor */}
+        <ellipse cx="15" cy="42" rx="2.5" ry="1.2" fill="#8A7040" opacity=".5"/>
+        <ellipse cx="34" cy="41" rx="2" ry="1" fill="#8A7040" opacity=".45"/>
+        {/* Hit area */}
+        <rect x="10" y="18" width="28" height="28" fill="transparent"/>
+      </g>
+
+      {/* ══════════ CITY (right center, project='town') ══════════ */}
+      <g style={{cursor:'pointer'}} onClick={()=>onOpen('town')}
+        onMouseEnter={()=>onHover('town')} onMouseLeave={()=>onHover(null)}
+        opacity={hovered==='town' ? 1 : .92}>
+        {/* City ground/cobblestone plaza */}
+        <path d="M 58 52 Q 64 47 76 46 Q 88 46 92 50 Q 90 57 76 57 Q 62 57 58 52 Z"
+          fill="#C0A060" opacity=".5"/>
+        {/* City walls */}
+        <rect x="60" y="43" width="30" height="11" rx="1" fill="#C4A058" stroke="#A88038" strokeWidth=".4"/>
+        {/* Large cathedral / dome building */}
+        <rect x="68" y="32" width="12" height="14" fill="#D0B068"/>
+        <path d="M 67.5 32 Q 74 25 80.5 32 Z" fill="#5A7888"/>
+        <path d="M 68.5 32 Q 74 26.5 79.5 32 Z" fill="#4A6878" opacity=".8"/>
+        <rect x="73.4" y="22.5" width=".9" height="3.5" fill="#9A8040"/>
+        {/* Left tower */}
+        <rect x="60" y="29" width="6" height="16" fill="#C8A850"/>
+        <path d="M 59.5 29 L 63 23.5 L 66.5 29 Z" fill="#9A7830"/>
+        <rect x="62" y="36" width="2.5" height="3" fill="#6A4818"/>
+        <rect x="61" y="31" width="1.8" height="1.8" fill="#8AC0D0" opacity=".85"/>
+        <rect x="63.5" y="31" width="1.8" height="1.8" fill="#8AC0D0" opacity=".85"/>
+        {/* Right tower */}
+        <rect x="83" y="30" width="6" height="15" fill="#C09848"/>
+        <path d="M 82.5 30 L 86 24.5 L 89.5 30 Z" fill="#9A7830"/>
+        <rect x="85" y="37" width="2.5" height="3" fill="#6A4818"/>
+        <rect x="83.5" y="32" width="1.8" height="1.8" fill="#8AC0D0" opacity=".85"/>
+        <rect x="86" y="32" width="1.8" height="1.8" fill="#8AC0D0" opacity=".85"/>
+        {/* Smaller buildings */}
+        <rect x="58" y="37" width="6" height="8" fill="#D0A860"/>
+        <path d="M 57.5 37 L 61 32.5 L 64.5 37 Z" fill="#A08030"/>
+        <rect x="59.5" y="41" width="2.5" height="4" fill="#6A4818"/>
+        <rect x="87" y="38" width="5" height="7" fill="#C89848"/>
+        <path d="M 86.5 38 L 89.5 34 L 92.5 38 Z" fill="#9A7030"/>
+        {/* City arched gate */}
+        <rect x="71" y="48" width="6" height="6" fill="#B09050"/>
+        <path d="M 71 48 Q 74 44.5 77 48" fill="#8A7040"/>
+        {/* Green trees near city */}
+        {[[59,46],[90,46]].map(([x,y],i)=>(
+          <g key={i}>
+            <rect x={x-.4} y={y-3} width=".8" height="3.5" fill="#6A4820"/>
+            <circle cx={x} cy={y-5} r="3" fill="#2A6020"/>
+            <circle cx={x} cy={y-5} r="1.8" fill="#3A7A2A" opacity=".7"/>
+          </g>
+        ))}
+        {/* Hit area */}
+        <rect x="56" y="22" width="38" height="34" fill="transparent"/>
+      </g>
+
+      {/* ══════════ BEACH (bottom center, project='mountain') ══════════ */}
+      <g style={{cursor:'pointer'}} onClick={()=>onOpen('mountain')}
+        onMouseEnter={()=>onHover('mountain')} onMouseLeave={()=>onHover(null)}
+        opacity={hovered==='mountain' ? 1 : .92}>
+        {/* Sandy beach cove */}
+        <path d="M 32 55 Q 36 51 46 51 Q 56 51 60 55 Q 56 58 46 58 Q 36 58 32 55 Z"
+          fill="#D4B458"/>
         {/* Palm tree 1 */}
-        <rect x="16" y="44" width=".9" height="5" fill="#9A6A38"/>
-        <path d="M 16.4 44 Q 13 41 11 40" stroke="#5A8A3A" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
-        <path d="M 16.4 44 Q 17 41 19 40" stroke="#5A8A3A" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
-        <path d="M 16.4 44 Q 16 41 15 39" stroke="#5A8A3A" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
+        <rect x="36.6" y="46" width=".9" height="7" fill="#9A6E30"/>
+        <path d="M 37 46 Q 33 43 31 41" stroke="#2A7030" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <path d="M 37 46 Q 37 43 37 41" stroke="#2A7030" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <path d="M 37 46 Q 40 43 43 42" stroke="#2A7030" strokeWidth="2" fill="none" strokeLinecap="round"/>
         {/* Palm tree 2 */}
-        <rect x="22" y="42" width=".9" height="5" fill="#9A6A38"/>
-        <path d="M 22.4 42 Q 19 39 18 38" stroke="#5A8A3A" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
-        <path d="M 22.4 42 Q 24 39 26 38" stroke="#5A8A3A" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
-        <path d="M 22.4 42 Q 22 39 22 37" stroke="#5A8A3A" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
+        <rect x="52.6" y="44" width=".9" height="7" fill="#9A6E30"/>
+        <path d="M 53 44 Q 50 41 48 40" stroke="#2A7030" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <path d="M 53 44 Q 55 41 58 40" stroke="#2A7030" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <path d="M 53 44 Q 53 41 53 39" stroke="#2A7030" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        {/* Dock/pier */}
+        <rect x="43" y="55" width="12" height="1.4" fill="#9A7040" rx=".4"/>
+        <rect x="44"   y="55" width=".8" height="3" fill="#7A5028"/>
+        <rect x="47"   y="55" width=".8" height="3" fill="#7A5028"/>
+        <rect x="50"   y="55" width=".8" height="3" fill="#7A5028"/>
+        <rect x="53.5" y="55" width=".8" height="3" fill="#7A5028"/>
+        {/* Boat */}
+        <path d="M 40 57 Q 43 58.5 46 57" fill="#C07030" stroke="#8B4018" strokeWidth=".5"/>
+        <rect x="42.5" y="55" width=".45" height="2.2" fill="#7A3818"/>
         {/* Hit area */}
-        <rect x="8" y="38" width="26" height="18" fill="transparent"/>
+        <rect x="28" y="40" width="36" height="18" fill="transparent"/>
       </g>
 
-      {/* ══════════ TOWN ZONE (center) ══════════ */}
-      <g opacity={hovered==='town' ? 1 : .88} style={{cursor:'pointer'}}
-        onClick={()=>onOpen('town')} onMouseEnter={()=>onHover('town')} onMouseLeave={()=>onHover(null)}>
-        {hovered==='town' && <rect x="54" y="30" width="32" height="24" rx="3" fill="rgba(245,200,66,.14)" stroke={BR.gold} strokeWidth=".7" strokeDasharray="2 1.5"/>}
-        {/* Dirt plaza */}
-        <ellipse cx="68" cy="42" rx="14" ry="7" fill="#C4A060" opacity=".4"/>
-        {/* Cross paths */}
-        <path d="M 56 42 L 82 42" stroke="#B4903A" strokeWidth="1" opacity=".5"/>
-        <path d="M 68 32 L 68 52" stroke="#B4903A" strokeWidth="1" opacity=".5"/>
-        {/* Cottage (left) */}
-        <rect x="57" y="37" width="7" height="6" fill="#C8845A"/>
-        <path d="M 56 37 L 60.5 32 L 65 37 Z" fill="#9A3A20"/>
-        <rect x="59.5" y="40" width="2" height="3" fill="#7A4A28"/>
-        <rect x="57.8" y="38.2" width="1.8" height="1.5" fill="#B0D0E8" opacity=".8"/>
-        {/* Tower (center) */}
-        <rect x="64" y="33" width="5" height="10" fill="#90A8B8"/>
-        <path d="M 63.5 33 L 66.5 28.5 L 69.5 33 Z" fill="#6888A0"/>
-        <circle cx="66.5" cy="37" r="1.3" fill="#D4C888" opacity=".9"/>
-        <line x1="66.5" y1="37" x2="67.4" y2="38.4" stroke="#2A3A3A" strokeWidth=".5" opacity=".7"/>
-        {/* Large house (right) */}
-        <rect x="71" y="36" width="9" height="7" fill="#D4A878"/>
-        <path d="M 70 36 L 75.5 31 L 81 36 Z" fill="#9A6030"/>
-        <rect x="73" y="40" width="2.5" height="3" fill="#7A4828"/>
-        <rect x="72" y="37.5" width="2" height="2" fill="#B0D0E8" opacity=".8"/>
-        <rect x="76.5" y="37.5" width="2" height="2" fill="#B0D0E8" opacity=".8"/>
-        {/* Fence */}
-        <path d="M 56 44 L 82 44" stroke="#9A7A48" strokeWidth=".6" strokeDasharray="1.2 .8" opacity=".7"/>
-        {/* Garden patch */}
-        <rect x="64" y="45" width="10" height="5" fill="#7AC84A" rx=".5"/>
-        <path d="M 66 45 L 66 50" stroke="#4A9830" strokeWidth=".5"/>
-        <path d="M 69 45 L 69 50" stroke="#4A9830" strokeWidth=".5"/>
-        <path d="M 72 45 L 72 50" stroke="#4A9830" strokeWidth=".5"/>
-        {/* Hit area */}
-        <rect x="54" y="30" width="32" height="24" fill="transparent"/>
+      {/* ── Small rocky islands in ocean ── */}
+      <g opacity=".85">
+        <ellipse cx="96" cy="14" rx="3.5" ry="2" fill="#7A6840"/>
+        <path d="M 93.5 13 Q 96 11 98.5 13" fill="#9A8858" opacity=".7"/>
+        <ellipse cx="5" cy="52" rx="2.8" ry="1.6" fill="#7A6840"/>
+        <ellipse cx="97" cy="50" rx="2.2" ry="1.3" fill="#7A6840"/>
+        <ellipse cx="6" cy="16" rx="2" ry="1.2" fill="#7A6840"/>
+        <ellipse cx="90" cy="56" rx="2.5" ry="1.4" fill="#7A6840"/>
+        <ellipse cx="93" cy="58" rx="1.5" ry=".9" fill="#6A5830"/>
       </g>
 
-      {/* ── Center compass marker ── */}
-      <circle cx="50" cy="32" r="3.2" fill="#F2E8C8" stroke="#C8A85A" strokeWidth=".5"/>
-      <circle cx="50" cy="32" r="1.4" fill={BR.gold}/>
-      <path d="M 50 29.2 L 50 28" stroke="#C8A85A" strokeWidth=".6" strokeLinecap="round"/>
-      <path d="M 50 34.8 L 50 36" stroke="#C8A85A" strokeWidth=".6" strokeLinecap="round"/>
-      <path d="M 47.2 32 L 46 32" stroke="#C8A85A" strokeWidth=".6" strokeLinecap="round"/>
-      <path d="M 52.8 32 L 54 32" stroke="#C8A85A" strokeWidth=".6" strokeLinecap="round"/>
+      {/* ── Compass rose (bottom-left, in ocean) ── */}
+      <g transform="translate(9,52)">
+        <circle r="5.5" fill="rgba(14,44,54,.72)" stroke="#C8A840" strokeWidth=".5"/>
+        <circle r="4.5" fill="none" stroke="#C8A840" strokeWidth=".25" opacity=".5"/>
+        {/* Cardinal points */}
+        <path d="M 0 -4.8 L .9 -1.8 L 0 -3 L -.9 -1.8 Z" fill="#E8D060"/>
+        <path d="M 0 4.8 L .9 1.8 L 0 3 L -.9 1.8 Z" fill="#C0A848" opacity=".75"/>
+        <path d="M -4.8 0 L -1.8 .9 L -3 0 L -1.8 -.9 Z" fill="#C0A848" opacity=".75"/>
+        <path d="M 4.8 0 L 1.8 .9 L 3 0 L 1.8 -.9 Z" fill="#C0A848" opacity=".75"/>
+        {/* Diagonal points */}
+        <path d="M -3.4 -3.4 L -1.4 -1 L -1 -1.4 Z" fill="#C0A848" opacity=".5"/>
+        <path d="M 3.4 -3.4 L 1.4 -1 L 1 -1.4 Z" fill="#C0A848" opacity=".5"/>
+        <path d="M -3.4 3.4 L -1.4 1 L -1 1.4 Z" fill="#C0A848" opacity=".5"/>
+        <path d="M 3.4 3.4 L 1.4 1 L 1 1.4 Z" fill="#C0A848" opacity=".5"/>
+        <text x="0" y="-5.8" textAnchor="middle" style={{fontFamily:'serif', fontSize:2.2, fontWeight:700, fill:'#E8D060', letterSpacing:0}}>N</text>
+        <text x="0" y="7.6" textAnchor="middle" style={{fontFamily:'serif', fontSize:1.6, fill:'#C8B040', opacity:.75}}>S</text>
+        <text x="-7" y=".6" textAnchor="middle" style={{fontFamily:'serif', fontSize:1.6, fill:'#C8B040', opacity:.75}}>W</text>
+        <text x="7" y=".6" textAnchor="middle" style={{fontFamily:'serif', fontSize:1.6, fill:'#C8B040', opacity:.75}}>E</text>
+        <circle r=".7" fill="#E8D060"/>
+      </g>
 
-      {/* ── Dashed trails from center to each zone ── */}
-      {PROJECTS.map((p,i)=>{
-        const end = ENDS[p.id] || {x:50,y:32};
-        const mx = 50 + (end.x-50)*.5 + (i%2===0 ? -4 : 4);
-        const my = 32 + (end.y-32)*.5;
-        return (
-          <path key={p.id}
-            d={`M 50 32 Q ${mx} ${my} ${end.x} ${end.y}`}
-            fill="none" stroke={hovered===p.id ? BR.gold : '#B09050'}
-            strokeWidth={hovered===p.id ? 1.4 : .9}
-            strokeDasharray={hovered===p.id ? "1.8 1.8" : "1.5 2.5"}
-            strokeLinecap="round" opacity={hovered===p.id ? 1 : .55}
-            style={{transition:'all .25s ease'}}/>
-        );
-      })}
-
-      {/* ── Decorative ocean elements ── */}
-      <path d="M 3 24 Q 5 26 7 24" fill="#7A5830" stroke="#5A3810" strokeWidth=".3" opacity=".7"/>
-      <rect x="5" y="22.5" width=".4" height="2" fill="#5A3810" opacity=".7"/>
-      <path d="M 93 46 Q 95 48 97 46" fill="#7A5830" stroke="#5A3810" strokeWidth=".3" opacity=".7"/>
+      {/* Vignette */}
+      <rect x="0" y="0" width="100" height="60" fill="url(#island-vignette)"/>
     </svg>
   );
 }
@@ -831,13 +908,6 @@ function HoverPopover({ project }) {
           <Row icon="eye"    label="Timeline"   value={project.timeline}/>
           <Row icon="tools"  label="Method" value={project.method}/>
           <Row icon="flag"   label="Highlight" value={project.highlight}/>
-        </div>
-        <div style={{
-          marginTop:10, paddingTop:10, borderTop:`1px dashed ${BR.deep20}`,
-          display:'flex', alignItems:'center', justifyContent:'space-between',
-          color:BR.teal, fontFamily:'Nunito', fontWeight:700, fontSize:13,
-        }}>
-          Click to begin <Icon name="arrow-right" size={16}/>
         </div>
       </div>
     </div>
@@ -1001,45 +1071,75 @@ function QuestPage({ project, onClose }) {
 function SceneCard({ idx, scene, pid, accent }) {
   const hasContent = scene.body || scene.bullets;
   return (
-    <div className="br-card" style={{
-      padding:'20px 22px', borderRadius:16,
-      borderTop:`4px solid ${accent}`,
+    <div style={{
+      borderRadius:16, overflow:'hidden',
+      boxShadow:'0 2px 8px rgba(26,58,58,.07), 0 0 0 1px rgba(26,58,58,.06)',
     }}>
-      <div style={{display:'flex', alignItems:'center', gap:10, marginBottom:10}}>
+      {/* Quest chapter header */}
+      <div style={{
+        padding:'16px 22px 14px',
+        background:`linear-gradient(135deg, ${accent}22 0%, rgba(242,248,248,0) 60%)`,
+        borderBottom:`1px solid rgba(26,58,58,.07)`,
+        display:'flex', alignItems:'center', gap:16,
+        background:'#fff',
+      }}>
         <div style={{
-          width:36, height:36, borderRadius:10, background:BR.foam,
-          display:'grid', placeItems:'center', color:BR.deep,
+          width:46, height:46, borderRadius:14, flexShrink:0,
+          background:accent,
+          display:'grid', placeItems:'center',
+          boxShadow:`0 4px 12px ${accent}55`,
         }}>
-          <Icon name={scene.icon} size={20}/>
+          <Icon name={scene.icon} size={22} color="#fff" stroke={1.8}/>
         </div>
-        <span className="br-cap" style={{color:BR.deep50}}>Scene {String(idx+1).padStart(2,'0')}</span>
-      </div>
-      <h3 className="br-display" style={{fontSize:24, lineHeight:1, marginBottom:12, color:BR.deep}}>
-        {scene.name}
-      </h3>
-      {scene.bullets ? (
-        <ul style={{margin:0, padding:'0 0 0 18px', display:'flex', flexDirection:'column', gap:10}}>
-          {scene.bullets.map((b, i) => (
-            <li key={i} className="br-body" style={{fontSize:15, color:BR.deep70}}>{b}</li>
-          ))}
-        </ul>
-      ) : scene.body ? (
-        <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0}}>{scene.body}</p>
-      ) : (
-        <>
-          <p className="br-body" style={{fontSize:15, color:BR.deep70, marginBottom:12}}>{scene.hint}</p>
-          <div style={{
-            height:100, borderRadius:10, background:BR.foam,
-            border:`2px dashed ${BR.deep20}`,
-            display:'grid', placeItems:'center',
-          }}>
-            <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:4}}>
-              <Icon name="eye" size={20} color={BR.deep50}/>
-              <span className="br-cap" style={{color:BR.deep50}}>Screenshot · Quote · Clip</span>
-            </div>
+        <div>
+          <div className="br-cap" style={{color:BR.deep50, marginBottom:3}}>
+            Chapter {String(idx+1).padStart(2,'0')}
           </div>
-        </>
-      )}
+          <h3 className="br-display" style={{fontSize:22, lineHeight:1.1, color:BR.deep, margin:0}}>
+            {scene.name}
+          </h3>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div style={{
+        padding:'20px 22px',
+        background: hasContent
+          ? 'linear-gradient(180deg, #fff 0%, #FAFDF8 100%)'
+          : '#fff',
+      }}>
+        {scene.bullets ? (
+          <div style={{display:'flex', flexDirection:'column', gap:14}}>
+            {scene.bullets.map((b, i) => (
+              <div key={i} style={{display:'flex', gap:14, alignItems:'flex-start'}}>
+                <div style={{
+                  width:8, height:8, borderRadius:'50%',
+                  background:accent, marginTop:6, flexShrink:0,
+                  boxShadow:`0 0 0 3px ${accent}28`,
+                }}/>
+                <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{b}</p>
+              </div>
+            ))}
+          </div>
+        ) : scene.body ? (
+          <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{scene.body}</p>
+        ) : (
+          <>
+            <p className="br-body" style={{fontSize:15, color:BR.deep50, marginBottom:14, lineHeight:1.65, fontStyle:'italic'}}>{scene.hint}</p>
+            <div style={{
+              height:90, borderRadius:12, overflow:'hidden',
+              background:`linear-gradient(135deg, ${BR.foam} 0%, #EAF4F0 100%)`,
+              border:`1.5px dashed ${BR.deep20}`,
+              display:'grid', placeItems:'center',
+            }}>
+              <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:6}}>
+                <Icon name="eye" size={22} color={BR.deep20}/>
+                <span className="br-cap" style={{color:BR.deep20}}>Evidence · Artifacts · Quotes</span>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
