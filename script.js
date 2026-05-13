@@ -136,42 +136,42 @@ function HeartRow({ count=8, filled=8, size=16 }) {
 const { useState: aUseState, useEffect: aUseEffect, useRef: aUseRef } = React;
 
 const PROJECTS = [
-  { id:'forest',   tag:'Foundational Research', icon:'tree-pine',
+  { id:'forest',   tag:'Generative', icon:'tree-pine',
     title:'Services Tool Adoption',
     subtitle:'Shaped team strategy',
-    role:'Sole researcher · 40-person team',
-    method:'Mixed-methods · diary + interviews',
-    impact:'Strategy artifact adopted by leadership',
+    timeline:'6- weeks',
+    method:'Literature review + stakeholder workshop + interviews',
+    highlight:'Artifact Adopted by Leadership',
     color: BR.meadow, colorDk:'#6FB370',
     pos:{ x:24, y:32 },
     bg:'linear-gradient(180deg, #BFE9D0 0%, #A8DFA0 100%)',
   },
-  { id:'beach',    tag:'Product Strategy', icon:'anchor',
+  { id:'beach',    tag:'Generative + Evaluative Research', icon:'anchor',
     title:'Recurring Revenue Products',
     subtitle:'Defined product strategy for Square',
-    role:'Embedded researcher · PM partnership',
-    method:'Qualitative generative · 18 interviews',
-    impact:'Anchored two roadmap quarters',
+    timeline:'4- weeks',
+    method:'AI assisted market sizing + interviews + rapid prototype testing',
+    highlight:'Ambigious Brief, AI Workflow',
     color: BR.sky, colorDk:'#56AFC1',
     pos:{ x:78, y:32 },
     bg:'linear-gradient(180deg, #BFE9EE 0%, #F2E2BD 100%)',
   },
-  { id:'mountain', tag:'Design + Product', icon:'mountain',
+  { id:'mountain', tag:'Generative + Evaluative Research', icon:'mountain',
     title:'P2P Payment Integration',
-    subtitle:'Informed design + product · exec visibility',
-    role:'Cross-functional partner',
-    method:'Concept testing + journey mapping',
-    impact:'Decision memo shaped exec read-out',
+    subtitle:'Informed design + product · ',
+    timeline:'6- weeks',
+    method:'Interviews + concept testing',
+    highlight:'Executive Visibility, Engineer Constraints',
     color:'#D9E3E5', colorDk:'#8FA8AB',
     pos:{ x:24, y:74 },
     bg:'linear-gradient(180deg, #C5D5D8 0%, #8FA8AB 100%)',
   },
-  { id:'town',     tag:'Proactive Discovery', icon:'home',
+  { id:'town',     tag:'Generative Research', icon:'home',
     title:'Voice AI Research',
     subtitle:'Identified the need · influenced product',
-    role:'Initiator + lead researcher',
-    method:'Behavioral logs + survey · n=240',
-    impact:'Reframed an opportunity space',
+    timeline:'2- week sprint',
+    method:'Survey',
+    highlight:'Self Initaited Research',
     color: BR.gold, colorDk:'#C99E25',
     pos:{ x:78, y:74 },
     bg:'linear-gradient(180deg, #F8D673 0%, #F5C842 100%)',
@@ -478,7 +478,7 @@ function IslandMap({ onOpen }) {
           <h2 className="br-h2">
             <Editable id="map_h2_a" defaultValue="Pick a destination,"/>{' '}
             <span className="br-display italic" style={{color:BR.teal}}>
-              <Editable id="map_h2_b" defaultValue="see what I built there."/>
+              <Editable id="map_h2_b" defaultValue="see what I've accomplished'"/>
             </span>
           </h2>
         </div>
@@ -739,9 +739,9 @@ function HoverPopover({ project }) {
           {project.subtitle}
         </div>
         <div style={{display:'flex', flexDirection:'column', gap:4, fontSize:13}}>
-          <Row icon="eye"    label="Role"   value={project.role}/>
+          <Row icon="eye"    label="Timeline"   value={project.timeline}/>
           <Row icon="tools"  label="Method" value={project.method}/>
-          <Row icon="flag"   label="Impact" value={project.impact}/>
+          <Row icon="flag"   label="Highlight" value={project.highlight}/>
         </div>
         <div style={{
           marginTop:10, paddingTop:10, borderTop:`1px dashed ${BR.deep20}`,
