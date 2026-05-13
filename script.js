@@ -255,9 +255,9 @@ function Hero() {
               Hi, I'm <Editable id="name" defaultValue="Mai Someya"/>
             </div>
             <h1 className="br-h1" style={{margin:0}}>
-              <Editable id="hero_h1_a" defaultValue="Adventure"/>{' '}
+              <Editable id="hero_h1_a" defaultValue="Hi, I'm"/>{' '}
               <span className="br-display italic" style={{color:BR.teal}}>
-                <Editable id="hero_h1_b" defaultValue="awaits."/>
+                <Editable id="hero_h1_b" defaultValue="Mai Someya."/>
               </span>
             </h1>
             <p className="br-body" style={{maxWidth:580, marginTop:14, color:BR.deep70}}>
