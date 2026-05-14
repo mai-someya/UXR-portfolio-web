@@ -1662,7 +1662,17 @@ const SIDE_QUEST_CATS = [
     photoRows:[
       {
         textSide:'right', imgHeight:260,
-        placeholder:'Add your story about Half Dome, hiking, and bikepacking here.',
+        content:[
+          {t:"This probably isn't a surprise, but as someone who lives in the PNW, I love "},
+          {t:"walking a lot in", strike:true},
+          {t:" nature. I've chilled out a bit since hiking "},
+          {t:"Half Dome", tip:"16 miles"},
+          {t:", "},
+          {t:"Mt. Whitney", tip:"22 miles"},
+          {t:", and the "},
+          {t:"Inca Trail to Machu Picchu", tip:"25 miles"},
+          {t:" and mainly stick to smaller adventures with my partner and dog Alfie around the PNW. In an attempt to give my knees a break, I've recently gotten into bikepacking (yes, that's biking + backpacking, and yes, it's as chaotic and wonderful as it sounds)."},
+        ],
         images:[
           { src:'images/Half Dome.jpg',    pos:'center top' },
           { src:'images/hiking.jpeg',      pos:'center' },
@@ -1671,7 +1681,7 @@ const SIDE_QUEST_CATS = [
       },
       {
         textSide:'left', imgHeight:280,
-        placeholder:'Add your story about pizza and food adventures here.',
+        placeholder:"Story time about a pizza adventure: one summer in 2019, my partner and I went to NYC and attempted to hit as many pizza shops in one weekend as possible in an attempt to find the best slice. We managed to hit 15 spots — at the top of the list was L'Industrie! I share this story as an example of how unhinged we are, but also as a testament to how much we love pizza (obvi) and food in general (cooking it too!).",
         images:[
           { src:'images/Pizza.jpg', pos:'center' },
           { src:'images/food.png',  pos:'center' },
@@ -1679,7 +1689,7 @@ const SIDE_QUEST_CATS = [
       },
       {
         textSide:'right', imgHeight:260,
-        placeholder:'Add your story about Alfie and game nights here.',
+        placeholder:"My favorite adventure has been adopting our son (yes, son) Alfie from PAWS. He is my adventure buddy and has joined us on countless hiking, backpacking, and camping trips. He loves eating chicken and barking at squirrels.",
         images:[
           { src:'images/alfie.JPEG',      pos:'center' },
           { src:'images/board game.jpeg', pos:'center' },
@@ -1688,6 +1698,28 @@ const SIDE_QUEST_CATS = [
     ],
   },
 ];
+
+function HoverTooltip({ text, label }) {
+  const [visible, setVisible] = aUseState(false);
+  return (
+    <span style={{position:'relative', display:'inline'}}
+      onMouseEnter={()=>setVisible(true)}
+      onMouseLeave={()=>setVisible(false)}>
+      <span style={{borderBottom:'1.5px dotted rgba(26,58,58,.35)', cursor:'default'}}>{text}</span>
+      {visible && (
+        <span style={{
+          position:'absolute', bottom:'calc(100% + 5px)', left:'50%',
+          transform:'translateX(-50%)',
+          background:'rgba(26,58,58,.88)', color:'#fff',
+          padding:'4px 10px', borderRadius:6,
+          fontFamily:'Nunito', fontWeight:600, fontSize:12,
+          whiteSpace:'nowrap', pointerEvents:'none', zIndex:10,
+          boxShadow:'0 2px 8px rgba(26,58,58,.25)',
+        }}>{label}</span>
+      )}
+    </span>
+  );
+}
 
 function SideQuestPage({ category, onClose }) {
   if (!category) return null;
@@ -1796,8 +1828,17 @@ function SideQuestPage({ category, onClose }) {
                   minHeight:row.imgHeight,
                 }}>
                   <p className="br-body" style={{
-                    color:BR.deep50, fontStyle:'italic', margin:0, lineHeight:1.65, fontSize:14,
-                  }}>{row.placeholder}</p>
+                    color:BR.deep70, fontStyle:'italic', margin:0, lineHeight:1.65, fontSize:14,
+                  }}>
+                    {row.content
+                      ? row.content.map((part, pi) =>
+                          part.strike ? <s key={pi}>{part.t}</s>
+                          : part.tip  ? <HoverTooltip key={pi} text={part.t} label={part.tip}/>
+                          : <span key={pi}>{part.t}</span>
+                        )
+                      : row.placeholder
+                    }
+                  </p>
                 </div>
               );
               return (
