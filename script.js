@@ -350,6 +350,9 @@ function Nav({ onOpen }) {
         <a className="br-btn outline" href="#projects" style={{fontSize:13, padding:'7px 13px'}}>
           <Icon name="compass" size={14}/> Side Quests
         </a>
+        <a className="br-btn outline" href="#toolkits" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="tools" size={14}/> Toolkits
+        </a>
         <a className="br-btn outline" href="https://www.linkedin.com/in/mai-someya/" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
           <Icon name="linkedin" size={14}/> LinkedIn
         </a>
@@ -419,12 +422,14 @@ function Hero() {
             Hi, I'm{' '}
             <span className="br-display italic" style={{color:BR.teal}}>Mai Someya.</span>
           </h1>
-          <p className="br-body" style={{maxWidth:520, color:BR.deep70}}>
-            Mixed-methods UX researcher with 8 years spanning market research and UX research, a combination that brings both business-level strategy and deep user understanding to every study.
-          </p>
-          <p className="br-body" style={{maxWidth:520, color:BR.deep70}}>
-            From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
-          </p>
+          <div style={{display:'flex', flexDirection:'column', gap:8}}>
+            <p className="br-body" style={{color:BR.deep70, margin:0}}>
+              Mixed-methods UX researcher with 8 years spanning market research and UX research, a combination that brings both business-level strategy and deep user understanding to every study.
+            </p>
+            <p className="br-body" style={{color:BR.deep70, margin:0}}>
+              From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
+            </p>
+          </div>
 
           {/* Key strengths */}
           <div style={{marginTop:8}}>
@@ -444,7 +449,7 @@ function Hero() {
             </div>
             {activeS!=null && (
               <div className="br-card br-fadeup" style={{
-                marginTop:14, padding:'16px 20px', maxWidth:520,
+                marginTop:14, padding:'16px 20px',
                 background:'linear-gradient(180deg, #fff 0%, #FFFBEB 100%)',
                 borderLeft:`4px solid ${BR.gold}`, borderRadius:12,
               }}>
@@ -585,6 +590,42 @@ function Cartographer() {
   );
 }
 
+// ─── Map Context module (Mai + Square intro) ─────────────────────────────
+function MapContext() {
+  return (
+    <div className="br-card" style={{
+      padding:'22px 20px',
+      display:'flex', flexDirection:'column', gap:16,
+      background:`linear-gradient(135deg, #fff 0%, #F2F8F8 100%)`,
+      borderRadius:20,
+    }}>
+      {/* Square logo */}
+      <div style={{
+        width:52, height:52, borderRadius:14,
+        background:'#fff', border:`1px solid ${BR.deep10}`,
+        boxShadow:'0 2px 10px rgba(26,58,58,.12)',
+        display:'grid', placeItems:'center', overflow:'hidden',
+        flexShrink:0,
+      }}>
+        <img src="images/square.png" width={42} draggable={false}
+          style={{imageRendering:'auto', display:'block'}}/>
+      </div>
+
+      <div>
+        <div className="br-cap" style={{color:BR.teal, marginBottom:10}}>
+          Lead UXR for Services
+        </div>
+        <div className="br-body" style={{fontSize:13.5, color:BR.deep70, lineHeight:1.65}}>
+          You might know Square from the little white card reader at your favorite coffee shop — but it's actually a suite of 38+ hardware and software products helping small businesses run and grow across dozens of industries.
+        </div>
+        <div className="br-body" style={{fontSize:13.5, color:BR.deep70, lineHeight:1.65, marginTop:10}}>
+          I was embedded as the lead researcher on the Services team, partnering closely with product, design, engineering, and data science to support service-based businesses. Think salons, accountants, and lawn care companies. My focus was on three flagship products: Square Appointments, Invoices, and Virtual Terminal, across web, desktop, and hardware surfaces.
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Island Map ───────────────────────────────────────────────────────────
 function IslandMap({ onOpen }) {
   const [hovered, setHovered] = aUseState(null);
@@ -624,10 +665,12 @@ function IslandMap({ onOpen }) {
         </div>
       </div>
 
-      <div className="br-card" style={{
-        padding:0, overflow:'hidden', position:'relative', borderRadius:24,
-        boxShadow:'0 4px 12px rgba(26,58,58,.08), 0 24px 60px rgba(26,58,58,.12)',
-      }}>
+      <div style={{display:'grid', gridTemplateColumns:'300px 1fr', gap:20, alignItems:'stretch'}}>
+        <MapContext/>
+        <div className="br-card" style={{
+          padding:0, overflow:'hidden', position:'relative', borderRadius:24,
+          boxShadow:'0 4px 12px rgba(26,58,58,.08), 0 24px 60px rgba(26,58,58,.12)',
+        }}>
         {/* Ocean teal background fills the side margins from objectFit:contain */}
         <div style={{position:'relative', aspectRatio:'16/10', userSelect:'none', background:'#1A5870'}}>
 
@@ -691,6 +734,7 @@ function IslandMap({ onOpen }) {
           {hovered && <HoverPopover project={PROJECTS.find(p => p.id === hovered)}/>}
 
         </div>
+      </div>
       </div>
     </section>
   );
@@ -1567,13 +1611,12 @@ function Field({ id, label, placeholder, tall }) {
 function Footer() {
   return (
     <footer style={{padding:'30px 0 60px', borderTop:`1px solid ${BR.deep10}`, marginTop:40}}>
-      <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:14}}>
-        <div className="br-display italic" style={{fontSize:22, color:BR.deep}}>
-          <Editable id="footer_tagline" defaultValue={TAGLINE_DEFAULT}/>
-        </div>
-        <div className="br-cap" style={{color:BR.deep50}}>
-          © <Editable id="footer_year" defaultValue="2026"/> · Made with <Icon name="sparkles" size={11} color={BR.gold} style={{verticalAlign:'-2px'}}/> and curiosity
-        </div>
+      <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+        <span className="br-body" style={{color:BR.deep50, fontSize:15, letterSpacing:'.02em'}}>
+          Mai Someya{' '}
+          <span style={{color:BR.deep20, margin:'0 6px'}}>/</span>
+          {' '}User Experience Researcher
+        </span>
       </div>
     </footer>
   );
@@ -1615,10 +1658,33 @@ const SIDE_QUEST_CATS = [
     id:'life', label:'Real Life Adventures', icon:'mountain',
     colorDk:'#C99E25',
     bg:'linear-gradient(135deg, rgba(245,200,66,.22) 0%, #F2F8F8 100%)',
-    sections:[
-      { title:'Overview',    hint:'Describe what real-life experiences shape you as a researcher.' },
-      { title:'Adventures',  hint:'Highlight memorable experiences and what you learned from them.' },
-      { title:'Takeaways',   hint:'Reflect on how these adventures inform your research mindset.' },
+    sections:[],
+    photoRows:[
+      {
+        textSide:'right', imgHeight:260,
+        placeholder:'Add your story about Half Dome, hiking, and bikepacking here.',
+        images:[
+          { src:'images/Half Dome.jpg',    pos:'center top' },
+          { src:'images/hiking.jpeg',      pos:'center' },
+          { src:'images/bikepacking.jpeg', pos:'center' },
+        ],
+      },
+      {
+        textSide:'left', imgHeight:280,
+        placeholder:'Add your story about pizza and food adventures here.',
+        images:[
+          { src:'images/Pizza.jpg', pos:'center' },
+          { src:'images/food.png',  pos:'center' },
+        ],
+      },
+      {
+        textSide:'right', imgHeight:260,
+        placeholder:'Add your story about Alfie and game nights here.',
+        images:[
+          { src:'images/alfie.JPEG',      pos:'center' },
+          { src:'images/board game.jpeg', pos:'center' },
+        ],
+      },
     ],
   },
 ];
@@ -1694,6 +1760,59 @@ function SideQuestPage({ category, onClose }) {
                 )}
               </div>
             ))}
+
+            {/* Photo rows — rendered for categories that have them (e.g. Real Life Adventures) */}
+            {category.photoRows && category.photoRows.map((row, ri) => {
+              const imgBlock = (
+                <div style={{
+                  display:'grid',
+                  gridTemplateColumns:`repeat(${row.images.length}, 1fr)`,
+                  gap:10,
+                }}>
+                  {row.images.map((img, ii) => (
+                    <div key={ii} style={{
+                      height:row.imgHeight, borderRadius:12, overflow:'hidden',
+                      boxShadow:'0 2px 8px rgba(26,58,58,.1)',
+                    }}>
+                      <img
+                        src={img.src}
+                        alt=""
+                        style={{
+                          width:'100%', height:'100%',
+                          objectFit:'cover',
+                          objectPosition: img.pos || 'center',
+                          display:'block',
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              );
+              const txtBlock = (
+                <div className="br-card" style={{
+                  padding:'22px', borderRadius:16,
+                  borderTop:`4px solid ${category.colorDk}`,
+                  display:'flex', flexDirection:'column', justifyContent:'center',
+                  minHeight:row.imgHeight,
+                }}>
+                  <p className="br-body" style={{
+                    color:BR.deep50, fontStyle:'italic', margin:0, lineHeight:1.65, fontSize:14,
+                  }}>{row.placeholder}</p>
+                </div>
+              );
+              return (
+                <div key={`row-${ri}`} style={{
+                  display:'grid',
+                  gridTemplateColumns: row.textSide === 'right' ? '3fr 2fr' : '2fr 3fr',
+                  gap:16, alignItems:'stretch',
+                }}>
+                  {row.textSide === 'right'
+                    ? <>{imgBlock}{txtBlock}</>
+                    : <>{txtBlock}{imgBlock}</>
+                  }
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -1706,15 +1825,18 @@ function SideQuests() {
   return (
     <>
       <section id="projects" className="br-fadeup" style={{padding:'12px 0 60px'}}>
-        <div style={{display:'flex', alignItems:'baseline', justifyContent:'space-between', marginBottom:18}}>
+        <div style={{marginBottom:18}}>
+          <div className="br-cap" style={{color:BR.teal, marginBottom:6}}>
+            <Icon name="leaf" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
+            Side Quests
+          </div>
           <h2 className="br-h2">
-            Side{' '}
-            <span className="br-display italic" style={{color:BR.teal}}>Quests.</span>
+            Life{' '}
+            <span className="br-display italic" style={{color:BR.teal}}>beyond the brief.</span>
           </h2>
-          <div className="br-cap" style={{color:BR.deep50}}>4 tracks · 8 years</div>
         </div>
-        <div style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:20}}>
-          {SIDE_QUEST_CATS.map(cat=>(
+        <div style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:20}}>
+          {SIDE_QUEST_CATS.filter(c => c.id !== 'market').map(cat=>(
             <button key={cat.id} onClick={()=>setSelected(cat)} className="br-card hover" style={{
               textAlign:'left', padding:0, overflow:'hidden', cursor:'pointer',
               border:'none', borderRadius:18,
@@ -1755,6 +1877,91 @@ function SideQuests() {
   );
 }
 
+// ─── Research Toolkits ────────────────────────────────────────────────────
+const TOOLKITS = [
+  { id:'qual',     span:3, accent:'#6FB370', title:'Qualitative Research',
+    bullets:[
+      'Moderated & unmoderated interviews',
+      'Journey mapping, personas and framework development',
+      'Generative research: Foundational, discovery',
+      'Evaluative research: Usability (RITE), concept, prototype testing',
+      'Stakeholder co-creation workshops, brainstorms',
+      'Secondary research synthesis: Literature and competitive reviews',
+    ] },
+  { id:'quant',    span:3, accent:'#56AFC1', title:'Quantitative Research',
+    bullets:[
+      'Survey design and methodology',
+      'Longitudinal tracking programs (NPS, CSAT, brand tracker)',
+      'A/B testing, card sort, tree testing',
+      'Behavioral and product data analysis',
+      'Basic statistics & application of advanced statistics: Discrete Choice, MaxDiff, KANO, TURF, segmentation',
+    ] },
+  { id:'strategy', span:2, accent:'#C99E25', title:'Research Strategy & Operations',
+    bullets:[
+      'Multi-phase, mixed-methods research planning from ambiguous briefs',
+      'Proactive research gap identification and direct influence on product roadmap & strategy',
+      'Research ops: recruitment, panel & vendor management, templates, repositories, budget',
+      'Stakeholder education: coached PMs, designers, and junior researchers on study design, methodologies, analysis',
+    ] },
+  { id:'ai',       span:2, accent:'#3BBFB0', title:'AI Methods & Product Research',
+    bullets:[
+      'Built and socialized AI-assisted workflows: agents for charts, survey and discussion guides',
+      'Researched AI adoption and user demand',
+      'Published white paper on voice AI commerce adoption (2020)',
+    ] },
+  { id:'domain',   span:2, accent:'#8FA8AB', title:'Domain Expertise',
+    bullets:[
+      'B2B/B2B2C: Fintech, payments, and commerce',
+      'Service-based business: Professional Services, Home & Repair, Health & Beauty',
+      'B2C: Consumer market research (Google, Meta, Samsung, Adidas, Philips, iRobot)',
+    ] },
+];
+
+function ResearchToolkits() {
+  return (
+    <section id="toolkits" className="br-fadeup" style={{padding:'12px 0 60px'}}>
+      <div style={{display:'flex', alignItems:'baseline', justifyContent:'space-between', marginBottom:18}}>
+        <div>
+          <div className="br-cap" style={{color:BR.teal, marginBottom:6}}>
+            <Icon name="tools" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
+            Research Toolkits
+          </div>
+          <h2 className="br-h2">
+            The methods{' '}
+            <span className="br-display italic" style={{color:BR.teal}}>behind the work.</span>
+          </h2>
+        </div>
+      </div>
+
+      <div style={{display:'grid', gridTemplateColumns:'repeat(6, 1fr)', gap:20}}>
+        {TOOLKITS.map(t => (
+          <div key={t.id} className="br-card" style={{
+            padding:'24px 22px', borderRadius:16,
+            borderTop:`4px solid ${t.accent}`,
+            gridColumn:`span ${t.span}`,
+          }}>
+            <div style={{display:'flex', alignItems:'center', gap:10, marginBottom:16}}>
+              <div style={{
+                width:10, height:10, borderRadius:'50%',
+                background:t.accent, flexShrink:0,
+                boxShadow:`0 0 0 3px ${t.accent}30`,
+              }}/>
+              <h3 className="br-h3" style={{margin:0, color:BR.deep}}>{t.title}</h3>
+            </div>
+            <ul style={{margin:0, padding:'0 0 0 16px', display:'flex', flexDirection:'column', gap:8}}>
+              {t.bullets.map((b, i) => (
+                <li key={i} className="br-body" style={{fontSize:14, color:BR.deep70, lineHeight:1.6}}>
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ─── App root ─────────────────────────────────────────────────────────────
 function AdventureApp() {
   const [drawer, setDrawer] = aUseState(null);
@@ -1768,6 +1975,7 @@ function AdventureApp() {
         <Cartographer/>
         <IslandMap onOpen={setQuest}/>
         <SideQuests/>
+        <ResearchToolkits/>
         <Footer/>
       </div>
       <Drawer kind={drawer} onClose={()=>setDrawer(null)}/>
