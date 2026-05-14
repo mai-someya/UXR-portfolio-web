@@ -161,19 +161,33 @@ const PROJECTS = [
           { num:'3/', title:'Workshop',    body:'I designed the workshop as a start to my analysis, by bringing product and marketing into the same room to gut-check early JTBD framing before finalizing the output.' },
           { num:'4/', title:'Deliverable', body:'Delivered as a deck with the JsTBD framework, presented to a cross-functional audience of 50 across Product, Design, Engineering, Marketing, and Research.' },
         ],
+        sectionImages:{
+          title:'Stakeholder Workshop on FigJam',
+          paths:['images/Services tool adoption-workshop 1.png','images/Services tool adoption-workshop 2.png'],
+        },
       },
       { name:'Findings', icon:'bulb',
         bullets:[
           'Tools are hired in acute moments, not planned in advance. Sellers adopt tools reactively at each growth stage — payments and websites at launch, lead management and scheduling as they scale.',
           '"Grow Customer" jobs-to-be-done are the highest-pain, lowest-cohesion part of the workflow. Sellers cobble together scheduling, CRM, and communications tools to manage leads — and only recognize the fragmentation once they\'re already scaling.',
-        ] },
+        ],
+        charSpeech: 'Qualitative findings alone weren\'t enough to convey pain. I pulled in product satisfaction metrics to make it harder to deprioritize this learning.',
+        sectionImages:{
+          paths:['images/finding 1- services tool adoption.png','images/finding 2- services tool adoption.png'],
+        },
+      },
       { name:'Impact', icon:'rocket',
         bullets:[
           'A JTBD framework referenced by PMs, designers, and marketers 18 months later for customer-informed decisions.',
           '2 product roadmap items added (Messages & Projects cohesion; Estimates & Appointments cohesion), each spawning follow-on research: a navigation usability study and prototype testing that resolved critical gaps before launch.',
           'Directly informed one of three core pillars of the Services 2025 + 2026 strategy — improving cohesion of customer growth and re-engagement tools.',
           '2 net-new research initiatives generated: Generative + Evaluative.',
-        ] },
+        ],
+        sectionImages:{
+          title:'JTBD Framework Examples',
+          paths:['images/services tool adoption-framework example 1.png','images/services tool adoption-framework example 2.png'],
+        },
+      },
     ],
   },
   { id:'beach',    tag:'Generative + Evaluative Research', icon:'anchor',
@@ -1073,30 +1087,42 @@ function QuestPage({ project, onClose }) {
   );
 }
 
-// ─── Character speech bubble (used in Approach section) ──────────────────
+// ─── Character speech bubble ─────────────────────────────────────────────
 function CharSpeech({ text }) {
   return (
     <div style={{display:'flex', gap:12, alignItems:'flex-start'}}>
-      {/* Avatar — taller rectangle so the head is never clipped */}
+      {/* Character avatar — tall enough to show the head */}
       <div style={{
-        width:50, height:64, borderRadius:12, overflow:'hidden', flexShrink:0,
+        width:52, height:68, borderRadius:12, overflow:'hidden', flexShrink:0,
         background:`linear-gradient(180deg, ${BR.sky} 0%, ${BR.meadow} 100%)`,
         display:'flex', alignItems:'flex-start', justifyContent:'center',
-        boxShadow:'0 3px 10px rgba(26,58,58,.18)',
-        border:'2px solid rgba(255,255,255,.35)',
+        boxShadow:'0 4px 14px rgba(26,58,58,.2)',
+        border:'2px solid rgba(255,255,255,.5)',
       }}>
-        <img src={window.__resources.maiFront} width={48} draggable={false} className="br-sprite"/>
+        <img src={window.__resources.maiFront} width={50} draggable={false} className="br-sprite"/>
       </div>
-      <div style={{
-        background:'rgba(59,191,176,.08)',
-        border:'1.5px solid rgba(59,191,176,.25)',
-        borderRadius:'4px 14px 14px 14px',
-        padding:'12px 16px', flex:1,
-      }}>
-        <p style={{
-          fontFamily:'Nunito', fontSize:13.5, lineHeight:1.6,
-          color:'#1A6A62', margin:0, fontStyle:'italic',
-        }}>{text}</p>
+
+      {/* Speech bubble with proper left-pointing tail */}
+      <div style={{position:'relative', flex:1}}>
+        {/* CSS triangle tail */}
+        <div style={{
+          position:'absolute', left:-8, top:16,
+          width:0, height:0,
+          borderTop:'7px solid transparent',
+          borderRight:'9px solid #fff',
+          borderBottom:'7px solid transparent',
+          filter:'drop-shadow(-1px 0 1px rgba(26,58,58,.07))',
+        }}/>
+        <div style={{
+          background:'#fff',
+          borderRadius:'2px 14px 14px 14px',
+          padding:'13px 16px',
+          boxShadow:'0 2px 12px rgba(26,58,58,.1), 0 1px 3px rgba(26,58,58,.06)',
+        }}>
+          <p className="br-body" style={{
+            fontSize:14, color:BR.deep70, margin:0, fontStyle:'italic', lineHeight:1.65,
+          }}>{text}</p>
+        </div>
       </div>
     </div>
   );
@@ -1144,10 +1170,9 @@ function SceneCard({ idx, scene, pid, accent }) {
       }}>
         {scene.layout === 'approach' ? (
           <>
-            {/* Framing statement */}
+            {/* Framing statement — brand Nunito Bold */}
             <p className="br-body" style={{
-              fontSize:15, color:BR.deep, margin:'0 0 20px 0',
-              lineHeight:1.65, fontWeight:600,
+              color:BR.deep, margin:'0 0 20px 0', fontWeight:700,
             }}>{scene.intro}</p>
 
             {/* Character speech — Lit Review context (left-anchored, stops ~halfway) */}
@@ -1167,19 +1192,16 @@ function SceneCard({ idx, scene, pid, accent }) {
                   boxShadow:'0 4px 14px rgba(26,58,58,.22)',
                 }}>
                   <div>
-                    <span style={{
-                      fontFamily:'Nunito', fontWeight:800, fontSize:11,
-                      letterSpacing:'.1em', textTransform:'uppercase',
-                      color:BR.gold, display:'block', marginBottom:4,
+                    <span className="br-cap" style={{
+                      color:BR.gold, display:'block', marginBottom:5,
                     }}>{m.num}</span>
                     <h4 className="br-display" style={{
-                      fontSize:18, lineHeight:1.1, color:'#fff',
-                      margin:0,
+                      fontSize:18, lineHeight:1.1, color:'#fff', margin:0,
                     }}>{m.title}</h4>
                   </div>
                   <p className="br-body" style={{
-                    fontSize:13, lineHeight:1.6,
-                    color:'rgba(255,255,255,.75)', margin:0,
+                    fontSize:14, lineHeight:1.6,
+                    color:'rgba(255,255,255,.78)', margin:0,
                   }}>{m.body}</p>
                 </div>
               ))}
@@ -1191,17 +1213,25 @@ function SceneCard({ idx, scene, pid, accent }) {
             </div>
           </>
         ) : scene.bullets ? (
-          <div style={{display:'flex', flexDirection:'column', gap:14}}>
-            {scene.bullets.map((b, i) => (
-              <div key={i} style={{display:'flex', gap:14, alignItems:'flex-start'}}>
-                <div style={{
-                  width:8, height:8, borderRadius:'50%',
-                  background:accent, marginTop:6, flexShrink:0,
-                  boxShadow:`0 0 0 3px ${accent}28`,
-                }}/>
-                <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{b}</p>
-              </div>
-            ))}
+          <div style={{display:'flex', flexDirection:'column', gap:16}}>
+            {/* Bullet list */}
+            <div style={{display:'flex', flexDirection:'column', gap:14}}>
+              {scene.bullets.map((b, i) => (
+                <div key={i} style={{display:'flex', gap:14, alignItems:'flex-start'}}>
+                  <div style={{
+                    width:8, height:8, borderRadius:'50%',
+                    background:accent, marginTop:6, flexShrink:0,
+                    boxShadow:`0 0 0 3px ${accent}28`,
+                  }}/>
+                  <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{b}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Optional character speech after bullets */}
+            {scene.charSpeech && (
+              <CharSpeech text={scene.charSpeech}/>
+            )}
           </div>
         ) : scene.body ? (
           <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{scene.body}</p>
@@ -1220,6 +1250,33 @@ function SceneCard({ idx, scene, pid, accent }) {
               </div>
             </div>
           </>
+        )}
+
+        {/* Section images — works for any scene type, always at the bottom */}
+        {scene.sectionImages && (
+          <div style={{marginTop:24}}>
+            {scene.sectionImages.title && (
+              <div className="br-cap" style={{color:BR.deep50, marginBottom:12}}>
+                {scene.sectionImages.title}
+              </div>
+            )}
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12}}>
+              {scene.sectionImages.paths.map((src, i) => (
+                <div key={i} style={{
+                  borderRadius:10, overflow:'hidden',
+                  boxShadow:'0 2px 12px rgba(26,58,58,.1)',
+                  border:`1px solid ${BR.deep10}`,
+                  background:'#111',
+                }}>
+                  <img
+                    src={src}
+                    alt=""
+                    style={{width:'100%', height:'auto', display:'block'}}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </div>
