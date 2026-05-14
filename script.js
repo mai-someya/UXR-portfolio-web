@@ -1747,24 +1747,30 @@ function CharQuote({ src, text, label }) {
         <div className="br-cap" style={{color:BR.deep50, marginBottom:8}}>{label}</div>
       )}
       <div style={{display:'flex', gap:12, alignItems:'flex-start'}}>
-        {/* Character avatar */}
-        <div style={{
-          width:60, height:72, borderRadius:12, overflow:'hidden', flexShrink:0,
-          background:`linear-gradient(180deg, ${BR.foam} 0%, rgba(242,248,248,.6) 100%)`,
-          border:`1px solid ${BR.deep10}`,
-          display:'flex', alignItems:'flex-end', justifyContent:'center',
-          boxShadow:'0 2px 8px rgba(26,58,58,.1)',
-        }}>
-          <img src={src} draggable={false}
-            style={{width:54, height:66, objectFit:'contain', objectPosition:'bottom center', display:'block'}}/>
+        {/* Avatar — same gradient + border + bob as CharSpeech/Mai */}
+        <div className="br-bob" style={{flexShrink:0}}>
+          <div style={{
+            width:60, height:74, borderRadius:12, overflow:'hidden',
+            background:`linear-gradient(180deg, ${BR.sky} 0%, ${BR.meadow} 100%)`,
+            display:'flex', alignItems:'flex-end', justifyContent:'center',
+            boxShadow:'0 4px 14px rgba(26,58,58,.2)',
+            border:'2px solid rgba(255,255,255,.5)',
+          }}>
+            <img src={src} draggable={false}
+              style={{
+                width:56, height:70,
+                objectFit:'contain', objectPosition:'bottom center',
+                display:'block',
+              }}/>
+          </div>
         </div>
-        {/* Bubble */}
+        {/* Speech bubble with left-pointing tail */}
         <div style={{position:'relative', flex:1}}>
           <div style={{
             position:'absolute', left:-8, top:16,
             width:0, height:0,
             borderTop:'7px solid transparent',
-            borderRight:`9px solid #fff`,
+            borderRight:'9px solid #fff',
             borderBottom:'7px solid transparent',
             filter:'drop-shadow(-1px 0 1px rgba(26,58,58,.06))',
           }}/>
