@@ -164,17 +164,18 @@ const PROJECTS = [
         sectionImages:{
           title:'Stakeholder Workshop on FigJam',
           paths:['images/Services tool adoption-workshop 1.png','images/Services tool adoption-workshop 2.png'],
+          cover: true,
         },
       },
       { name:'Findings', icon:'bulb',
+        layout:'findings',
         bullets:[
           'Tools are hired in acute moments, not planned in advance. Sellers adopt tools reactively at each growth stage — payments and websites at launch, lead management and scheduling as they scale.',
           '"Grow Customer" jobs-to-be-done are the highest-pain, lowest-cohesion part of the workflow. Sellers cobble together scheduling, CRM, and communications tools to manage leads — and only recognize the fragmentation once they\'re already scaling.',
         ],
-        charSpeech: 'Qualitative findings alone weren\'t enough to convey pain. I pulled in product satisfaction metrics to make it harder to deprioritize this learning.',
-        sectionImages:{
-          paths:['images/finding 1- services tool adoption.png','images/finding 2- services tool adoption.png'],
-        },
+        topImages:['images/finding 1- services tool adoption.png','images/finding 2- services tool adoption.png'],
+        sideImage:'images/finding 3- services tool adoption.png',
+        charSpeech:'Qualitative findings alone weren\'t enough to convey pain. I pulled in product satisfaction metrics to make it harder to deprioritize this learning.',
       },
       { name:'Impact', icon:'rocket',
         bullets:[
@@ -1038,14 +1039,26 @@ function QuestPage({ project, onClose }) {
               }}>
                 <Icon name="arrow-left" size={16}/> Back to map
               </button>
-              <div style={{marginTop:18, display:'flex', gap:8}}>
-                <span className="br-tag" style={{background:'rgba(255,255,255,.7)', color:BR.deep, borderColor:'rgba(255,255,255,.4)'}}>
-                  <Icon name="map-pin" size={11}/> Quest
-                </span>
-                <span className="br-tag" style={{background:'rgba(255,255,255,.7)', color:BR.deep, borderColor:'rgba(255,255,255,.4)'}}>
-                  {project.tag}
-                </span>
-              </div>
+              {(() => {
+                const methods = project.method
+                  ? project.method.split('·').map(m => m.trim())
+                  : [];
+                const pill = (text, bg, color, border) => (
+                  <span key={text} className="br-tag" style={{
+                    background:bg, color, borderColor:border,
+                    textTransform:'capitalize', whiteSpace:'nowrap', flexShrink:0,
+                  }}>{text}</span>
+                );
+                return (
+                  <div style={{marginTop:18, display:'flex', gap:6, flexWrap:'nowrap', alignItems:'center'}}>
+                    {pill(project.tag, 'rgba(59,191,176,.2)', '#0F5E55', 'rgba(59,191,176,.4)')}
+                    {methods.map(m =>
+                      pill(m, 'rgba(245,200,66,.28)', '#6A4E00', 'rgba(245,200,66,.55)')
+                    )}
+                    {project.timeline && pill(project.timeline, 'rgba(125,212,224,.25)', '#1A5A6A', 'rgba(125,212,224,.45)')}
+                  </div>
+                );
+              })()}
               <h1 className="br-h1" style={{marginTop:10, color:BR.deep, fontSize:48, maxWidth:660}}>
                 <Editable id={`q_title_${project.id}`} defaultValue={project.title}/>
               </h1>
@@ -1212,10 +1225,10 @@ function SceneCard({ idx, scene, pid, accent }) {
               <CharSpeech text={scene.postSpeech}/>
             </div>
           </>
-        ) : scene.bullets ? (
-          <div style={{display:'flex', flexDirection:'column', gap:16}}>
-            {/* Bullet list */}
-            <div style={{display:'flex', flexDirection:'column', gap:14}}>
+        ) : scene.layout === 'findings' ? (
+          <>
+            {/* Finding bullets */}
+            <div style={{display:'flex', flexDirection:'column', gap:14, marginBottom:20}}>
               {scene.bullets.map((b, i) => (
                 <div key={i} style={{display:'flex', gap:14, alignItems:'flex-start'}}>
                   <div style={{
@@ -1228,10 +1241,46 @@ function SceneCard({ idx, scene, pid, accent }) {
               ))}
             </div>
 
-            {/* Optional character speech after bullets */}
-            {scene.charSpeech && (
+            {/* Finding 1 + 2 above the character */}
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:16}}>
+              {scene.topImages.map((src, i) => (
+                <div key={i} style={{
+                  borderRadius:10, overflow:'hidden',
+                  boxShadow:'0 2px 10px rgba(26,58,58,.1)',
+                  border:`1px solid ${BR.deep10}`,
+                }}>
+                  <img src={src} alt="" style={{width:'100%', height:'auto', display:'block'}}/>
+                </div>
+              ))}
+            </div>
+
+            {/* Character (left) + Finding 3 (right) side by side */}
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:16, alignItems:'start'}}>
               <CharSpeech text={scene.charSpeech}/>
-            )}
+              <div style={{
+                borderRadius:10, overflow:'hidden',
+                boxShadow:'0 2px 10px rgba(26,58,58,.1)',
+                border:`1px solid ${BR.deep10}`,
+              }}>
+                <img src={scene.sideImage} alt="" style={{width:'100%', height:'auto', display:'block'}}/>
+              </div>
+            </div>
+          </>
+        ) : scene.bullets ? (
+          <div style={{display:'flex', flexDirection:'column', gap:16}}>
+            <div style={{display:'flex', flexDirection:'column', gap:14}}>
+              {scene.bullets.map((b, i) => (
+                <div key={i} style={{display:'flex', gap:14, alignItems:'flex-start'}}>
+                  <div style={{
+                    width:8, height:8, borderRadius:'50%',
+                    background:accent, marginTop:6, flexShrink:0,
+                    boxShadow:`0 0 0 3px ${accent}28`,
+                  }}/>
+                  <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{b}</p>
+                </div>
+              ))}
+            </div>
+            {scene.charSpeech && <CharSpeech text={scene.charSpeech}/>}
           </div>
         ) : scene.body ? (
           <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{scene.body}</p>
@@ -1266,12 +1315,17 @@ function SceneCard({ idx, scene, pid, accent }) {
                   borderRadius:10, overflow:'hidden',
                   boxShadow:'0 2px 12px rgba(26,58,58,.1)',
                   border:`1px solid ${BR.deep10}`,
-                  background:'#111',
+                  ...(scene.sectionImages.cover ? {height:220} : {}),
                 }}>
                   <img
                     src={src}
                     alt=""
-                    style={{width:'100%', height:'auto', display:'block'}}
+                    style={{
+                      width:'100%', display:'block',
+                      ...(scene.sectionImages.cover
+                        ? {height:'100%', objectFit:'cover', objectPosition:'center'}
+                        : {height:'auto'}),
+                    }}
                   />
                 </div>
               ))}
