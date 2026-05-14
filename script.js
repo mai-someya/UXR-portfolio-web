@@ -1688,11 +1688,12 @@ const SIDE_QUEST_CATS = [
         ],
       },
       {
-        textSide:'right', imgHeight:260,
+        textSide:'right', imgHeight:260, textSize:16,
         placeholder:"My favorite adventure has been adopting our son (yes, son) Alfie from PAWS. He is my adventure buddy and has joined us on countless hiking, backpacking, and camping trips. He loves eating chicken and barking at squirrels.",
         images:[
-          { src:'images/alfie.JPEG',      pos:'center' },
-          { src:'images/board game.jpeg', pos:'center' },
+          { src:'images/alfie 1.jpeg', pos:'center' },
+          { src:'images/alfie 2.jpeg', pos:'center' },
+          { src:'images/alfie 3.jpeg', pos:'center' },
         ],
       },
     ],
@@ -1828,7 +1829,7 @@ function SideQuestPage({ category, onClose }) {
                   minHeight:row.imgHeight,
                 }}>
                   <p className="br-body" style={{
-                    color:BR.deep70, fontStyle:'italic', margin:0, lineHeight:1.65, fontSize:14,
+                    color:BR.deep70, fontStyle:'italic', margin:0, lineHeight:1.65, fontSize: row.textSize || 14,
                   }}>
                     {row.content
                       ? row.content.map((part, pi) =>
