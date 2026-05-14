@@ -143,7 +143,7 @@ const PROJECTS = [
     method:'Literature review · stakeholder workshops · qualitative interviews',
     highlight:'Artifact Adopted by Leadership',
     color: BR.meadow, colorDk:'#6FB370',
-    pos:{ x:33, y:42 },
+    pos:{ x:36, y:42 },
     bg:'linear-gradient(180deg, #BFE9D0 0%, #A8DFA0 100%)',
     scenes:[
       { name:'Intro', icon:'telescope',
@@ -188,6 +188,11 @@ const PROJECTS = [
           title:'JTBD Framework Examples',
           paths:['images/services tool adoption-framework example 1.png','images/services tool adoption-framework example 2.png'],
         },
+        quotes:[{
+          char:'images/char-wizard.png',
+          label:'Lead/Principal PM (Annual Review Feedback)',
+          text:"Your Tool Adoption Research was not only thorough and reflective of critical business priorities but also recognized by the XNFL team as highly impactful in shaping GTM strategy and product roadmap prioritization. This demonstrated your ability to generate insights that resonate across cross-functional stakeholders and directly influence business strategy.",
+        }],
       },
     ],
   },
@@ -198,7 +203,7 @@ const PROJECTS = [
     method:'AI-assisted market sizing · interviews · rapid prototype testing',
     highlight:'Ambiguous Brief, AI Workflow',
     color: BR.sky, colorDk:'#56AFC1',
-    pos:{ x:51, y:26 },
+    pos:{ x:51, y:25 },
     bg:'linear-gradient(180deg, #BFE9EE 0%, #F2E2BD 100%)',
     scenes:[
       { name:'Intro', icon:'telescope',
@@ -243,7 +248,7 @@ const PROJECTS = [
     method:'Moderated interviews · discrete choice · unmoderated usability',
     highlight:'Executive Visibility, Engineer Constraints',
     color:'#D9E3E5', colorDk:'#8FA8AB',
-    pos:{ x:38, y:74 },
+    pos:{ x:39, y:78 },
     bg:'linear-gradient(180deg, #C5D5D8 0%, #8FA8AB 100%)',
     scenes:[
       { name:'Intro', icon:'telescope',
@@ -276,13 +281,32 @@ const PROJECTS = [
           'A fee kills the value proposition: sellers view [X]\'s no-fee model as its core benefit. Introducing a charge doesn\'t reduce adoption — it eliminates it.',
           'Auto-reconciliation isn\'t a nice-to-have — it\'s a table stake. Sellers expect [X] in Square to behave like every other payment method: funds land automatically, invoice status updates instantly. Manual reconciliation made the integration feel less reliable than using [X] directly.',
           'Square Checking was assumed to have fees or lack core banking features. This misconception reframed the adoption decision from "try a new feature" to "switch my bank" before sellers even evaluated the integration. New messaging highlighting "free" and the ability to deposit checks & cash directly drove copy and value prop updates.',
-        ] },
+        ],
+        quotes:[
+          {
+            char:'images/char-fox.png',
+            label:'Fees',
+            text:"Yeah, I'll tell you this right off the jump. If Square is going to charge me a processing fee to process this transaction, I'm never going to use it because why would I have Square take 1% of this transaction? The first thing that came [to mind is] \"what is the processing fee?\"",
+          },
+          {
+            char:'images/char-goat.png',
+            label:'Reconciliation',
+            text:"The key factor for us turning that on would be that it's pretty much automated. And so if it were to go to our bank account we're still going through the manual way of marking it paid as. It makes it not an incentive to want to turn that button on.",
+          },
+        ],
+      },
       { name:'Impact', icon:'rocket',
         bullets:[
           '3 key launch risks identified and acted on: fee model changed to free; manual reconciliation removed; Square Checking messaging updated to address misconceptions head-on.',
           'Enabled Alpha to ship in 3 months by scoping and overseeing a 3-track research program across two audiences, two product surfaces, and two partner researchers.',
           'Shared early, unpolished signals with senior PMs and design weekly — by the time findings were formalized, the team had already begun stress-testing solutions with engineering, accelerating decision-making without waiting for a final readout.',
-        ] },
+        ],
+        quotes:[{
+          char:'images/char-captain.png',
+          label:'Senior Design Partner',
+          text:"Working with Mai on the X Alpha research project has been a genuine pleasure. She is an incredibly talented and dedicated research partner, and I've enjoyed collaborating and learning from her... The key findings she delivered were instrumental in shaping the Alpha and continue to be referenced and shared with cross-functional partners almost weekly. Mai also played a key role in refining the initial end-to-end flows for the X MVP. Even with significant implementation constraints, she used seller insights to surface flaws in the proposed MVP experience, which ultimately secured buy-in and guided the team toward a much stronger MVP direction.",
+        }],
+      },
     ],
   },
   { id:'town',     tag:'Generative Research', icon:'home',
@@ -292,7 +316,7 @@ const PROJECTS = [
     method:'Survey',
     highlight:'Self-Initiated Research',
     color: BR.gold, colorDk:'#C99E25',
-    pos:{ x:59, y:47 },
+    pos:{ x:62, y:55 },
     bg:'linear-gradient(180deg, #F8D673 0%, #F5C842 100%)',
     scenes:[
       { name:'Intro', icon:'telescope',
@@ -318,7 +342,13 @@ const PROJECTS = [
           '3 different product teams scoped down or removed voice AI from their product roadmap based on findings.',
           'Direct team saved an estimated ½ to 1 quarter of misallocated resources.',
           'Cited in, and strengthened, a company-wide AI framework.',
-        ] },
+        ],
+        quotes:[{
+          char:'images/char-queen.png',
+          label:'Manager (Annual Review Feedback)',
+          text:"You showed good instincts for where research was or wasn't needed, including flagging a need for Voice AI research. Your openness to broadening the scope and lens of that research helped it become a valuable input to decisions being made across Square ([redacted], inventory, etc.), not just their direct team.",
+        }],
+      },
     ],
   },
 ];
@@ -636,12 +666,12 @@ function IslandMap({ onOpen }) {
   // Hotspot zones over map2.png displayed with objectFit:'contain'.
   // Image is square (1254×1254) in a 16:10 container → rendered at 62.5% of width,
   // centred with 18.75% margins each side.
-  // Zone left/width are already converted: container_x = 18.75 + img_x * 0.625
+  // container_x = 18.75 + img_x * 0.625  |  container_y = img_y (unchanged)
   const ZONES = [
-    { id:'beach',    zIndex:5, style:{ left:'34%', top:'2%',  width:'34%', height:'50%' } }, // Mountains
-    { id:'forest',   zIndex:4, style:{ left:'20%', top:'12%', width:'27%', height:'57%' } }, // Forest
-    { id:'town',     zIndex:4, style:{ left:'46%', top:'22%', width:'28%', height:'50%' } }, // City
-    { id:'mountain', zIndex:6, style:{ left:'21%', top:'58%', width:'34%', height:'36%' } }, // Beach
+    { id:'beach',    zIndex:5, style:{ left:'36%', top:'3%',  width:'30%', height:'47%' } }, // Mountains (upper center)
+    { id:'forest',   zIndex:4, style:{ left:'21%', top:'15%', width:'31%', height:'55%' } }, // Forest (left)
+    { id:'town',     zIndex:4, style:{ left:'49%', top:'30%', width:'27%', height:'50%' } }, // City (right)
+    { id:'mountain', zIndex:6, style:{ left:'25%', top:'65%', width:'28%', height:'30%' } }, // Beach (bottom)
   ];
 
   return (
@@ -1520,6 +1550,15 @@ function SceneCard({ idx, scene, pid, accent }) {
             </div>
           </div>
         )}
+
+        {/* Character quotes — stakeholder feedback & seller clips */}
+        {scene.quotes && scene.quotes.length > 0 && (
+          <div style={{display:'flex', flexDirection:'column', gap:16, marginTop:24}}>
+            {scene.quotes.map((q, qi) => (
+              <CharQuote key={qi} src={q.char} text={q.text} label={q.label}/>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1699,6 +1738,50 @@ const SIDE_QUEST_CATS = [
     ],
   },
 ];
+
+// ─── Character quote bubble (stakeholder / seller quotes) ────────────────
+function CharQuote({ src, text, label }) {
+  return (
+    <div>
+      {label && (
+        <div className="br-cap" style={{color:BR.deep50, marginBottom:8}}>{label}</div>
+      )}
+      <div style={{display:'flex', gap:12, alignItems:'flex-start'}}>
+        {/* Character avatar */}
+        <div style={{
+          width:60, height:72, borderRadius:12, overflow:'hidden', flexShrink:0,
+          background:`linear-gradient(180deg, ${BR.foam} 0%, rgba(242,248,248,.6) 100%)`,
+          border:`1px solid ${BR.deep10}`,
+          display:'flex', alignItems:'flex-end', justifyContent:'center',
+          boxShadow:'0 2px 8px rgba(26,58,58,.1)',
+        }}>
+          <img src={src} draggable={false}
+            style={{width:54, height:66, objectFit:'contain', objectPosition:'bottom center', display:'block'}}/>
+        </div>
+        {/* Bubble */}
+        <div style={{position:'relative', flex:1}}>
+          <div style={{
+            position:'absolute', left:-8, top:16,
+            width:0, height:0,
+            borderTop:'7px solid transparent',
+            borderRight:`9px solid #fff`,
+            borderBottom:'7px solid transparent',
+            filter:'drop-shadow(-1px 0 1px rgba(26,58,58,.06))',
+          }}/>
+          <div style={{
+            background:'#fff', borderRadius:'2px 14px 14px 14px',
+            padding:'13px 16px',
+            boxShadow:'0 2px 12px rgba(26,58,58,.1), 0 1px 3px rgba(26,58,58,.06)',
+          }}>
+            <p className="br-body" style={{
+              fontSize:14, color:BR.deep70, margin:0, fontStyle:'italic', lineHeight:1.65,
+            }}>"{text}"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function HoverTooltip({ text, label }) {
   const [visible, setVisible] = aUseState(false);
