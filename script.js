@@ -200,16 +200,90 @@ const PROJECTS = [
     color: BR.sky, colorDk:'#56AFC1',
     pos:{ x:51, y:26 },
     bg:'linear-gradient(180deg, #BFE9EE 0%, #F2E2BD 100%)',
+    scenes:[
+      { name:'Intro', icon:'telescope',
+        body:'Enabling sellers to grow their recurring revenue was a net new strategic pillar for the Services team. Square had a X feature with low adoption. The hypothesis: its language and structure skewed too retail for service sellers. But the real question was bigger: is X even the right model, or is the opportunity in Y?' },
+      { name:'Objective', icon:'flag',
+        body:'The goal was to determine what to anchor the product strategy on: X, Y or something else. Y was the leading hypothesis, but without knowing where X and Y structurally overlapped, and understanding the opportunity size, the team didn\'t know what or how to build.' },
+      { name:'Approach', icon:'tools',
+        layout:'approach',
+        intro:'The original ask was big: a foundational discovery AND market sizing but we had no time to do both rigorously. I pushed back — we agreed to deprioritize market sizing and focus on qualitative discovery. The website audit changed that. It gave us a starting point for the discussion guide and revealed that market sizing was answerable without a full quant study.',
+        preSpeech:'It was an ambiguous ask so I started with what we knew & had access to: existing research and business websites to answer what we could before interviews and to inform the discussion guide.',
+        methods:[
+          { num:'1/', title:'Website Audit', body:'Reviewed 20 websites to confirm language differences across 3 industries before committing to a larger sizing exercise.' },
+          { num:'2/', title:'Sizing',        body:'Computational Web Scraping (1,000+ sites, AI-assisted): used AI to generate Python and R scripts to quantify language as a market-sizing proxy.' },
+          { num:'3/', title:'Interviews',   body:'Qualitative Interviews (n=13): used to understand workflows, pain points, and JsTBD — info not on websites or past research.' },
+          { num:'4/', title:'Hack Week',    body:'I identified an opportunity to test a subscription upsell at checkout (web), a direct lever for the recurring strategy. I ran rapid prototype testing (n=12) in parallel without disrupting the core research program.' },
+          { num:'5/', title:'Deliverable',  body:'A topline one-pager with design principles. The PM and designer aligned on the strategic direction and began sequencing the build.' },
+        ],
+        postSpeech:'The website audit confirmed meaningful differences by audience and inspired me to attempt a market sizing exercise, which was originally out of scope.',
+        postSpeechCol:2,
+        closingSpeech:'Project closed due to layoff before the broader share-out.',
+        closingSpeechCol:5,
+      },
+      { name:'Findings', icon:'bulb',
+        bullets:[
+          'Language differed by vertical — and signaled different product expectations. Health & beauty sellers used "Y"; services, retail, and food & beverage sellers used "X" or "recurring service". Scraping 1,000+ sites confirmed this at scale.',
+          'Y involves ad hoc scheduling built around an ongoing relationship; X runs on a fixed, automated schedule with little relational depth.',
+          'The most consistent pain point: management burden. A customer-facing surface for self-management is necessary to drive adoption.',
+          'Despite X showing a larger raw opportunity, Y was the recommendation since it\'s more aligned to Square\'s broader strategy and buildable on existing X infrastructure. Fix X first, layer Y on top. One sequenced build, not two.',
+        ] },
+      { name:'Impact', icon:'rocket',
+        bullets:[
+          'Directly informed product strategy on how to approach a net-new strategic pillar. Got buy-in from the Principal PM without significant pushback — the recommendation was grounded in seller evidence and tied clearly to Square\'s broader strategy.',
+          'What was scoped as a single-feature focus became a phased, component-sharing roadmap.',
+          'Hack Week sprint took a X upsell concept from initial prototype to user-validated, build-ready design in one week — earned verbal commitment from the Principal PM to allocate engineering resources, and was presented as a case study in research and design crit as a model for AI-assisted rapid testing.',
+        ] },
+    ],
   },
   { id:'mountain', tag:'Generative + Evaluative Research', icon:'mountain',
     title:'P2P Payment Integration',
     subtitle:'Informed design + product strategy',
     timeline:'6 weeks',
-    method:'Interviews · concept testing',
+    method:'Moderated interviews · discrete choice · unmoderated usability',
     highlight:'Executive Visibility, Engineer Constraints',
     color:'#D9E3E5', colorDk:'#8FA8AB',
     pos:{ x:38, y:74 },
     bg:'linear-gradient(180deg, #C5D5D8 0%, #8FA8AB 100%)',
+    scenes:[
+      { name:'Intro', icon:'telescope',
+        body:'Square\'s core business is card processing, but an estimated $XB annually was flowing off-platform through [X], and sellers had been asking for a native integration for years. The opportunity was real, but so was the tension: the integration needed to deliver business value without cannibalizing card revenue.',
+        body2:'Two levers were on the table: a transaction fee and a Square Checking requirement. Engineering constraints meant the Alpha couldn\'t support auto-reconciliation. The team suspected all three would muddy the Alpha signal — making it impossible to tell whether low adoption meant the product didn\'t work, or just that the friction did. A successful Alpha would unlock expansion beyond Invoices into higher-volume surfaces like in-person checkout.',
+      },
+      { name:'Objective', icon:'flag',
+        body:'Validate adoption potential for a native [X] integration and optimize the Alpha designs to reflect real user expectations — even where business and engineering constraints limited what was possible.',
+      },
+      { name:'Approach', icon:'tools',
+        layout:'approach',
+        intro:'I structured the research to pressure-test the assumptions and friction points most likely to distort the Alpha signal, so any drop-off would reflect real demand — not bad UX.',
+        bullets:[
+          'I brought in a quant UXR to run a discrete choice and a rapid researcher for the buyer usability test to stay within the timeline without sacrificing depth.',
+          'I included buyer research to gauge comprehension of the multi-step payment flow, ensuring B2C signal wasn\'t crowded out by the seller workstreams.',
+          'I chose a moderated interview for the seller flow because it had constraints that needed explaining, required deep probing, and needed discovery questions to capture off-platform [X] behaviors and mental models.',
+          'Delivered as a shareable document — anticipated to be broadly shared across the org, presented to executive and director-level stakeholders, and cited in a company-wide strategy presentation.',
+        ],
+        methods:[
+          { num:'1/', title:'Seller Experience',
+            body:'n=9 moderated interviews with Square Invoices sellers who currently use [X] · 60-min sessions including prototype test · 4 weeks' },
+          { num:'2/', title:'Pricing Survey',
+            body:'n=1,000 · Discrete Choice · 3 concepts across 3 pricing structures · 4 weeks' },
+          { num:'3/', title:'Buyer Experience',
+            body:'n=8 buyers who use [X] and have paid with a Square invoice · Unmoderated usability test via UserTesting · 1 week' },
+        ],
+      },
+      { name:'Findings', icon:'bulb',
+        bullets:[
+          'A fee kills the value proposition: sellers view [X]\'s no-fee model as its core benefit. Introducing a charge doesn\'t reduce adoption — it eliminates it.',
+          'Auto-reconciliation isn\'t a nice-to-have — it\'s a table stake. Sellers expect [X] in Square to behave like every other payment method: funds land automatically, invoice status updates instantly. Manual reconciliation made the integration feel less reliable than using [X] directly.',
+          'Square Checking was assumed to have fees or lack core banking features. This misconception reframed the adoption decision from "try a new feature" to "switch my bank" before sellers even evaluated the integration. New messaging highlighting "free" and the ability to deposit checks & cash directly drove copy and value prop updates.',
+        ] },
+      { name:'Impact', icon:'rocket',
+        bullets:[
+          '3 key launch risks identified and acted on: fee model changed to free; manual reconciliation removed; Square Checking messaging updated to address misconceptions head-on.',
+          'Enabled Alpha to ship in 3 months by scoping and overseeing a 3-track research program across two audiences, two product surfaces, and two partner researchers.',
+          'Shared early, unpolished signals with senior PMs and design weekly — by the time findings were formalized, the team had already begun stress-testing solutions with engineering, accelerating decision-making without waiting for a final readout.',
+        ] },
+    ],
   },
   { id:'town',     tag:'Generative Research', icon:'home',
     title:'Voice AI Research',
@@ -220,6 +294,32 @@ const PROJECTS = [
     color: BR.gold, colorDk:'#C99E25',
     pos:{ x:59, y:47 },
     bg:'linear-gradient(180deg, #F8D673 0%, #F5C842 100%)',
+    scenes:[
+      { name:'Intro', icon:'telescope',
+        body:'Voice AI had momentum at Square — multiple teams, including mine, were building, scoping, and investing in new features independently. The problem: no one had asked sellers what they actually needed, or whether voice AI fit into their workflow at all. Teams were aligning around features before understanding where they\'d have the strongest impact and adoption.',
+      },
+      { name:'Objective', icon:'flag',
+        body:'Identify if, and where, voice AI fit in user workflows across the use cases teams were already exploring.',
+      },
+      { name:'Approach', icon:'tools',
+        body:'A qualitative approach would have generated hypotheses. I needed evidence, fast. Teams were already mid-build — waiting on a larger study wasn\'t an option.',
+        body2:'I chose a quick-turn quantitative survey (n=400 across 4 industries) because the findings had to be both timely and defensible. The industries mapped directly to Square\'s product structure so findings landed with each stakeholder.',
+        body3:'Shared as a deck and recording to accommodate holiday timing. Supplemented with individual readouts for teams with immediate decisions to make.',
+      },
+      { name:'Findings', icon:'bulb',
+        bullets:[
+          'Receptivity to voice AI is context-dependent. Sellers factor in environment (background noise, privacy, comfort speaking aloud) and error cost — how much damage a wrong response could do — before they\'d consider it useful.',
+          'Sellers were most open to voice AI on routine, repetitive tasks. Comfort with complex or high-stakes tasks was low. Routine use cases aren\'t the ceiling — they\'re the bridge to broader adoption, which teams had been skipping over.',
+        ],
+        charSpeech:'For teams where findings contradicted their direction, I shared learnings early with triangulated evidence from prior research and added seller clips to help stakeholders deeply understand seller needs. This led to any pushback being resolved before the final report was shared.',
+      },
+      { name:'Impact', icon:'rocket',
+        bullets:[
+          '3 different product teams scoped down or removed voice AI from their product roadmap based on findings.',
+          'Direct team saved an estimated ½ to 1 quarter of misallocated resources.',
+          'Cited in, and strengthened, a company-wide AI framework.',
+        ] },
+    ],
   },
 ];
 
@@ -1188,15 +1288,34 @@ function SceneCard({ idx, scene, pid, accent }) {
               color:BR.deep, margin:'0 0 20px 0', fontWeight:700,
             }}>{scene.intro}</p>
 
-            {/* Character speech — Lit Review context (left-anchored, stops ~halfway) */}
-            <div style={{maxWidth:'55%', marginBottom:20}}>
-              <CharSpeech text={scene.preSpeech}/>
-            </div>
+            {/* Optional pre-speech (left-anchored, stops ~halfway) */}
+            {scene.preSpeech && (
+              <div style={{maxWidth:'55%', marginBottom:20}}>
+                <CharSpeech text={scene.preSpeech}/>
+              </div>
+            )}
 
-            {/* 4 method cards — brand typography */}
+            {/* Optional approach bullets — shown between intro and cards */}
+            {scene.bullets && (
+              <div style={{display:'flex', flexDirection:'column', gap:10, marginBottom:20}}>
+                {scene.bullets.map((b, i) => (
+                  <div key={i} style={{display:'flex', gap:12, alignItems:'flex-start'}}>
+                    <div style={{
+                      width:6, height:6, borderRadius:'50%',
+                      background:accent, marginTop:7, flexShrink:0,
+                      boxShadow:`0 0 0 2px ${accent}30`,
+                    }}/>
+                    <p className="br-body" style={{fontSize:14, color:BR.deep70, margin:0, lineHeight:1.65}}>{b}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* N method cards — dynamic column count */}
             <div style={{
-              display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:12,
-              marginBottom:20,
+              display:'grid',
+              gridTemplateColumns:`repeat(${scene.methods.length}, 1fr)`,
+              gap:12, marginBottom:20,
             }}>
               {scene.methods.map((m, i) => (
                 <div key={i} style={{
@@ -1220,10 +1339,27 @@ function SceneCard({ idx, scene, pid, accent }) {
               ))}
             </div>
 
-            {/* Character speech — Workshop (aligned to 3rd column, bubble to the right) */}
-            <div style={{marginLeft:'calc(50% + 4px)'}}>
-              <CharSpeech text={scene.postSpeech}/>
-            </div>
+            {/* Post speech — aligned to its corresponding phase column */}
+            {scene.postSpeech && (()=>{
+              const col = scene.postSpeechCol || 3;
+              const pct = Math.round((col-1) / scene.methods.length * 100);
+              return (
+                <div style={{marginLeft:`${pct}%`, marginBottom: scene.closingSpeech ? 16 : 0}}>
+                  <CharSpeech text={scene.postSpeech}/>
+                </div>
+              );
+            })()}
+
+            {/* Closing speech — aligned to its corresponding phase column */}
+            {scene.closingSpeech && (()=>{
+              const col = scene.closingSpeechCol || scene.methods.length;
+              const pct = Math.round((col-1) / scene.methods.length * 100);
+              return (
+                <div style={{marginLeft:`${pct}%`}}>
+                  <CharSpeech text={scene.closingSpeech}/>
+                </div>
+              );
+            })()}
           </>
         ) : scene.layout === 'findings' ? (
           <>
@@ -1283,7 +1419,15 @@ function SceneCard({ idx, scene, pid, accent }) {
             {scene.charSpeech && <CharSpeech text={scene.charSpeech}/>}
           </div>
         ) : scene.body ? (
-          <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{scene.body}</p>
+          <>
+            <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{scene.body}</p>
+            {scene.body2 && (
+              <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:'12px 0 0 0', lineHeight:1.65}}>{scene.body2}</p>
+            )}
+            {scene.body3 && (
+              <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:'12px 0 0 0', lineHeight:1.65}}>{scene.body3}</p>
+            )}
+          </>
         ) : (
           <>
             <p className="br-body" style={{fontSize:15, color:BR.deep50, marginBottom:14, lineHeight:1.65, fontStyle:'italic'}}>{scene.hint}</p>
