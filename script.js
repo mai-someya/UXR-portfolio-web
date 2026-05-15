@@ -57,6 +57,8 @@ const ICONS = {
   'tools':         <><path d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4"/><path d="M14.5 5.5l4 4"/><path d="M12 8l-5 -5l-4 4l5 5"/></>,
   'rocket':        <><path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3"/><path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3"/></>,
   'linkedin':      <><path d="M4 4m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M3 9l0 11"/><path d="M9 9l0 11"/><path d="M9 13a3 3 0 0 1 6 0l0 7"/></>,
+  'users':         <><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></>,
+  'chart-bar':     <><path d="M3 12h4v9h-4z"/><path d="M9 7h4v14h-4z"/><path d="M15 3h4v18h-4z"/></>,
 };
 
 function Icon({ name, size=20, color, stroke=2, className='', style }) {
@@ -146,11 +148,11 @@ const PROJECTS = [
     pos:{ x:36, y:42 },
     bg:'linear-gradient(180deg, #BFE9D0 0%, #A8DFA0 100%)',
     scenes:[
-      { name:'Intro', icon:'telescope',
+      { name:'Intro', icon:'file-text',
         body:'Sellers were using third-party tools to fill gaps for jobs that Square already supports. The team needed a more comprehensive and cohesive suite of tools, but didn\'t know what to prioritize or how to execute.' },
       { name:'Objective', icon:'flag',
         body:'Define how service-based businesses adopt tools across their workflow, identify the jobs those tools are hired to do, and determine where Square has the strongest opportunity to close the gap — so the team could prioritize the product roadmap with confidence rather than assumption.' },
-      { name:'Approach', icon:'tools',
+      { name:'Approach', icon:'compass',
         layout:'approach',
         intro:'Foundational research requires rigor. I designed a multi-method approach to ensure comprehensive coverage before drawing conclusions.',
         preSpeech:'I initially tried to explore internal data, but realized we need primary research since it was common that tool usage happened outside of Square.',
@@ -206,11 +208,11 @@ const PROJECTS = [
     pos:{ x:51, y:25 },
     bg:'linear-gradient(180deg, #BFE9EE 0%, #F2E2BD 100%)',
     scenes:[
-      { name:'Intro', icon:'telescope',
+      { name:'Intro', icon:'file-text',
         body:'Enabling sellers to grow their recurring revenue was a net new strategic pillar for the Services team. Square had X feature with low adoption. The hypothesis: its language and structure skewed too retail for service sellers. But the real question was bigger: is X even the right model, or is the opportunity in Y?' },
       { name:'Objective', icon:'flag',
         body:'The goal was to determine what to anchor the product strategy on: X, Y or something else. Y was the leading hypothesis, but without knowing where X and Y structurally overlapped, and understanding the opportunity size, the team didn\'t know what or how to build.' },
-      { name:'Approach', icon:'tools',
+      { name:'Approach', icon:'compass',
         layout:'approach',
         intro:'The original ask was big: a foundational discovery AND market sizing but we had no time to do both rigorously. I pushed back — we agreed to deprioritize market sizing and focus on qualitative discovery. The website audit changed that. It gave us a starting point for the discussion guide and revealed that market sizing was answerable without a full quant study.',
         preSpeech:'It was an ambiguous ask so I started with what we knew & had access to: existing research and business websites to answer what we could before interviews and to inform the discussion guide.',
@@ -251,14 +253,14 @@ const PROJECTS = [
     pos:{ x:39, y:78 },
     bg:'linear-gradient(180deg, #C5D5D8 0%, #8FA8AB 100%)',
     scenes:[
-      { name:'Intro', icon:'telescope',
+      { name:'Intro', icon:'file-text',
         body:'Square\'s core business is card processing, but an estimated $XB annually was flowing off-platform through [X], and sellers had been asking for a native integration for years. The opportunity was real, but so was the tension: the integration needed to deliver business value without cannibalizing card revenue.',
         body2:'Two levers were on the table: a transaction fee and a Square Checking requirement. Engineering constraints meant the Alpha couldn\'t support auto-reconciliation. The team suspected all three would muddy the Alpha signal — making it impossible to tell whether low adoption meant the product didn\'t work, or just that the friction did. A successful Alpha would unlock expansion beyond Invoices into higher-volume surfaces like in-person checkout.',
       },
       { name:'Objective', icon:'flag',
         body:'Validate adoption potential for a native [X] integration and optimize the Alpha designs to reflect real user expectations — even where business and engineering constraints limited what was possible.',
       },
-      { name:'Approach', icon:'tools',
+      { name:'Approach', icon:'compass',
         layout:'approach',
         intro:'I structured the research to pressure-test the assumptions and friction points most likely to distort the Alpha signal, so any drop-off would reflect real demand — not bad UX.',
         bullets:[
@@ -318,13 +320,13 @@ const PROJECTS = [
     pos:{ x:62, y:55 },
     bg:'linear-gradient(180deg, #F8D673 0%, #F5C842 100%)',
     scenes:[
-      { name:'Intro', icon:'telescope',
+      { name:'Intro', icon:'file-text',
         body:'Voice AI had momentum at Square — multiple teams, including mine, were building, scoping, and investing in new features independently. The problem: no one had asked sellers what they actually needed, or whether voice AI fit into their workflow at all. Teams were aligning around features before understanding where they\'d have the strongest impact and adoption.',
       },
       { name:'Objective', icon:'flag',
         body:'Identify if, and where, voice AI fit in user workflows across the use cases teams were already exploring.',
       },
-      { name:'Approach', icon:'tools',
+      { name:'Approach', icon:'compass',
         body:'A qualitative approach would have generated hypotheses. I needed evidence, fast. Teams were already mid-build — waiting on a larger study wasn\'t an option.',
         body2:'I chose a quick-turn quantitative survey (n=400 across 4 industries) because the findings had to be both timely and defensible. The industries mapped directly to Square\'s product structure so findings landed with each stakeholder.',
         body3:'Shared as a deck and recording to accommodate holiday timing. Supplemented with individual readouts for teams with immediate decisions to make.',
@@ -457,7 +459,7 @@ function Hero() {
               From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
             </p>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
-              At my core, I'm a learner and endlessly curious and always pushing the edges of what I know. I built this portfolio using Claude Code, VS Code, HTML, and JavaScript, having never coded before, because that's the same mindset I bring to every role: embrace the unfamiliar, try new tools, and figure it out.
+              At my core, I'm a learner, endlessly curious, and always pushing the edges of what I know. I built this portfolio using Claude Code, VS Code, HTML, and JavaScript, having never coded before. That's the same mindset I bring to every role: embrace the unfamiliar, try new tools, and figure it out.
             </p>
           </div>
 
@@ -1182,9 +1184,9 @@ function ProjectsGrid({ onOpen }) {
 function QuestPage({ project, onClose }) {
   if (!project) return null;
   const DEFAULT_SCENES = [
-    { name:'Intro',      icon:'telescope', hint:'Overview and background of the project.' },
+    { name:'Intro',      icon:'file-text', hint:'Overview and background of the project.' },
     { name:'Objective',  icon:'flag',      hint:'The business question and research goals we were trying to answer.' },
-    { name:'Approach',   icon:'tools',     hint:'Study design · participants · timeline · my role.' },
+    { name:'Approach',   icon:'compass',   hint:'Study design · participants · timeline · my role.' },
     { name:'Findings',   icon:'bulb',      hint:'Top insights with supporting data, quotes, and clips.' },
     { name:'Impact',     icon:'rocket',    hint:'Shipped decisions, downstream artifacts, and measurable outcomes.' },
     { name:'Reflection', icon:'book',      hint:'What I\'d do differently next time + key learnings.' },
@@ -1254,6 +1256,12 @@ function QuestPage({ project, onClose }) {
         </div>
 
         <div style={{padding:'32px 32px 40px'}}>
+          <div style={{marginBottom:20}}>
+            <CharQuote
+              src={window.__resources.alfieFront}
+              text={`At Square, we call our users "sellers" and our seller's customers "buyers". You'll see this language throughout.`}
+            />
+          </div>
           <div className="br-cap" style={{marginBottom:14, color:BR.teal}}>
             <Icon name="route" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
             Walk the path · scroll to explore
@@ -1681,25 +1689,25 @@ const SIDE_QUEST_CATS = [
     ],
   },
   {
-    id:'market', label:'Market Research', icon:'telescope',
+    id:'market', label:'Market Research', icon:'users',
     colorDk:'#56AFC1',
     bg:'linear-gradient(135deg, rgba(125,212,224,.18) 0%, #F2F8F8 100%)',
     sections:[],
     bullets:[
       'Redefined Square Invoices\' ideal customer profile by leading a qualitative research program across 20 sellers, replacing a volume-only audience definition with a complexity-based segmentation framework adopted by leadership, marketing, and sales — directly shifting campaign targeting strategy and informing pitch deck content for prospective customers.',
-      'Placeholder — add your next market research highlight here.',
-      'Placeholder — add your next market research highlight here.',
+      'Led 50+ consumer research studies across journey mapping, segmentation, and benchmarking for Fortune 100 clients (Google, Samsung, Philips, Bank of America) — applied Discrete Choice, MaxDiff, KANO, TURF, and Segmentation to answer complex product, pricing, and positioning questions.',
+      'Conducted rapid 10-day qualitative research for the CMO to diagnose abnormal acquisition patterns during COVID, analyzing 15 unmoderated interviews to surface macro and micro behavioral shifts that directly informed future marketing strategy timing.',
     ],
   },
   {
-    id:'quant', label:'Quantitative', icon:'tools',
+    id:'quant', label:'Quantitative', icon:'chart-bar',
     colorDk:'#6D8A8E',
     bg:'linear-gradient(135deg, rgba(143,168,171,.22) 0%, #F2F8F8 100%)',
     sections:[],
     bullets:[
       'Designed and launched Square\'s first consolidated CSAT program spanning 38 products and 4,000+ respondents, replacing siloed per-team surveys. Program was among the first internal signals to identify churn as a company-wide risk, directly informing executive annual planning up to the CEO level.',
       'Fielded a large-scale survey (n=628) among hair salon sellers to quantify feature prioritization preferences for a calendar redesign serving 500K+ users, integrating findings with 10 moderated interviews to influence prioritization of five roadmap features and drive a 5% post-launch improvement in customer satisfaction.',
-      'Placeholder — add your next quantitative research highlight here.',
+      'Identified a gap in insight velocity and built Square’s Global Monthly Quantitative Research Program (n=500) from scratch — cut turnaround from 3 months to 4 weeks, scaled from US-only to 10+ international markets, adopted across 20+ teams; established panel management, survey templates, and tagging conventions that became the team’s reusable research ops foundation.',
     ],
   },
   {
@@ -1711,7 +1719,7 @@ const SIDE_QUEST_CATS = [
       {
         textSide:'right', imgHeight:260,
         content:[
-          {t:"Technically I just really like long walks. "},
+          {t:"I love real life adventures in nature. Some highlights have been: "},
           {t:"Half Dome", tip:"16 miles"},
           {t:", "},
           {t:"Mt. Whitney", tip:"22 miles"},
@@ -1735,7 +1743,11 @@ const SIDE_QUEST_CATS = [
       },
       {
         textSide:'right', imgHeight:260, textSize:16,
-        placeholder:"My favorite adventure has been adopting our son (yes, son) Alfie from PAWS. He is my adventure buddy and has joined us on countless hiking, backpacking, and camping trips. He loves eating chicken and barking at squirrels.",
+        content:[
+          {t:"My favorite adventure has been adopting our son (yes, son) Alfie from "},
+          {t:"PAWS", link:"https://www.paws.org/"},
+          {t:". He is my adventure buddy and has joined us on countless hiking, backpacking, and camping trips. He loves eating chicken and barking at squirrels."},
+        ],
         images:[
           { src:'images/alfie 1.jpeg', pos:'center' },
           { src:'images/alfie 2.jpeg', pos:'center' },
@@ -1917,6 +1929,7 @@ function SideQuestPage({ category, onClose }) {
 
             {/* Photo rows — rendered for categories that have them (e.g. Real Life Adventures) */}
             {category.photoRows && category.photoRows.map((row, ri) => {
+
               const imgBlock = (
                 <div style={{
                   display:'grid',
@@ -1956,6 +1969,7 @@ function SideQuestPage({ category, onClose }) {
                       ? row.content.map((part, pi) =>
                           part.strike ? <s key={pi}>{part.t}</s>
                           : part.tip  ? <HoverTooltip key={pi} text={part.t} label={part.tip}/>
+                          : part.link ? <a key={pi} href={part.link} target="_blank" rel="noopener noreferrer" style={{color:BR.teal, textDecorationColor:BR.teal, fontStyle:'normal'}}>{part.t}</a>
                           : <span key={pi}>{part.t}</span>
                         )
                       : row.placeholder
@@ -1976,6 +1990,12 @@ function SideQuestPage({ category, onClose }) {
                 </div>
               );
             })}
+
+            {category.id === 'life' && (
+              <div style={{marginTop:24}}>
+                <CharSpeech text="Hey! If you explored this far into my portfolio. Thank you for taking the time to get to know me outside of being a researcher. Hope you enjoyed reading it, as I did making it!"/>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -2070,7 +2090,7 @@ const TOOLKITS = [
     bullets:[
       'Built and socialized AI-assisted workflows: agents for charts, survey and discussion guides',
       'Researched AI adoption and user demand',
-      'Published white paper on voice AI commerce adoption (2020)',
+      { pre:'Published ', linkText:'white paper on voice AI commerce adoption (2020)', url:'https://www.ipsos.com/sites/default/files/ct/publication/documents/2020-11/ipsos_cracking_the_code_for_vcomm_nov_3.pdf' },
     ] },
   { id:'domain',   span:2, accent:'#8FA8AB', title:'Domain Expertise',
     bullets:[
@@ -2114,7 +2134,16 @@ function ResearchToolkits() {
             <ul style={{margin:0, padding:'0 0 0 16px', display:'flex', flexDirection:'column', gap:8}}>
               {t.bullets.map((b, i) => (
                 <li key={i} className="br-body" style={{fontSize:14, color:BR.deep70, lineHeight:1.6}}>
-                  {b}
+                  {typeof b === 'string' ? b : (
+                    <>
+                      {b.pre}
+                      <a href={b.url} target="_blank" rel="noopener noreferrer"
+                        style={{color:BR.teal, textDecoration:'underline', textUnderlineOffset:'2px'}}>
+                        {b.linkText}
+                      </a>
+                      {b.post || ''}
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
