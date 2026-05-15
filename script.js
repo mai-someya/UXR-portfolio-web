@@ -457,7 +457,7 @@ function Hero() {
               From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
             </p>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
-              At my core, I'm a learner — endlessly curious and always pushing the edges of what I know. I built this portfolio using Claude Code, VS Code, HTML, and JavaScript, having never coded before, because that's the same mindset I bring to every role: embrace the unfamiliar, try new tools, and figure it out.
+              At my core, I'm a learner and endlessly curious and always pushing the edges of what I know. I built this portfolio using Claude Code, VS Code, HTML, and JavaScript, having never coded before, because that's the same mindset I bring to every role: embrace the unfamiliar, try new tools, and figure it out.
             </p>
           </div>
 
@@ -611,7 +611,7 @@ function Cartographer() {
             </div>
             <div className="br-body" style={{fontSize:18}}>
               <Editable id="npc_line" multiline
-                defaultValue="Welcome, traveler! Four paths lie ahead — each a project. Hover any to glimpse what's along the road. Click to walk it and read the full tale."/>
+                defaultValue="Welcome, traveler! Four paths lie ahead — each a project. Hover any zone to glimpse what's I've been up to. Click to walk it and read the full tale."/>
             </div>
           </div>
         </div>
@@ -685,7 +685,7 @@ function IslandMap({ onOpen }) {
           <h2 className="br-h2">
             Pick a destination,{' '}
             <span className="br-display italic" style={{color:BR.teal}}>
-              see what I built there.
+              see what I've accomplished'.
             </span>
           </h2>
         </div>
@@ -1671,7 +1671,7 @@ function Footer() {
 // ─── Side Quests ──────────────────────────────────────────────────────────
 const SIDE_QUEST_CATS = [
   {
-    id:'consumer', label:'Consumer Insights', icon:'eye',
+    id:'consumer', label:'Market Research', icon:'eye',
     colorDk:'#2DAB9D',
     bg:'linear-gradient(135deg, rgba(59,191,176,.12) 0%, #F2F8F8 100%)',
     sections:[
@@ -1684,20 +1684,22 @@ const SIDE_QUEST_CATS = [
     id:'market', label:'Market Research', icon:'telescope',
     colorDk:'#56AFC1',
     bg:'linear-gradient(135deg, rgba(125,212,224,.18) 0%, #F2F8F8 100%)',
-    sections:[
-      { title:'Overview',      hint:'Describe your market research experience and scope.' },
-      { title:'Featured Work', hint:'Highlight specific projects, reports, or deliverables.' },
-      { title:'Methods Used',  hint:'List the methods, tools, and data sources you used.' },
+    sections:[],
+    bullets:[
+      'Redefined Square Invoices\' ideal customer profile by leading a qualitative research program across 20 sellers, replacing a volume-only audience definition with a complexity-based segmentation framework adopted by leadership, marketing, and sales — directly shifting campaign targeting strategy and informing pitch deck content for prospective customers.',
+      'Placeholder — add your next market research highlight here.',
+      'Placeholder — add your next market research highlight here.',
     ],
   },
   {
     id:'quant', label:'Quantitative', icon:'tools',
     colorDk:'#6D8A8E',
     bg:'linear-gradient(135deg, rgba(143,168,171,.22) 0%, #F2F8F8 100%)',
-    sections:[
-      { title:'Overview',      hint:'Describe your quantitative research experience.' },
-      { title:'Featured Work', hint:'Highlight specific analyses, surveys, or studies.' },
-      { title:'Methods Used',  hint:'List the statistical methods and tools you use.' },
+    sections:[],
+    bullets:[
+      'Designed and launched Square\'s first consolidated CSAT program spanning 38 products and 4,000+ respondents, replacing siloed per-team surveys. Program was among the first internal signals to identify churn as a company-wide risk, directly informing executive annual planning up to the CEO level.',
+      'Fielded a large-scale survey (n=628) among hair salon sellers to quantify feature prioritization preferences for a calendar redesign serving 500K+ users, integrating findings with 10 moderated interviews to influence prioritization of five roadmap features and drive a 5% post-launch improvement in customer satisfaction.',
+      'Placeholder — add your next quantitative research highlight here.',
     ],
   },
   {
@@ -1709,15 +1711,13 @@ const SIDE_QUEST_CATS = [
       {
         textSide:'right', imgHeight:260,
         content:[
-          {t:"This probably isn't a surprise, but as someone who lives in the PNW, I love "},
-          {t:"walking a lot in", strike:true},
-          {t:" nature. I've chilled out a bit since hiking "},
+          {t:"Technically I just really like long walks. "},
           {t:"Half Dome", tip:"16 miles"},
           {t:", "},
           {t:"Mt. Whitney", tip:"22 miles"},
           {t:", and the "},
           {t:"Inca Trail to Machu Picchu", tip:"25 miles"},
-          {t:" and mainly stick to smaller adventures with my partner and dog Alfie around the PNW. In an attempt to give my knees a break, I've recently gotten into bikepacking (yes, that's biking + backpacking, and yes, it's as chaotic and wonderful as it sounds)."},
+          {t:" These days I've chilled out a bit and mainly stick to smaller adventures with my partner and dog Alfie around the PNW, and in an attempt to give my knees a break, I've recently gotten into bikepacking (yes, that's biking + backpacking, and yes, it's as chaotic and wonderful as it sounds)."},
         ],
         images:[
           { src:'images/Half Dome.jpg',    pos:'center top' },
@@ -1864,6 +1864,31 @@ function SideQuestPage({ category, onClose }) {
             Scroll to explore
           </div>
           <div style={{display:'flex', flexDirection:'column', gap:18}}>
+            {/* Category-level bullets (replaces sections for market / quant) */}
+            {category.bullets && category.bullets.length > 0 && (
+              <div className="br-card" style={{
+                padding:'22px 24px', borderRadius:16,
+                borderTop:`4px solid ${category.colorDk}`,
+              }}>
+                <div style={{display:'flex', flexDirection:'column', gap:14}}>
+                  {category.bullets.map((b, i) => (
+                    <div key={i} style={{display:'flex', gap:14, alignItems:'flex-start'}}>
+                      <div style={{
+                        width:8, height:8, borderRadius:'50%', flexShrink:0, marginTop:6,
+                        background:category.colorDk,
+                        boxShadow:`0 0 0 3px ${category.colorDk}28`,
+                      }}/>
+                      <p className="br-body" style={{
+                        fontSize:15, color: b.startsWith('Placeholder') ? BR.deep50 : BR.deep70,
+                        fontStyle: b.startsWith('Placeholder') ? 'italic' : 'normal',
+                        margin:0, lineHeight:1.65,
+                      }}>{b}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {category.sections.map((sec, i) => (
               <div key={i} className="br-card" style={{
                 padding:'20px 22px', borderRadius:16,
@@ -1969,12 +1994,12 @@ function SideQuests() {
             Side Quests
           </div>
           <h2 className="br-h2">
-            Life{' '}
-            <span className="br-display italic" style={{color:BR.teal}}>beyond the brief.</span>
+            Life outside of{' '}
+            <span className="br-display italic" style={{color:BR.teal}}>UXR</span>
           </h2>
         </div>
         <div style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:20}}>
-          {SIDE_QUEST_CATS.filter(c => c.id !== 'market').map(cat=>(
+          {SIDE_QUEST_CATS.filter(c => c.id !== 'consumer').map(cat=>(
             <button key={cat.id} onClick={()=>setSelected(cat)} className="br-card hover" style={{
               textAlign:'left', padding:0, overflow:'hidden', cursor:'pointer',
               border:'none', borderRadius:18,
