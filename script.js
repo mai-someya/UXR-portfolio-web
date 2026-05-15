@@ -189,7 +189,7 @@ const PROJECTS = [
           paths:['images/services tool adoption-framework example 1.png','images/services tool adoption-framework example 2.png'],
         },
         quotes:[{
-          char:'images/char-wizard.png',
+          char:'images/wizard.png',
           label:'Lead/Principal PM (Annual Review Feedback)',
           text:"Your Tool Adoption Research was not only thorough and reflective of critical business priorities but also recognized by the XNFL team as highly impactful in shaping GTM strategy and product roadmap prioritization. This demonstrated your ability to generate insights that resonate across cross-functional stakeholders and directly influence business strategy.",
         }],
@@ -284,12 +284,12 @@ const PROJECTS = [
         ],
         quotes:[
           {
-            char:'images/char-fox.png',
+            char:'images/fox.png',
             label:'Fees',
             text:"Yeah, I'll tell you this right off the jump. If Square is going to charge me a processing fee to process this transaction, I'm never going to use it because why would I have Square take 1% of this transaction? The first thing that came [to mind is] \"what is the processing fee?\"",
           },
           {
-            char:'images/char-goat.png',
+            char:'images/goat.png',
             label:'Reconciliation',
             text:"The key factor for us turning that on would be that it's pretty much automated. And so if it were to go to our bank account we're still going through the manual way of marking it paid as. It makes it not an incentive to want to turn that button on.",
           },
@@ -302,7 +302,7 @@ const PROJECTS = [
           'Shared early, unpolished signals with senior PMs and design weekly — by the time findings were formalized, the team had already begun stress-testing solutions with engineering, accelerating decision-making without waiting for a final readout.',
         ],
         quotes:[{
-          char:'images/char-captain.png',
+          char:'images/captain.png',
           label:'Senior Design Partner',
           text:"Working with Mai on the X Alpha research project has been a genuine pleasure. She is an incredibly talented and dedicated research partner, and I've enjoyed collaborating and learning from her... The key findings she delivered were instrumental in shaping the Alpha and continue to be referenced and shared with cross-functional partners almost weekly. Mai also played a key role in refining the initial end-to-end flows for the X MVP. Even with significant implementation constraints, she used seller insights to surface flaws in the proposed MVP experience, which ultimately secured buy-in and guided the team toward a much stronger MVP direction.",
         }],
@@ -344,7 +344,7 @@ const PROJECTS = [
           'Cited in, and strengthened, a company-wide AI framework.',
         ],
         quotes:[{
-          char:'images/char-queen.png',
+          char:'images/queen.png',
           label:'Manager (Annual Review Feedback)',
           text:"You showed good instincts for where research was or wasn't needed, including flagging a need for Voice AI research. Your openness to broadening the scope and lens of that research helped it become a valuable input to decisions being made across Square ([redacted], inventory, etc.), not just their direct team.",
         }],
@@ -669,8 +669,8 @@ function IslandMap({ onOpen }) {
   // container_x = 18.75 + img_x * 0.625  |  container_y = img_y (unchanged)
   const ZONES = [
     { id:'beach',    zIndex:5, style:{ left:'36%', top:'3%',  width:'30%', height:'47%' } }, // Mountains (upper center)
-    { id:'forest',   zIndex:4, style:{ left:'21%', top:'15%', width:'31%', height:'55%' } }, // Forest (left)
-    { id:'town',     zIndex:4, style:{ left:'49%', top:'30%', width:'27%', height:'50%' } }, // City (right)
+    { id:'forest',   zIndex:4, style:{ left:'10%', top:'15%', width:'31%', height:'55%' } }, // Forest (left)
+    { id:'town',     zIndex:4, style:{ left:'55%', top:'30%', width:'40%', height:'50%' } }, // City (right)
     { id:'mountain', zIndex:6, style:{ left:'25%', top:'65%', width:'28%', height:'30%' } }, // Beach (bottom)
   ];
 
