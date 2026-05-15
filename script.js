@@ -180,8 +180,8 @@ const PROJECTS = [
       { name:'Impact', icon:'rocket',
         bullets:[
           'A JTBD framework referenced by PMs, designers, and marketers 18 months later for customer-informed decisions.',
-          '2 product roadmap items added (Messages & Projects cohesion; Estimates & Appointments cohesion), each spawning follow-on research: a navigation usability study and prototype testing that resolved critical gaps before launch.',
-          'Directly informed one of three core pillars of the Services 2025 + 2026 strategy — improving cohesion of customer growth and re-engagement tools.',
+          '2 product roadmap items added, each spawning follow-on research: a navigation usability study and prototype testing that resolved critical gaps before launch.',
+          'Directly informed one of three core pillars of the Services 2025 + 2026 strategy',
           '2 net-new research initiatives generated: Generative + Evaluative.',
         ],
         sectionImages:{
@@ -207,7 +207,7 @@ const PROJECTS = [
     bg:'linear-gradient(180deg, #BFE9EE 0%, #F2E2BD 100%)',
     scenes:[
       { name:'Intro', icon:'telescope',
-        body:'Enabling sellers to grow their recurring revenue was a net new strategic pillar for the Services team. Square had a X feature with low adoption. The hypothesis: its language and structure skewed too retail for service sellers. But the real question was bigger: is X even the right model, or is the opportunity in Y?' },
+        body:'Enabling sellers to grow their recurring revenue was a net new strategic pillar for the Services team. Square had X feature with low adoption. The hypothesis: its language and structure skewed too retail for service sellers. But the real question was bigger: is X even the right model, or is the opportunity in Y?' },
       { name:'Objective', icon:'flag',
         body:'The goal was to determine what to anchor the product strategy on: X, Y or something else. Y was the leading hypothesis, but without knowing where X and Y structurally overlapped, and understanding the opportunity size, the team didn\'t know what or how to build.' },
       { name:'Approach', icon:'tools',
@@ -282,15 +282,14 @@ const PROJECTS = [
           'Auto-reconciliation isn\'t a nice-to-have — it\'s a table stake. Sellers expect [X] in Square to behave like every other payment method: funds land automatically, invoice status updates instantly. Manual reconciliation made the integration feel less reliable than using [X] directly.',
           'Square Checking was assumed to have fees or lack core banking features. This misconception reframed the adoption decision from "try a new feature" to "switch my bank" before sellers even evaluated the integration. New messaging highlighting "free" and the ability to deposit checks & cash directly drove copy and value prop updates.',
         ],
+        quotesGroupLabel:'Seller Quotes',
         quotes:[
           {
             char:'images/fox.png',
-            label:'Fees',
             text:"Yeah, I'll tell you this right off the jump. If Square is going to charge me a processing fee to process this transaction, I'm never going to use it because why would I have Square take 1% of this transaction? The first thing that came [to mind is] \"what is the processing fee?\"",
           },
           {
             char:'images/goat.png',
-            label:'Reconciliation',
             text:"The key factor for us turning that on would be that it's pretty much automated. And so if it were to go to our bank account we're still going through the manual way of marking it paid as. It makes it not an incentive to want to turn that button on.",
           },
         ],
@@ -361,8 +360,6 @@ const STRENGTHS = [
   { label: 'AI-Powered Researcher',
     evidence: 'I build what I need. From automated charting tools to SQL recruitment queries to R and Python scraping scripts (and yes, this site too), I use AI to move faster so more time goes toward the thinking that actually requires a human.' },
 ];
-
-const INTRO_DEFAULT = `I'm a mixed-methods UX researcher with 8 years spanning market research and UX research, a combination that brings both business-level strategy and deep user understanding to every study. As a sole researcher for a 40-person cross-functional team, I owned my research roadmap end-to-end — from identifying where research was needed to creating long-term artifacts that shaped product and team strategy.`;
 
 const TAGLINE_DEFAULT = `Pick a destination and see what I've accomplished'.`;
 
@@ -454,10 +451,13 @@ function Hero() {
           </h1>
           <div style={{display:'flex', flexDirection:'column', gap:8}}>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
-              Mixed-methods UX researcher with 8 years spanning market research and UX research, a combination that brings both business-level strategy and deep user understanding to every study.
+              I'm a mixed-methods UX researcher with 8 years across both market research and UX research, bringing a dual lens most researchers don't have: the strategic range to shape business and GTM decisions, and the depth to uncover the behaviors and friction points that drive product design.
             </p>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
               From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
+            </p>
+            <p className="br-body" style={{color:BR.deep70, margin:0}}>
+              At my core, I'm a learner — endlessly curious and always pushing the edges of what I know. I built this portfolio using Claude Code, VS Code, HTML, and JavaScript, having never coded before, because that's the same mindset I bring to every role: embrace the unfamiliar, try new tools, and figure it out.
             </p>
           </div>
 
@@ -1553,10 +1553,17 @@ function SceneCard({ idx, scene, pid, accent }) {
 
         {/* Character quotes — stakeholder feedback & seller clips */}
         {scene.quotes && scene.quotes.length > 0 && (
-          <div style={{display:'flex', flexDirection:'column', gap:16, marginTop:24}}>
-            {scene.quotes.map((q, qi) => (
-              <CharQuote key={qi} src={q.char} text={q.text} label={q.label}/>
-            ))}
+          <div style={{marginTop:24}}>
+            {scene.quotesGroupLabel && (
+              <div className="br-cap" style={{color:BR.deep50, marginBottom:14}}>
+                {scene.quotesGroupLabel}
+              </div>
+            )}
+            <div style={{display:'flex', flexDirection:'column', gap:16}}>
+              {scene.quotes.map((q, qi) => (
+                <CharQuote key={qi} src={q.char} text={q.text} label={q.label}/>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -1781,7 +1788,7 @@ function CharQuote({ src, text, label }) {
           }}>
             <p className="br-body" style={{
               fontSize:14, color:BR.deep70, margin:0, fontStyle:'italic', lineHeight:1.65,
-            }}>"{text}"</p>
+            }}>{text}</p>
           </div>
         </div>
       </div>
