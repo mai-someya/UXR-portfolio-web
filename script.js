@@ -1186,6 +1186,15 @@ function ProjectsGrid({ onOpen }) {
 function QuestPage({ project, onClose, onNavigate }) {
   const scrollRef = aUseRef(null);
   aUseEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = 0; }, [project]);
+  aUseEffect(() => {
+    const handler = e => {
+      if (e.key === 'Escape')     onClose();
+      if (e.key === 'ArrowLeft')  onNavigate(prev);
+      if (e.key === 'ArrowRight') onNavigate(next);
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose, onNavigate, prev, next]);
   if (!project) return null;
   const idx  = PROJECTS.findIndex(p => p.id === project.id);
   const prev = PROJECTS[idx > 0 ? idx - 1 : PROJECTS.length - 1];
@@ -1861,6 +1870,15 @@ function HoverTooltip({ text, label }) {
 function SideQuestPage({ category, onClose, cats, onNavigate }) {
   const scrollRef = aUseRef(null);
   aUseEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = 0; }, [category]);
+  aUseEffect(() => {
+    const handler = e => {
+      if (e.key === 'Escape')     onClose();
+      if (e.key === 'ArrowLeft')  onNavigate(prev);
+      if (e.key === 'ArrowRight') onNavigate(next);
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose, onNavigate, prev, next]);
   if (!category) return null;
   const idx  = cats ? cats.findIndex(c => c.id === category.id) : -1;
   const prev = cats && idx >= 0 ? cats[idx > 0 ? idx - 1 : cats.length - 1] : null;
