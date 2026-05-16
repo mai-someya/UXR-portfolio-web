@@ -169,6 +169,7 @@ const PROJECTS = [
           title:'Stakeholder Workshop on FigJam',
           paths:['images/Services tool adoption-workshop 1.png','images/Services tool adoption-workshop 2.png'],
           cover: true,
+          objectPosition: 'left center',
         },
       },
       { name:'Findings', icon:'bulb',
@@ -370,25 +371,25 @@ const TAGLINE_DEFAULT = `Pick a destination and see what I've accomplished'.`;
 // ─── Top Nav ──────────────────────────────────────────────────────────────
 function Nav({ onOpen }) {
   return (
-    <header style={{
+    <header className="mob-header" style={{
       display:'flex', alignItems:'center', justifyContent:'space-between',
       padding:'14px 0', position:'relative', zIndex:5,
     }}>
-      <nav style={{display:'flex', gap:4, alignItems:'center', marginLeft:'auto'}}>
-        <a className="br-btn outline" href="#map" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="map" size={14}/> Projects
+      <nav className="mob-nav" style={{display:'flex', gap:4, alignItems:'center', marginLeft:'auto'}}>
+        <a className="br-btn outline mob-nav-item" href="#map" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="map" size={14}/><span className="mob-nav-label"> Projects</span>
         </a>
-        <a className="br-btn outline" href="#projects" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="compass" size={14}/> Side Quests
+        <a className="br-btn outline mob-nav-item" href="#projects" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="compass" size={14}/><span className="mob-nav-label"> Side Quests</span>
         </a>
-        <a className="br-btn outline" href="#toolkits" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="wrench" size={14}/> Toolkits
+        <a className="br-btn outline mob-nav-item" href="#toolkits" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="wrench" size={14}/><span className="mob-nav-label"> Toolkits</span>
         </a>
-        <a className="br-btn outline" href="https://www.linkedin.com/in/mai-someya/" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="laptop" size={14}/> LinkedIn
+        <a className="br-btn outline mob-nav-item" href="https://www.linkedin.com/in/mai-someya/" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="laptop" size={14}/><span className="mob-nav-label"> LinkedIn</span>
         </a>
-        <a className="br-btn primary" href="https://drive.google.com/file/d/1FI5s8yIk56g6DIPGYpn6A01yYOdvoXWb/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="file-text" size={14}/> Resume
+        <a className="br-btn primary mob-nav-item" href="https://drive.google.com/file/d/1FI5s8yIk56g6DIPGYpn6A01yYOdvoXWb/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
+          <Icon name="file-text" size={14}/><span className="mob-nav-label"> Resume</span>
         </a>
       </nav>
     </header>
@@ -436,7 +437,7 @@ function Hero() {
   const [activeS, setActiveS] = aUseState(null);
   return (
     <section id="about" className="br-fadeup" style={{position:'relative', padding:'40px 0 60px'}}>
-      <div style={{display:'grid', gridTemplateColumns:'auto 1fr', gap:48, alignItems:'center'}}>
+      <div className="mob-hero-grid" style={{display:'grid', gridTemplateColumns:'auto 1fr', gap:48, alignItems:'center'}}>
 
         {/* Left: Character card with stats inside */}
         <div>
@@ -504,7 +505,7 @@ function Hero() {
 
 function CharacterScene() {
   return (
-    <div style={{
+    <div className="mob-char-card" style={{
       width:280, borderRadius:24, overflow:'hidden',
       boxShadow:'0 12px 40px rgba(26,58,58,.18)',
     }}>
@@ -588,7 +589,7 @@ function CharacterScene() {
 function Cartographer() {
   return (
     <section className="br-fadeup" style={{padding:'12px 0 36px'}}>
-      <div className="br-card" style={{
+      <div className="br-card mob-cart-grid" style={{
         padding:'24px 28px', display:'grid',
         gridTemplateColumns:'auto 1fr', gap:24, alignItems:'center',
         background:`linear-gradient(135deg, #fff 0%, #F2F8F8 100%)`,
@@ -680,7 +681,7 @@ function IslandMap({ onOpen }) {
 
   return (
     <section id="map" className="br-fadeup" style={{padding:'24px 0 40px'}}>
-      <div style={{display:'flex', alignItems:'baseline', justifyContent:'space-between', marginBottom:18}}>
+      <div className="mob-map-header" style={{display:'flex', alignItems:'baseline', justifyContent:'space-between', marginBottom:18}}>
         <div>
           <div className="br-cap" style={{color:BR.teal, marginBottom:6}}>
             <Icon name="map" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
@@ -693,13 +694,13 @@ function IslandMap({ onOpen }) {
             </span>
           </h2>
         </div>
-        <div className="br-cap" style={{color:BR.deep50}}>
+        <div className="br-cap mob-map-hint" style={{color:BR.deep50}}>
           <Icon name="mood-happy" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
           Hover any zone · Click for details
         </div>
       </div>
 
-      <div style={{display:'grid', gridTemplateColumns:'300px 1fr', gap:20, alignItems:'stretch'}}>
+      <div className="mob-map-grid" style={{display:'grid', gridTemplateColumns:'300px 1fr', gap:20, alignItems:'stretch'}}>
         <MapContext/>
         <div className="br-card" style={{
           padding:0, overflow:'hidden', position:'relative', borderRadius:24,
@@ -1214,13 +1215,13 @@ function QuestPage({ project, onClose, onNavigate }) {
       overflowY:'auto',
       backdropFilter:'blur(6px)',
     }} onClick={onClose}>
-      <div onClick={e=>e.stopPropagation()} className="br-slidein" style={{
+      <div onClick={e=>e.stopPropagation()} className="br-slidein mob-modal-content" style={{
         background:BR.foam, margin:'40px auto', maxWidth:1200, width:'calc(100% - 32px)',
         borderRadius:24, overflow:'hidden',
         boxShadow:'0 24px 60px rgba(26,58,58,.4)',
       }}>
         {/* Banner */}
-        <div style={{
+        <div className="mob-modal-banner" style={{
           position:'relative', padding:'28px 32px 0', height:280, overflow:'hidden',
           background: project.bg,
         }}>
@@ -1242,7 +1243,7 @@ function QuestPage({ project, onClose, onNavigate }) {
                   }}>{text}</span>
                 );
                 return (
-                  <div style={{marginTop:18, display:'flex', gap:6, flexWrap:'nowrap', alignItems:'center'}}>
+                  <div className="mob-pills" style={{marginTop:18, display:'flex', gap:6, flexWrap:'nowrap', alignItems:'center'}}>
                     {pill(project.tag, 'rgba(59,191,176,.2)', '#0F5E55', 'rgba(59,191,176,.4)')}
                     {methods.map(m =>
                       pill(m, 'rgba(245,200,66,.28)', '#6A4E00', 'rgba(245,200,66,.55)')
@@ -1251,7 +1252,7 @@ function QuestPage({ project, onClose, onNavigate }) {
                   </div>
                 );
               })()}
-              <h1 className="br-h1" style={{marginTop:10, color:BR.deep, fontSize:48, maxWidth:660}}>
+              <h1 className="br-h1 mob-project-title" style={{marginTop:10, color:BR.deep, fontSize:48, maxWidth:660}}>
                 <Editable id={`q_title_${project.id}`} defaultValue={project.title}/>
               </h1>
               <p className="br-body" style={{fontSize:18, color:BR.deep70, maxWidth:560, marginTop:6}}>
@@ -1263,7 +1264,7 @@ function QuestPage({ project, onClose, onNavigate }) {
             </button>
           </div>
 
-          <div style={{position:'absolute', bottom:-4, right:48, filter:'drop-shadow(0 6px 0 rgba(26,58,58,.18))'}}>
+          <div className="mob-modal-sprite" style={{position:'absolute', bottom:-4, right:48, filter:'drop-shadow(0 6px 0 rgba(26,58,58,.18))'}}>
             <Sprite src={window.__resources.maiSide} width={120} height={220}/>
           </div>
           <svg style={{position:'absolute', left:0, bottom:24, width:'100%', height:40}} preserveAspectRatio="none" viewBox="0 0 1200 40">
@@ -1271,7 +1272,7 @@ function QuestPage({ project, onClose, onNavigate }) {
           </svg>
         </div>
 
-        <div style={{padding:'32px 32px 40px'}}>
+        <div className="mob-modal-body" style={{padding:'32px 32px 40px'}}>
           <div style={{marginBottom:20}}>
             <CharQuote
               src={window.__resources.alfieFront}
@@ -1295,16 +1296,16 @@ function QuestPage({ project, onClose, onNavigate }) {
             {(prev || next) && (
               <div style={{display:'flex', justifyContent:'center', gap:12, paddingTop:4}}>
                 {prev && (
-                  <button className="br-btn outline" onClick={()=>onNavigate(prev)} style={{
-                    width:220, justifyContent:'flex-start', padding:'10px 16px', borderRadius:12,
+                  <button className="br-btn outline mob-nav-btn" onClick={()=>onNavigate(prev)} style={{
+                    width:220, justifyContent:'flex-start', padding:'10px 16px', borderRadius:12, flexShrink:0,
                   }}>
                     <Icon name="arrow-left" size={15}/>
                     <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{prev.title}</span>
                   </button>
                 )}
                 {next && (
-                  <button className="br-btn outline" onClick={()=>onNavigate(next)} style={{
-                    width:220, justifyContent:'space-between', padding:'10px 16px', borderRadius:12,
+                  <button className="br-btn outline mob-nav-btn" onClick={()=>onNavigate(next)} style={{
+                    width:220, justifyContent:'space-between', padding:'10px 16px', borderRadius:12, flexShrink:0,
                   }}>
                     <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{next.title}</span>
                     <Icon name="arrow-right" size={15}/>
@@ -1409,7 +1410,7 @@ function SceneCard({ idx, scene, pid, accent }) {
 
             {/* Optional pre-speech (left-anchored, stops ~halfway) */}
             {scene.preSpeech && (
-              <div style={{maxWidth:'55%', marginBottom:20}}>
+              <div className="mob-speech-box" style={{maxWidth:'55%', marginBottom:20}}>
                 <CharSpeech text={scene.preSpeech}/>
               </div>
             )}
@@ -1431,7 +1432,7 @@ function SceneCard({ idx, scene, pid, accent }) {
             )}
 
             {/* N method cards — dynamic column count */}
-            <div style={{
+            <div className="mob-methods-grid" style={{
               display:'grid',
               gridTemplateColumns:`repeat(${scene.methods.length}, 1fr)`,
               gap:12, marginBottom:20,
@@ -1463,7 +1464,7 @@ function SceneCard({ idx, scene, pid, accent }) {
               const col = scene.postSpeechCol || 3;
               const pct = Math.round((col-1) / scene.methods.length * 100);
               return (
-                <div style={{marginLeft:`${pct}%`, marginBottom: scene.closingSpeech ? 16 : 0}}>
+                <div className="mob-speech-indent" style={{marginLeft:`${pct}%`, marginBottom: scene.closingSpeech ? 16 : 0}}>
                   <CharSpeech text={scene.postSpeech}/>
                 </div>
               );
@@ -1474,7 +1475,7 @@ function SceneCard({ idx, scene, pid, accent }) {
               const col = scene.closingSpeechCol || scene.methods.length;
               const pct = Math.round((col-1) / scene.methods.length * 100);
               return (
-                <div style={{marginLeft:`${pct}%`}}>
+                <div className="mob-speech-indent" style={{marginLeft:`${pct}%`}}>
                   <CharSpeech text={scene.closingSpeech}/>
                 </div>
               );
@@ -1497,7 +1498,7 @@ function SceneCard({ idx, scene, pid, accent }) {
             </div>
 
             {/* Finding 1 + 2 above the character */}
-            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:16}}>
+            <div className="mob-findings-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:16}}>
               {scene.topImages.map((src, i) => (
                 <div key={i} style={{
                   borderRadius:10, overflow:'hidden',
@@ -1510,7 +1511,7 @@ function SceneCard({ idx, scene, pid, accent }) {
             </div>
 
             {/* Character (left) + Finding 3 (right) side by side */}
-            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:16, alignItems:'start'}}>
+            <div className="mob-findings-side" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:16, alignItems:'start'}}>
               <CharSpeech text={scene.charSpeech}/>
               <div style={{
                 borderRadius:10, overflow:'hidden',
@@ -1572,7 +1573,7 @@ function SceneCard({ idx, scene, pid, accent }) {
                 {scene.sectionImages.title}
               </div>
             )}
-            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12}}>
+            <div className="mob-section-imgs" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12}}>
               {scene.sectionImages.paths.map((src, i) => (
                 <div key={i} style={{
                   borderRadius:10, overflow:'hidden',
@@ -1586,7 +1587,7 @@ function SceneCard({ idx, scene, pid, accent }) {
                     style={{
                       width:'100%', display:'block',
                       ...(scene.sectionImages.cover
-                        ? {height:'100%', objectFit:'cover', objectPosition:'center'}
+                        ? {height:'100%', objectFit:'cover', objectPosition: scene.sectionImages.objectPosition || 'center'}
                         : {height:'auto'}),
                     }}
                   />
@@ -1889,12 +1890,12 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
       overflowY:'auto',
       backdropFilter:'blur(6px)',
     }} onClick={onClose}>
-      <div onClick={e=>e.stopPropagation()} className="br-slidein" style={{
+      <div onClick={e=>e.stopPropagation()} className="br-slidein mob-modal-content" style={{
         background:BR.foam, margin:'40px auto', maxWidth:1200, width:'calc(100% - 32px)',
         borderRadius:24, overflow:'hidden',
         boxShadow:'0 24px 60px rgba(26,58,58,.4)',
       }}>
-        <div style={{
+        <div className="mob-modal-banner" style={{
           position:'relative', padding:'28px 32px 32px',
           background: category.bg,
           borderBottom:`1px solid rgba(26,58,58,.08)`,
@@ -1911,7 +1912,7 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
                   <Icon name={category.icon} size={11}/> Side Quest
                 </span>
               </div>
-              <h1 className="br-h1" style={{marginTop:10, color:BR.deep, fontSize:48, maxWidth:660}}>
+              <h1 className="br-h1 mob-project-title" style={{marginTop:10, color:BR.deep, fontSize:48, maxWidth:660}}>
                 {category.label}
               </h1>
             </div>
@@ -1921,7 +1922,7 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
           </div>
         </div>
 
-        <div style={{padding:'32px 32px 40px'}}>
+        <div className="mob-modal-body" style={{padding:'32px 32px 40px'}}>
           {category.id === 'life' && (
             <div style={{marginBottom:20}}>
               <CharSpeech text="Hey! If you explored this far into my portfolio. Thank you for taking the time to get to know me outside of being a researcher. Hope you enjoyed reading it, as I did making it!"/>
@@ -1987,7 +1988,7 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
             {category.photoRows && category.photoRows.map((row, ri) => {
 
               const imgBlock = (
-                <div style={{
+                <div className="mob-photo-img" style={{
                   display:'grid',
                   gridTemplateColumns:`repeat(${row.images.length}, 1fr)`,
                   gap:10,
@@ -2012,7 +2013,7 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
                 </div>
               );
               const txtBlock = (
-                <div className="br-card" style={{
+                <div className="br-card mob-photo-text" style={{
                   padding:'22px', borderRadius:16,
                   borderTop:`4px solid ${category.colorDk}`,
                   display:'flex', flexDirection:'column', justifyContent:'center',
@@ -2034,7 +2035,7 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
                 </div>
               );
               return (
-                <div key={`row-${ri}`} style={{
+                <div key={`row-${ri}`} className="mob-photo-row" style={{
                   display:'grid',
                   gridTemplateColumns: row.textSide === 'right' ? '3fr 2fr' : '2fr 3fr',
                   gap:16, alignItems:'stretch',
@@ -2050,16 +2051,16 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
             {(prev || next) && (
               <div style={{display:'flex', justifyContent:'center', gap:12, paddingTop:8}}>
                 {prev && (
-                  <button className="br-btn outline" onClick={()=>onNavigate(prev)} style={{
-                    width:220, justifyContent:'flex-start', padding:'10px 16px', borderRadius:12,
+                  <button className="br-btn outline mob-nav-btn" onClick={()=>onNavigate(prev)} style={{
+                    width:220, justifyContent:'flex-start', padding:'10px 16px', borderRadius:12, flexShrink:0,
                   }}>
                     <Icon name="arrow-left" size={15}/>
                     <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{prev.label}</span>
                   </button>
                 )}
                 {next && (
-                  <button className="br-btn outline" onClick={()=>onNavigate(next)} style={{
-                    width:220, justifyContent:'space-between', padding:'10px 16px', borderRadius:12,
+                  <button className="br-btn outline mob-nav-btn" onClick={()=>onNavigate(next)} style={{
+                    width:220, justifyContent:'space-between', padding:'10px 16px', borderRadius:12, flexShrink:0,
                   }}>
                     <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{next.label}</span>
                     <Icon name="arrow-right" size={15}/>
@@ -2090,7 +2091,7 @@ function SideQuests() {
             <span className="br-display italic" style={{color:BR.teal}}>UXR</span>
           </h2>
         </div>
-        <div style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:20}}>
+        <div className="mob-sq-grid" style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:20}}>
           {filteredCats.map(cat=>(
             <button key={cat.id} onClick={()=>setSelected(cat)} className="br-card hover" style={{
               textAlign:'left', padding:0, overflow:'hidden', cursor:'pointer',
@@ -2188,9 +2189,9 @@ function ResearchToolkits() {
         </div>
       </div>
 
-      <div style={{display:'grid', gridTemplateColumns:'repeat(6, 1fr)', gap:20}}>
+      <div className="mob-tk-grid" style={{display:'grid', gridTemplateColumns:'repeat(6, 1fr)', gap:20}}>
         {TOOLKITS.map(t => (
-          <div key={t.id} className="br-card" style={{
+          <div key={t.id} className="br-card mob-tk-card" style={{
             padding:'24px 22px', borderRadius:16,
             borderTop:`4px solid ${t.accent}`,
             gridColumn:`span ${t.span}`,
@@ -2233,7 +2234,7 @@ function AdventureApp() {
 
   return (
     <div className="br-root" style={{minHeight:'100vh'}}>
-      <div style={{maxWidth:1200, margin:'0 auto', padding:'0 24px 60px'}}>
+      <div className="mob-root-wrap" style={{maxWidth:1200, margin:'0 auto', padding:'0 24px 60px'}}>
         <Nav onOpen={setDrawer}/>
         <Hero/>
         <Cartographer/>

@@ -163,3 +163,105 @@ kbd { font-family: inherit; }
 
 /* ─── Selection ──────────────────────────────────────────────────────── */
 ::selection { background: #F5C842; color: #1A3A3A; }
+
+/* ─── Mobile responsiveness ──────────────────────────────────────────── */
+
+/* ── Tablet ≤768px ── */
+@media (max-width: 768px) {
+
+  /* Typography scale-down */
+  .br-h1 { font-size: 38px; }
+  .br-h2 { font-size: 26px; }
+
+  /* Root page padding */
+  .mob-root-wrap { padding-left: 16px !important; padding-right: 16px !important; }
+
+  /* Nav: wrap and center */
+  .mob-header { flex-wrap: wrap !important; }
+  .mob-nav    { flex-wrap: wrap !important; gap: 6px !important; margin-left: 0 !important; justify-content: center !important; width: 100%; }
+
+  /* Hero: single column, character centered */
+  .mob-hero-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .mob-hero-grid > div:first-child { display: flex; justify-content: center; }
+  .mob-char-card { width: 260px !important; }
+
+  /* Cartographer: single column */
+  .mob-cart-grid { grid-template-columns: 1fr !important; }
+
+  /* IslandMap */
+  .mob-map-header { flex-direction: column !important; gap: 8px !important; align-items: flex-start !important; }
+  .mob-map-hint   { display: none !important; }
+  .mob-map-grid   { grid-template-columns: 1fr !important; }
+
+  /* Side Quests: 2-column */
+  .mob-sq-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Research Toolkits: 2-column, reset all spans */
+  .mob-tk-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .mob-tk-card { grid-column: span 1 !important; }
+
+  /* Project/Side-Quest modals */
+  .mob-modal-content { margin: 20px auto !important; width: calc(100% - 24px) !important; }
+  .mob-modal-banner  { padding: 20px 20px 0 !important; height: auto !important; min-height: 200px !important; }
+  .mob-modal-body    { padding: 20px 20px 28px !important; }
+  .mob-modal-sprite  { display: none !important; }
+  .mob-project-title { font-size: 32px !important; max-width: 100% !important; }
+
+  /* Approach method cards: 2 columns */
+  .mob-methods-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Findings image grids: single column */
+  .mob-findings-grid { grid-template-columns: 1fr !important; }
+  .mob-findings-side { grid-template-columns: 1fr !important; }
+
+  /* Speech boxes: full width, no indent */
+  .mob-speech-box    { max-width: 100% !important; }
+  .mob-speech-indent { margin-left: 0 !important; }
+
+  /* Prev/Next nav buttons */
+  .mob-nav-btn { width: 160px !important; }
+
+  /* Section image pairs (workshop, JTBD examples) — stack on mobile */
+  .mob-section-imgs { grid-template-columns: 1fr !important; }
+
+  /* Photo rows in Real Life Adventures — always image then text */
+  .mob-photo-row { grid-template-columns: 1fr !important; }
+  .mob-photo-row .mob-photo-img  { order: 1; }
+  .mob-photo-row .mob-photo-text { order: 2; }
+
+  /* Pill tags in modal banner: allow wrapping */
+  .mob-pills { flex-wrap: wrap !important; }
+}
+
+/* ── Mobile ≤480px ── */
+@media (max-width: 480px) {
+
+  /* Typography */
+  .br-h1 { font-size: 28px; }
+  .br-h2 { font-size: 20px; }
+  .mob-project-title { font-size: 24px !important; }
+
+  /* Tighter root padding */
+  .mob-root-wrap { padding-left: 12px !important; padding-right: 12px !important; }
+
+  /* Nav: icon-only at smallest size */
+  .mob-nav-label { display: none; }
+  .mob-nav-item  { padding: 7px 10px !important; min-width: 0; }
+
+  /* Side Quests: single column */
+  .mob-sq-grid { grid-template-columns: 1fr !important; }
+
+  /* Research Toolkits: single column */
+  .mob-tk-grid { grid-template-columns: 1fr !important; }
+
+  /* Approach methods: single column */
+  .mob-methods-grid { grid-template-columns: 1fr !important; }
+
+  /* Modals: near full-screen */
+  .mob-modal-content { margin: 8px auto !important; border-radius: 16px !important; }
+  .mob-modal-body    { padding: 16px 14px 20px !important; }
+  .mob-modal-banner  { padding: 14px 14px 0 !important; min-height: 160px !important; }
+
+  /* Prev/Next nav buttons: share available space */
+  .mob-nav-btn { width: 44% !important; font-size: 13px !important; padding: 8px 10px !important; }
+}
