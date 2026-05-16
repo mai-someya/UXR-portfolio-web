@@ -59,6 +59,8 @@ const ICONS = {
   'linkedin':      <><path d="M4 4m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M3 9l0 11"/><path d="M9 9l0 11"/><path d="M9 13a3 3 0 0 1 6 0l0 7"/></>,
   'users':         <><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></>,
   'chart-bar':     <><path d="M3 12h4v9h-4z"/><path d="M9 7h4v14h-4z"/><path d="M15 3h4v18h-4z"/></>,
+  'wrench':        <><path d="M8.56 2.9a4 4 0 0 1 4.433 6.461l-8 8a2 2 0 0 1 -2.828 -2.828l8 -8a4 4 0 0 1 -1.605 -3.633z"/><path d="M17.5 15.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"/></>,
+  'laptop':        <><path d="M3 19l18 0"/><path d="M5 6m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z"/></>,
 };
 
 function Icon({ name, size=20, color, stroke=2, className='', style }) {
@@ -380,10 +382,10 @@ function Nav({ onOpen }) {
           <Icon name="compass" size={14}/> Side Quests
         </a>
         <a className="br-btn outline" href="#toolkits" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="tools" size={14}/> Toolkits
+          <Icon name="wrench" size={14}/> Toolkits
         </a>
         <a className="br-btn outline" href="https://www.linkedin.com/in/mai-someya/" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="linkedin" size={14}/> LinkedIn
+          <Icon name="laptop" size={14}/> LinkedIn
         </a>
         <a className="br-btn primary" href="https://drive.google.com/file/d/1FI5s8yIk56g6DIPGYpn6A01yYOdvoXWb/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
           <Icon name="file-text" size={14}/> Resume
@@ -1181,8 +1183,13 @@ function ProjectsGrid({ onOpen }) {
 }
 
 // ─── Quest page modal ─────────────────────────────────────────────────────
-function QuestPage({ project, onClose }) {
+function QuestPage({ project, onClose, onNavigate }) {
+  const scrollRef = aUseRef(null);
+  aUseEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = 0; }, [project]);
   if (!project) return null;
+  const idx  = PROJECTS.findIndex(p => p.id === project.id);
+  const prev = PROJECTS[idx > 0 ? idx - 1 : PROJECTS.length - 1];
+  const next = PROJECTS[idx < PROJECTS.length - 1 ? idx + 1 : 0];
   const DEFAULT_SCENES = [
     { name:'Intro',      icon:'file-text', hint:'Overview and background of the project.' },
     { name:'Objective',  icon:'flag',      hint:'The business question and research goals we were trying to answer.' },
@@ -1193,7 +1200,7 @@ function QuestPage({ project, onClose }) {
   ];
   const SCENES = project.scenes || DEFAULT_SCENES;
   return (
-    <div style={{
+    <div ref={scrollRef} style={{
       position:'fixed', inset:0, background:'rgba(26,58,58,.45)', zIndex:60,
       overflowY:'auto',
       backdropFilter:'blur(6px)',
@@ -1275,6 +1282,27 @@ function QuestPage({ project, onClose }) {
             <div style={{display:'grid', placeItems:'center', padding:'16px 0'}}>
               <Icon name="flag" size={32} color={BR.teal}/>
             </div>
+
+            {(prev || next) && (
+              <div style={{display:'flex', justifyContent:'center', gap:12, paddingTop:4}}>
+                {prev && (
+                  <button className="br-btn outline" onClick={()=>onNavigate(prev)} style={{
+                    width:220, justifyContent:'flex-start', padding:'10px 16px', borderRadius:12,
+                  }}>
+                    <Icon name="arrow-left" size={15}/>
+                    <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{prev.title}</span>
+                  </button>
+                )}
+                {next && (
+                  <button className="br-btn outline" onClick={()=>onNavigate(next)} style={{
+                    width:220, justifyContent:'space-between', padding:'10px 16px', borderRadius:12,
+                  }}>
+                    <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{next.title}</span>
+                    <Icon name="arrow-right" size={15}/>
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -1830,10 +1858,15 @@ function HoverTooltip({ text, label }) {
   );
 }
 
-function SideQuestPage({ category, onClose }) {
+function SideQuestPage({ category, onClose, cats, onNavigate }) {
+  const scrollRef = aUseRef(null);
+  aUseEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = 0; }, [category]);
   if (!category) return null;
+  const idx  = cats ? cats.findIndex(c => c.id === category.id) : -1;
+  const prev = cats && idx >= 0 ? cats[idx > 0 ? idx - 1 : cats.length - 1] : null;
+  const next = cats && idx >= 0 ? cats[idx < cats.length - 1 ? idx + 1 : 0] : null;
   return (
-    <div style={{
+    <div ref={scrollRef} style={{
       position:'fixed', inset:0, background:'rgba(26,58,58,.45)', zIndex:60,
       overflowY:'auto',
       backdropFilter:'blur(6px)',
@@ -1871,6 +1904,11 @@ function SideQuestPage({ category, onClose }) {
         </div>
 
         <div style={{padding:'32px 32px 40px'}}>
+          {category.id === 'life' && (
+            <div style={{marginBottom:20}}>
+              <CharSpeech text="Hey! If you explored this far into my portfolio. Thank you for taking the time to get to know me outside of being a researcher. Hope you enjoyed reading it, as I did making it!"/>
+            </div>
+          )}
           <div className="br-cap" style={{marginBottom:14, color:BR.teal}}>
             <Icon name="route" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
             Scroll to explore
@@ -1991,9 +2029,24 @@ function SideQuestPage({ category, onClose }) {
               );
             })}
 
-            {category.id === 'life' && (
-              <div style={{marginTop:24}}>
-                <CharSpeech text="Hey! If you explored this far into my portfolio. Thank you for taking the time to get to know me outside of being a researcher. Hope you enjoyed reading it, as I did making it!"/>
+            {(prev || next) && (
+              <div style={{display:'flex', justifyContent:'center', gap:12, paddingTop:8}}>
+                {prev && (
+                  <button className="br-btn outline" onClick={()=>onNavigate(prev)} style={{
+                    width:220, justifyContent:'flex-start', padding:'10px 16px', borderRadius:12,
+                  }}>
+                    <Icon name="arrow-left" size={15}/>
+                    <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{prev.label}</span>
+                  </button>
+                )}
+                {next && (
+                  <button className="br-btn outline" onClick={()=>onNavigate(next)} style={{
+                    width:220, justifyContent:'space-between', padding:'10px 16px', borderRadius:12,
+                  }}>
+                    <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{next.label}</span>
+                    <Icon name="arrow-right" size={15}/>
+                  </button>
+                )}
               </div>
             )}
           </div>
@@ -2005,6 +2058,7 @@ function SideQuestPage({ category, onClose }) {
 
 function SideQuests() {
   const [selected, setSelected] = aUseState(null);
+  const filteredCats = SIDE_QUEST_CATS.filter(c => c.id !== 'consumer');
   return (
     <>
       <section id="projects" className="br-fadeup" style={{padding:'12px 0 60px'}}>
@@ -2019,7 +2073,7 @@ function SideQuests() {
           </h2>
         </div>
         <div style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:20}}>
-          {SIDE_QUEST_CATS.filter(c => c.id !== 'consumer').map(cat=>(
+          {filteredCats.map(cat=>(
             <button key={cat.id} onClick={()=>setSelected(cat)} className="br-card hover" style={{
               textAlign:'left', padding:0, overflow:'hidden', cursor:'pointer',
               border:'none', borderRadius:18,
@@ -2055,7 +2109,7 @@ function SideQuests() {
           ))}
         </div>
       </section>
-      <SideQuestPage category={selected} onClose={()=>setSelected(null)}/>
+      <SideQuestPage category={selected} onClose={()=>setSelected(null)} cats={filteredCats} onNavigate={setSelected}/>
     </>
   );
 }
@@ -2171,7 +2225,7 @@ function AdventureApp() {
         <Footer/>
       </div>
       <Drawer kind={drawer} onClose={()=>setDrawer(null)}/>
-      <QuestPage project={quest} onClose={()=>setQuest(null)}/>
+      <QuestPage project={quest} onClose={()=>setQuest(null)} onNavigate={setQuest}/>
     </div>
   );
 }
