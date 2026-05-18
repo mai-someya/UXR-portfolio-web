@@ -216,7 +216,7 @@ kbd { font-family: inherit; }
 
   /* Speech boxes: full width, no indent */
   .mob-speech-box    { max-width: 100% !important; }
-  .mob-speech-indent { margin-left: 0 !important; }
+  .mob-speech-indent { margin-left: 0 !important; max-width: 100% !important; }
 
   /* Prev/Next nav buttons */
   .mob-nav-btn { width: 160px !important; }
