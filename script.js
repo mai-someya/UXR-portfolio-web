@@ -151,9 +151,9 @@ const PROJECTS = [
     bg:'linear-gradient(180deg, #BFE9D0 0%, #A8DFA0 100%)',
     scenes:[
       { name:'Intro', icon:'file-text',
-        body:'Sellers were using third-party tools to fill gaps for jobs that Square already supports. The team needed a more comprehensive and cohesive suite of tools, but didn\'t know what to prioritize or how to execute.' },
+        body:'Sellers were using third-party tools to fill gaps for jobs that Square already supports. We needed to build a more comprehensive and cohesive suite of tools to meet our sellers needs, but didn\'t know what jobs to prioritize or how to win sellers\' adopting these tools.' },
       { name:'Objective', icon:'flag',
-        body:'Define how service-based businesses adopt tools across their workflow, identify the jobs those tools are hired to do, and determine where Square has the strongest opportunity to close the gap — so the team could prioritize the product roadmap with confidence rather than assumption.' },
+        body:'Understand how service-based businesses adopt tools across their workflow, identify the jobs those tools are hired to do, and determine where Square has the strongest opportunity to close the gap — so the team could prioritize the product roadmap with confidence rather than assumption.' },
       { name:'Approach', icon:'compass',
         layout:'approach',
         intro:'Foundational research requires rigor. I designed a multi-method approach to ensure comprehensive coverage before drawing conclusions.',
@@ -175,12 +175,12 @@ const PROJECTS = [
       { name:'Findings', icon:'bulb',
         layout:'findings',
         bullets:[
-          'Tools are hired in acute moments, not planned in advance. Sellers adopt tools reactively at each growth stage — payments and websites at launch, lead management and scheduling as they scale.',
-          '"Grow Customer" jobs-to-be-done are the highest-pain, lowest-cohesion part of the workflow. Sellers cobble together scheduling, CRM, and communications tools to manage leads — and only recognize the fragmentation once they\'re already scaling.',
+          'Tools are hired in acute moments, not planned in advance. Sellers adopt tools reactively as their business scales and grows.',
+          '"Grow Customer" jobs-to-be-done are the highest-pain, lowest-cohesion part of the workflow. Sellers reactively cobble together scheduling, CRM, and communications tools to manage their growing customer base — and only recognize the fragmentation once it\'s too late.',
         ],
         topImages:['images/finding 1- services tool adoption.png','images/finding 2- services tool adoption.png'],
         sideImage:'images/finding 3- services tool adoption.png',
-        charSpeech:'Qualitative findings alone weren\'t enough to convey pain. I pulled in product satisfaction metrics to make it harder to deprioritize this learning.',
+        charSpeech:'Qualitative findings helped convey the need for a more cohesive solution for this job. I pulled in product satisfaction metrics because it wasn\'t enough to convey the full pain point, as it  showed our internal tools we\'re also missing core functionalities. Combined, it made this job harder to deprioritize.',
       },
       { name:'Impact', icon:'rocket',
         bullets:[
@@ -201,7 +201,7 @@ const PROJECTS = [
       },
     ],
   },
-  { id:'beach',    tag:'Generative + Evaluative Research', icon:'anchor',
+  { id:'beach',    tag:'Generative + Evaluative', icon:'anchor',
     title:'Recurring Revenue Products',
     subtitle:'Defined product strategy',
     timeline:'4 weeks',
@@ -212,9 +212,9 @@ const PROJECTS = [
     bg:'linear-gradient(180deg, #BFE9EE 0%, #F2E2BD 100%)',
     scenes:[
       { name:'Intro', icon:'file-text',
-        body:'Enabling sellers to grow their recurring revenue was a net new strategic pillar for the Services team. Square had X feature with low adoption. The hypothesis: its language and structure skewed too retail for service sellers. But the real question was bigger: is X even the right model, or is the opportunity in Y?' },
+        body:'Enabling sellers to grow their recurring revenue was a net new strategic pillar for the Services team. Square had X feature with low adoption. The hypothesis: its language and structure skewed too retail for service sellers. But the real question was bigger: is X even the right feature, or is the opportunity in something structurally adjecent like Y?' },
       { name:'Objective', icon:'flag',
-        body:'The goal was to determine what to anchor the product strategy on: X, Y or something else. Y was the leading hypothesis, but without knowing where X and Y structurally overlapped, and understanding the opportunity size, the team didn\'t know what or how to build.' },
+        body:'The goal was to determine what to anchor the product strategy on: X, Y or something completely new. Y was the leading hypothesis, but without knowing where X and Y structurally overlapped, and understanding the opportunity size, the team didn\'t know what or how to build.' },
       { name:'Approach', icon:'compass',
         layout:'approach',
         intro:'The original ask was big: a foundational discovery AND market sizing but we had no time to do both rigorously. I pushed back — we agreed to deprioritize market sizing and focus on qualitative discovery. The website audit changed that. It gave us a starting point for the discussion guide and revealed that market sizing was answerable without a full quant study.',
@@ -223,13 +223,12 @@ const PROJECTS = [
           { num:'1/', title:'Website Audit', body:'Reviewed 20 websites to confirm language differences across 3 industries before committing to a larger sizing exercise.' },
           { num:'2/', title:'Sizing',        body:'Computational Web Scraping (1,000+ sites, AI-assisted): used AI to generate Python and R scripts to quantify language as a market-sizing proxy.' },
           { num:'3/', title:'Interviews',   body:'Qualitative Interviews (n=13): used to understand workflows, pain points, and JsTBD — info not on websites or past research.' },
-          { num:'4/', title:'Hack Week',    body:'I identified an opportunity to test a subscription upsell at checkout (web), a direct lever for the recurring strategy. I ran rapid prototype testing (n=12) in parallel without disrupting the core research program.' },
-          { num:'5/', title:'Deliverable',  body:'A topline one-pager with design principles. The PM and designer aligned on the strategic direction and began sequencing the build.' },
+          { num:'4/', title:'Hack Week',    bg:'#1B4D5C', body:'I identified an opportunity to test a X upsell at checkout (web), a direct lever for the recurring strategy. I ran rapid prototype testing (n=12) in parallel without disrupting the core research program.' },
+          { num:'5/', title:'Deliverable',  body:'A topline one-pager with design principles. The PM and designer aligned on the strategic direction and began sequencing the build.', note:'Project was closed due to layoff before the broader share-out.' },
         ],
         postSpeech:'The website audit confirmed meaningful differences by audience and inspired me to attempt a market sizing exercise, which was originally out of scope.',
         postSpeechCol:2,
-        closingSpeech:'Project closed due to layoff before the broader share-out.',
-        closingSpeechCol:5,
+        postSpeechMaxWidth:'52%',
       },
       { name:'Findings', icon:'bulb',
         bullets:[
@@ -246,7 +245,7 @@ const PROJECTS = [
         ] },
     ],
   },
-  { id:'mountain', tag:'Generative + Evaluative Research', icon:'mountain',
+  { id:'mountain', tag:'Generative + Evaluative', icon:'mountain',
     title:'P2P Payment Integration',
     subtitle:'Informed design + product strategy',
     timeline:'6 weeks',
@@ -257,11 +256,11 @@ const PROJECTS = [
     bg:'linear-gradient(180deg, #C5D5D8 0%, #8FA8AB 100%)',
     scenes:[
       { name:'Intro', icon:'file-text',
-        body:'Square\'s core business is card processing, but an estimated $XB annually was flowing off-platform through [X], and sellers had been asking for a native integration for years. The opportunity was real, but so was the tension: the integration needed to deliver business value without cannibalizing card revenue.',
+        body:'Square\'s core business is card processing, but an estimated $XB annually was flowing off-platform through X, and sellers had been asking for a native integration for years. The opportunity was real, but so was the tension: the integration needed to deliver business value without cannibalizing card revenue.',
         body2:'Two levers were on the table: a transaction fee and a Square Checking requirement. Engineering constraints meant the Alpha couldn\'t support auto-reconciliation. The team suspected all three would muddy the Alpha signal — making it impossible to tell whether low adoption meant the product didn\'t work, or just that the friction did. A successful Alpha would unlock expansion beyond Invoices into higher-volume surfaces like in-person checkout.',
       },
       { name:'Objective', icon:'flag',
-        body:'Validate adoption potential for a native [X] integration and optimize the Alpha designs to reflect real user expectations — even where business and engineering constraints limited what was possible.',
+        body:'The objectives were two-fold: understand the adoption potential for a native X integration, and optimize the product experience to reflect real user expectations within the constraints of what was business and engineering feasible.',
       },
       { name:'Approach', icon:'compass',
         layout:'approach',
@@ -269,22 +268,23 @@ const PROJECTS = [
         bullets:[
           'I brought in a quant UXR to run a discrete choice and a rapid researcher for the buyer usability test to stay within the timeline without sacrificing depth.',
           'I included buyer research to gauge comprehension of the multi-step payment flow, ensuring B2C signal wasn\'t crowded out by the seller workstreams.',
-          'I chose a moderated interview for the seller flow because it had constraints that needed explaining, required deep probing, and needed discovery questions to capture off-platform [X] behaviors and mental models.',
+          'I chose a moderated interview for the seller flow because it had constraints that needed explaining, required deep probing, and needed discovery questions to capture off-platform X behaviors and mental models.',
           'Delivered as a shareable document — anticipated to be broadly shared across the org, presented to executive and director-level stakeholders, and cited in a company-wide strategy presentation.',
         ],
         methods:[
           { num:'1/', title:'Seller Experience',
-            body:'n=9 moderated interviews with Square Invoices sellers who currently use [X] · 60-min sessions including prototype test · 4 weeks' },
+            bg:'#1B4D5C',
+            body:'n=9 moderated interviews with Square Invoices sellers who currently use X · 60-min sessions including prototype test · 4 weeks' },
           { num:'2/', title:'Pricing Survey',
             body:'n=1,000 · Discrete Choice · 3 concepts across 3 pricing structures · 4 weeks' },
           { num:'3/', title:'Buyer Experience',
-            body:'n=8 buyers who use [X] and have paid with a Square invoice · Unmoderated usability test via UserTesting · 1 week' },
+            body:'n=8 buyers who use X and have paid with a Square invoice · Unmoderated usability test via UserTesting · 1 week' },
         ],
       },
       { name:'Findings', icon:'bulb',
         bullets:[
-          'A fee kills the value proposition: sellers view [X]\'s no-fee model as its core benefit. Introducing a charge doesn\'t reduce adoption — it eliminates it.',
-          'Auto-reconciliation isn\'t a nice-to-have — it\'s a table stake. Sellers expect [X] in Square to behave like every other payment method: funds land automatically, invoice status updates instantly. Manual reconciliation made the integration feel less reliable than using [X] directly.',
+          'A fee kills the value proposition: sellers view X\'s no-fee model as its core benefit. Introducing a charge doesn\'t reduce adoption — it eliminates it.',
+          'Auto-reconciliation isn\'t a nice-to-have — it\'s a table stake. Sellers expect X in Square to behave like every other payment method: funds land automatically, invoice status updates instantly. Manual reconciliation made the integration feel less reliable than using X directly.',
           'Square Checking was assumed to have fees or lack core banking features. This misconception reframed the adoption decision from "try a new feature" to "switch my bank" before sellers even evaluated the integration. New messaging highlighting "free" and the ability to deposit checks & cash directly drove copy and value prop updates.',
         ],
         quotesGroupLabel:'Seller Quotes',
@@ -361,9 +361,9 @@ const STRENGTHS = [
   { label: 'Product Strategist',
     evidence: 'I translate research into decisions that stick — challenging pricing assumptions, redirecting roadmaps, and reframing engineering constraints as launch risks before teams build in the wrong direction.' },
   { label: 'Mixed Methods',
-    evidence: 'I match method to question across the full spectrum, from behavioral data analysis and large-scale surveys to moderated prototype testing and foundational frameworks, with equal fluency in qual and quant.'},
+    evidence: 'I match method to question across the full spectrum, from behavioral data analysis and large-scale surveys to rapid prototype testing and moderating in-depth interviews, with equal fluency in qual and quant.'},
   { label: 'AI-Powered Researcher',
-    evidence: 'I build what I need. From automated charting tools to SQL recruitment queries to R and Python scraping scripts (and yes, this site too), I use AI to move faster so more time goes toward the thinking that actually requires a human.' },
+    evidence: 'I build what I need. From automated charting tools to SQL recruitment queries to R / Python scraping scripts (and yes, this site too). I use AI to move operationally faster so I can spend time building meaningful stakeholder relationships and connecting insights to business decisions to make sure they get acted on.' },
 ];
 
 const TAGLINE_DEFAULT = `Pick a destination and see what I've accomplished'.`;
@@ -462,7 +462,7 @@ function Hero() {
               From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
             </p>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
-              At my core, I'm a learner, endlessly curious, and always pushing the edges of what I know. I built this portfolio using Claude Code, VS Code, HTML, and JavaScript, having never coded before. That's the same mindset I bring to every role: embrace the unfamiliar, try new tools, and figure it out.
+              At my core, I'm a learner, endlessly curious, and always pushing the edges of what I know. I built this portfolio using Claude Code, VS Code, HTML, and JavaScript, having never coded before. That's the same mindset I bring to every role.
             </p>
           </div>
 
@@ -651,7 +651,7 @@ function MapContext() {
           Lead UXR for Services
         </div>
         <div className="br-body" style={{fontSize:13.5, color:BR.deep70, lineHeight:1.65}}>
-          You might know Square from the little white card reader at your favorite coffee shop — but it's actually a suite of 38+ hardware and software products helping small businesses run and grow across dozens of industries.
+          You might know Square from the little white card reader at your favorite coffee shop, but it's actually a suite of 38+ hardware and software products helping small businesses run and grow across dozens of industries.
         </div>
         <div className="br-body" style={{fontSize:13.5, color:BR.deep70, lineHeight:1.65, marginTop:10}}>
           I was embedded as the lead researcher on the Services team, partnering closely with product, design, engineering, and data science to support service-based businesses. Think salons, accountants, and lawn care companies. My focus was on three flagship products: Square Appointments, Invoices, and Virtual Terminal, across web, desktop, and hardware surfaces.
@@ -1439,7 +1439,7 @@ function SceneCard({ idx, scene, pid, accent }) {
             }}>
               {scene.methods.map((m, i) => (
                 <div key={i} style={{
-                  background:'#2B5A27', borderRadius:16, padding:'20px 18px',
+                  background: m.bg || '#2B5A27', borderRadius:16, padding:'20px 18px',
                   display:'flex', flexDirection:'column', gap:10,
                   boxShadow:'0 4px 14px rgba(26,58,58,.22)',
                 }}>
@@ -1455,6 +1455,12 @@ function SceneCard({ idx, scene, pid, accent }) {
                     fontSize:14, lineHeight:1.6,
                     color:'rgba(255,255,255,.78)', margin:0,
                   }}>{m.body}</p>
+                  {m.note && (
+                    <p className="br-body" style={{
+                      fontSize:13, lineHeight:1.55,
+                      color:'rgba(255,255,255,.55)', margin:0, fontStyle:'italic',
+                    }}>{m.note}</p>
+                  )}
                 </div>
               ))}
             </div>
@@ -1464,7 +1470,7 @@ function SceneCard({ idx, scene, pid, accent }) {
               const col = scene.postSpeechCol || 3;
               const pct = Math.round((col-1) / scene.methods.length * 100);
               return (
-                <div className="mob-speech-indent" style={{marginLeft:`${pct}%`, marginBottom: scene.closingSpeech ? 16 : 0}}>
+                <div className="mob-speech-indent" style={{marginLeft:`${pct}%`, marginBottom: scene.closingSpeech ? 16 : 0, ...(scene.postSpeechMaxWidth ? {maxWidth: scene.postSpeechMaxWidth} : {})}}>
                   <CharSpeech text={scene.postSpeech}/>
                 </div>
               );
