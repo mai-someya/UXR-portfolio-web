@@ -272,7 +272,7 @@ const PROJECTS = [
           'Delivered as a shareable document — anticipated to be broadly shared across the org, presented to executive and director-level stakeholders, and cited in a company-wide strategy presentation.',
         ],
         methods:[
-          { num:'1/', title:'Seller Experience',
+          { num:'1/', title:'Seller Experience (Led by me!)',
             bg:'#1B4D5C',
             body:'n=9 moderated interviews with Square Invoices sellers who currently use X · 60-min sessions including prototype test · 4 weeks' },
           { num:'2/', title:'Pricing Survey',
@@ -281,7 +281,7 @@ const PROJECTS = [
             body:'n=8 buyers who use X and have paid with a Square invoice · Unmoderated usability test via UserTesting · 1 week' },
         ],
       },
-      { name:'Findings', icon:'bulb',
+      { name:'Seller Experience Findings', icon:'bulb',
         bullets:[
           'A fee kills the value proposition: sellers view X\'s no-fee model as its core benefit. Introducing a charge doesn\'t reduce adoption — it eliminates it.',
           'Auto-reconciliation isn\'t a nice-to-have — it\'s a table stake. Sellers expect X in Square to behave like every other payment method: funds land automatically, invoice status updates instantly. Manual reconciliation made the integration feel less reliable than using X directly.',
@@ -1769,7 +1769,7 @@ const SIDE_QUEST_CATS = [
           {t:"Mt. Whitney", tip:"22 miles"},
           {t:", and the "},
           {t:"Inca Trail to Machu Picchu", tip:"25 miles"},
-          {t:" These days I've chilled out a bit and mainly stick to smaller adventures with my partner and dog Alfie around the PNW, and in an attempt to give my knees a break, I've recently gotten into bikepacking (yes, that's biking + backpacking, and yes, it's as chaotic and wonderful as it sounds)."},
+          {t:" . These days I mainly stick to smaller adventures with my partner and dog Alfie around the PNW. I've recently gotten into bikepacking (yes, that's biking + backpacking, and yes, it's as chaotic and wonderful as it sounds)."},
         ],
         images:[
           { src:'images/Half Dome.jpg',    pos:'center top' },
@@ -1790,7 +1790,7 @@ const SIDE_QUEST_CATS = [
         content:[
           {t:"My favorite adventure has been adopting our son (yes, son) Alfie from "},
           {t:"PAWS", link:"https://www.paws.org/"},
-          {t:". He is my adventure buddy and has joined us on countless hiking, backpacking, and camping trips. He loves eating chicken and barking at squirrels."},
+          {t:". He is my adventure buddy and has joined us on countless hiking, backpacking, and camping trips. He loves chicken and barking at squirrels."},
         ],
         images:[
           { src:'images/alfie 1.jpeg', pos:'center' },
