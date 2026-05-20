@@ -327,7 +327,7 @@ const PROJECTS = [
         body:'Voice AI had momentum at Square — multiple teams, including mine, were building, scoping, and investing in new features independently. The problem: no one had asked sellers what they actually needed, or whether voice AI fit into their workflow at all. Teams were aligning around features before understanding where they\'d have the strongest impact and adoption.',
       },
       { name:'Objective', icon:'flag',
-        body:'Identify if, and where, voice AI fit in user workflows across the use cases teams were already exploring.',
+        body:'Identify if, and where, voice AI fit in user workflows across the use cases that teams were already exploring.',
       },
       { name:'Approach', icon:'compass',
         body:'A qualitative approach would have generated hypotheses. I needed evidence, fast. Teams were already mid-build — waiting on a larger study wasn\'t an option.',
@@ -339,7 +339,7 @@ const PROJECTS = [
           'Receptivity to voice AI is context-dependent. Sellers factor in environment (background noise, privacy, comfort speaking aloud) and error cost — how much damage a wrong response could do — before they\'d consider it useful.',
           'Sellers were most open to voice AI on routine, repetitive tasks. Comfort with complex or high-stakes tasks was low. Routine use cases aren\'t the ceiling — they\'re the bridge to broader adoption, which teams had been skipping over.',
         ],
-        charSpeech:'For teams where findings contradicted their direction, I shared learnings early with triangulated evidence from prior research and added seller clips to help stakeholders deeply understand seller needs. This led to any pushback being resolved before the final report was shared.',
+        charSpeech:'For those teams whose direction were misaligned with the findings, I shared learnings early with triangulated evidence from prior research and added seller clips to help stakeholders deeply understand seller needs. This led to any pushback being resolved before the final report was shared.',
       },
       { name:'Impact', icon:'rocket',
         bullets:[
@@ -360,10 +360,10 @@ const PROJECTS = [
 const STRENGTHS = [
   { label: 'Product Strategist',
     evidence: 'I translate research into decisions that stick — challenging pricing assumptions, redirecting roadmaps, and reframing engineering constraints as launch risks before teams build in the wrong direction.' },
-  { label: 'Mixed Methods',
-    evidence: 'I match method to question across the full spectrum, from behavioral data analysis and large-scale surveys to rapid prototype testing and moderating in-depth interviews, with equal fluency in qual and quant.'},
+  { label: 'Dot Connector',
+    evidence: 'I connect the dots others miss because I’m equally fluent in qual and quant. From behavioral data and large-scale surveys to usability testing and moderating in-depth interviews — I bring it all into one cohesive story.'},
   { label: 'AI-Powered Researcher',
-    evidence: 'I build what I need. From automated charting tools to SQL recruitment queries to R / Python scraping scripts (and yes, this site too). I use AI to move operationally faster so I can spend time building meaningful stakeholder relationships and connecting insights to business decisions to make sure they get acted on.' },
+    evidence: 'AI handles the operational, I handle the human. I use it to move faster — automating charts, writing SQL queries, and scraping data with R and Python scripts. That speed buys me time for what AI can\'t touch: understanding business context and building the relationships that make research actually land.' },
 ];
 
 const TAGLINE_DEFAULT = `Pick a destination and see what I've accomplished'.`;
@@ -456,13 +456,13 @@ function Hero() {
           </h1>
           <div style={{display:'flex', flexDirection:'column', gap:8}}>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
-              I'm a mixed-methods UX researcher with 8 years across both market research and UX research, bringing a dual lens most researchers don't have: the strategic range to shape business and GTM decisions, and the depth to uncover the behaviors and friction points that drive product design.
+              I'm a mixed-methods UX researcher with 8 years across market research and UX research, bringing a dual lens most researchers don't have: the strategic range to shape business and GTM decisions, and the depth to uncover the behaviors and friction points that drive product strategy.
             </p>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
-              From identifying research gaps to building artifacts that outlast the project, I have a proven track record driving product and roadmap decisions across fintech and consumer products at global scale.
+              From identifying research gaps to building long lasting frameworks, I have a proven track record driving product and roadmap decisions across fintech and consumer products at a global scale.
             </p>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
-              At my core, I'm a learner, endlessly curious, and always pushing the edges of what I know. I built this portfolio using Claude Code, VS Code, HTML, and JavaScript, having never coded before. That's the same mindset I bring to every role.
+              At my core, I'm a learner and adventurer . I’m always reaching for new tools, methods, and ways of thinking. My newest adventure is this portfolio, built from scratch using Claude Code, VS Code, HTML, and JavaScript.
             </p>
           </div>
 
@@ -622,7 +622,7 @@ function Cartographer() {
             </div>
             <div className="br-body" style={{fontSize:18}}>
               <Editable id="npc_line" multiline
-                defaultValue="Welcome, traveler! Four paths lie ahead — each a project. Hover any zone to glimpse what's I've been up to. Click to walk it and read the full tale."/>
+                defaultValue="Welcome, traveler! Four paths lie ahead — each a project. Hover above any zone to glimpse what Mai\'s been up to. Click a zone to walk it and read the full tale."/>
             </div>
           </div>
         </div>
@@ -660,7 +660,7 @@ function MapContext() {
           You might know Square from the little white card reader at your favorite coffee shop, but it's actually a suite of 38+ hardware and software products helping small businesses run and grow across dozens of industries.
         </div>
         <div className="br-body" style={{fontSize:13.5, color:BR.deep70, lineHeight:1.65, marginTop:10}}>
-          I was embedded as the lead researcher on the Services team, partnering closely with product, design, engineering, and data science to support service-based businesses. Think salons, accountants, and lawn care companies. My focus was on three flagship products: Square Appointments, Invoices, and Virtual Terminal, across web, desktop, and hardware surfaces.
+          I was the embedded lead researcher on the Services team, partnering closely with product, design, engineering, and data science to support service-based businesses. Think salons, accountants, and lawn care companies. My focus was on three flagship products: Square Appointments, Invoices, and Virtual Terminal, across web, desktop, and hardware surfaces.
         </div>
       </div>
     </div>
