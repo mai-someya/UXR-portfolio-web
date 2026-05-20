@@ -195,9 +195,9 @@ kbd { font-family: inherit; }
   /* Root page padding */
   .mob-root-wrap { padding-left: 16px !important; padding-right: 16px !important; }
 
-  /* Nav: wrap and center */
-  .mob-header { flex-wrap: wrap !important; }
-  .mob-nav    { flex-wrap: wrap !important; gap: 6px !important; margin-left: 0 !important; justify-content: center !important; width: 100%; }
+  /* Nav: center pill + Resume on small screens */
+  .mob-header { justify-content: center !important; flex-wrap: wrap !important; gap: 8px !important; }
+  .mob-nav    { margin-left: 0 !important; }
 
   /* Hero: single column, character centered */
   .mob-hero-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
@@ -265,7 +265,6 @@ kbd { font-family: inherit; }
 
   /* Nav: icon-only at smallest size */
   .mob-nav-label { display: none; }
-  .mob-nav-item  { padding: 7px 10px !important; min-width: 0; }
 
   /* Side Quests: single column */
   .mob-sq-grid { grid-template-columns: 1fr !important; }

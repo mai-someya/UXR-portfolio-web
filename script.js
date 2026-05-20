@@ -366,29 +366,72 @@ const STRENGTHS = [
 const TAGLINE_DEFAULT = `Pick a destination and see what I've accomplished'.`;
 
 // ─── Top Nav ──────────────────────────────────────────────────────────────
+const NAV_ITEMS = [
+  { label:'Projects',    href:'#map',      icon:'map' },
+  { label:'Side Quests', href:'#projects', icon:'compass' },
+  { label:'Toolkits',    href:'#toolkits', icon:'wrench' },
+  { label:'LinkedIn',    href:'https://www.linkedin.com/in/mai-someya/', icon:'laptop', external:true },
+  { label:'Resume',      href:'https://drive.google.com/file/d/1FI5s8yIk56g6DIPGYpn6A01yYOdvoXWb/view?usp=sharing', icon:'file-text', external:true },
+];
+
 function Nav({ onOpen }) {
+  const [cursor, setCursor] = aUseState({ left:0, width:0, opacity:0 });
+  const ulRef = aUseRef(null);
+
+  const handleEnter = (e) => {
+    const li = e.currentTarget;
+    const ul = ulRef.current;
+    if (!ul) return;
+    const ulRect = ul.getBoundingClientRect();
+    const liRect = li.getBoundingClientRect();
+    setCursor({ left: liRect.left - ulRect.left - 2, width: liRect.width, opacity: 1 });
+  };
+
   return (
     <header className="mob-header" style={{
-      display:'flex', alignItems:'center', justifyContent:'space-between',
+      display:'flex', alignItems:'center', justifyContent:'flex-end', gap:10,
       padding:'14px 0', position:'relative', zIndex:5,
     }}>
-      <nav className="mob-nav" style={{display:'flex', gap:4, alignItems:'center', marginLeft:'auto'}}>
-        <a className="br-btn outline mob-nav-item" href="#map" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="map" size={14}/><span className="mob-nav-label"> Projects</span>
-        </a>
-        <a className="br-btn outline mob-nav-item" href="#projects" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="compass" size={14}/><span className="mob-nav-label"> Side Quests</span>
-        </a>
-        <a className="br-btn outline mob-nav-item" href="#toolkits" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="wrench" size={14}/><span className="mob-nav-label"> Toolkits</span>
-        </a>
-        <a className="br-btn outline mob-nav-item" href="https://www.linkedin.com/in/mai-someya/" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="laptop" size={14}/><span className="mob-nav-label"> LinkedIn</span>
-        </a>
-        <a className="br-btn primary mob-nav-item" href="https://drive.google.com/file/d/1FI5s8yIk56g6DIPGYpn6A01yYOdvoXWb/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{fontSize:13, padding:'7px 13px'}}>
-          <Icon name="file-text" size={14}/><span className="mob-nav-label"> Resume</span>
-        </a>
-      </nav>
+
+      {/* Sliding pill nav */}
+      <ul ref={ulRef} className="mob-nav" style={{
+        position:'relative', listStyle:'none', margin:0, padding:4,
+        display:'flex', alignItems:'center', gap:0,
+        background:'#fff',
+        border:`2px solid ${BR.deep}`,
+        borderRadius:999,
+        overflow:'hidden',
+      }} onMouseLeave={() => setCursor(c => ({...c, opacity:0}))}>
+
+        {/* Sliding highlight */}
+        <li aria-hidden style={{
+          position:'absolute', top:4, bottom:4,
+          left: cursor.left, width: cursor.width,
+          background: BR.deep, borderRadius:999,
+          opacity: cursor.opacity,
+          transition:'left .2s ease, width .2s ease, opacity .12s ease',
+          pointerEvents:'none', zIndex:0,
+        }}/>
+
+        {NAV_ITEMS.map(item => (
+          <li key={item.label} className="mob-nav-item" style={{position:'relative', zIndex:1}}
+            onMouseEnter={handleEnter}>
+            <a href={item.href}
+              {...(item.external ? {target:'_blank', rel:'noopener noreferrer'} : {})}
+              style={{
+                display:'inline-flex', alignItems:'center', gap:6,
+                padding:'7px 14px',
+                fontFamily:'Nunito', fontWeight:600, fontSize:13,
+                color: BR.deep, textDecoration:'none',
+                mixBlendMode:'difference',
+                cursor:'pointer', whiteSpace:'nowrap', userSelect:'none',
+              }}>
+              <span className="mob-nav-label">{item.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
     </header>
   );
 }
