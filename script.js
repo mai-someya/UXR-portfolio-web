@@ -666,6 +666,8 @@ function MapContext() {
 // ─── Island Map ───────────────────────────────────────────────────────────
 function IslandMap({ onOpen }) {
   const [hovered, setHovered] = aUseState(null);
+  const [revealed, setRevealed] = aUseState(false);
+  const [hasInteracted, setHasInteracted] = aUseState(false);
   const target = hovered
     ? PROJECTS.find(p => p.id === hovered).pos
     : { x:50, y:50 };
@@ -702,9 +704,16 @@ function IslandMap({ onOpen }) {
         </div>
       </div>
 
-      <Cartographer/>
+      <div style={{position:'relative'}}>
 
-      <div className="mob-map-grid" style={{display:'grid', gridTemplateColumns:'300px 1fr', gap:20, alignItems:'stretch'}}>
+        {/* Map grid — blurred until user clicks Start exploring */}
+        <div className="mob-map-grid" style={{
+          display:'grid', gridTemplateColumns:'300px 1fr', gap:20, alignItems:'stretch',
+          filter: revealed ? 'none' : 'blur(5px)',
+          transition: 'filter 0.5s ease',
+          pointerEvents: revealed ? 'auto' : 'none',
+          userSelect: revealed ? 'auto' : 'none',
+        }}>
         <MapContext/>
         <div className="br-card" style={{
           padding:0, overflow:'hidden', position:'relative', borderRadius:24,
@@ -738,9 +747,9 @@ function IslandMap({ onOpen }) {
                   background: hovered === z.id ? 'rgba(245,200,66,.10)' : 'transparent',
                   transition:'background .2s ease',
                 }}
-                onMouseEnter={() => setHovered(z.id)}
+                onMouseEnter={() => { setHovered(z.id); setHasInteracted(true); }}
                 onMouseLeave={() => setHovered(null)}
-                onClick={() => onOpen(proj)}
+                onClick={() => { setHasInteracted(true); onOpen(proj); }}
               />
             );
           })}
@@ -754,7 +763,9 @@ function IslandMap({ onOpen }) {
             pointerEvents:'none', zIndex:10,
             filter:'drop-shadow(0 3px 0 rgba(26,58,58,.18))',
           }}>
-            <Sprite src={window.__resources.alfieFront} width={44} height={76} walking={!!hovered}/>
+            <div className={revealed && !hasInteracted && !hovered ? 'map-bounce' : ''}>
+              <Sprite src={window.__resources.alfieFront} width={44} height={76} walking={!!hovered}/>
+            </div>
           </div>
 
           {/* ── Mai ── */}
@@ -766,7 +777,9 @@ function IslandMap({ onOpen }) {
             pointerEvents:'none', zIndex:11,
             filter:'drop-shadow(0 4px 0 rgba(26,58,58,.2))',
           }}>
-            <Sprite src={window.__resources.maiFront} width={56} height={98} walking={!!hovered}/>
+            <div className={revealed && !hasInteracted && !hovered ? 'map-bounce' : ''} style={{animationDelay:'.18s'}}>
+              <Sprite src={window.__resources.maiFront} width={56} height={98} walking={!!hovered}/>
+            </div>
           </div>
 
           {/* ── Hover popup ── */}
@@ -774,7 +787,52 @@ function IslandMap({ onOpen }) {
 
         </div>
       </div>
-      </div>
+        </div>{/* closes mob-map-grid */}
+
+        {/* ── Alfie overlay — shown until revealed ── */}
+        {!revealed && (
+          <div style={{
+            position:'absolute', inset:0,
+            display:'flex', alignItems:'center', justifyContent:'center',
+            zIndex:10, padding:'0 16px',
+          }}>
+            <div className="br-card" style={{
+              padding:'24px 28px', maxWidth:540, width:'100%',
+              display:'grid', gridTemplateColumns:'auto 1fr', gap:24, alignItems:'center',
+              background:'linear-gradient(135deg, #fff 0%, #F2F8F8 100%)',
+              borderRadius:20,
+              boxShadow:'0 8px 48px rgba(26,58,58,.28)',
+            }}>
+              {/* Alfie sprite */}
+              <div style={{position:'relative', width:100, height:100}}>
+                <div style={{
+                  position:'absolute', inset:0, borderRadius:18, overflow:'hidden',
+                  background:`radial-gradient(circle at 50% 60%, ${BR.meadow} 0%, ${BR.sky} 100%)`,
+                }}/>
+                <div className="br-bob" style={{
+                  position:'absolute', inset:0, display:'grid', placeItems:'end center', paddingBottom:4,
+                }}>
+                  <Sprite src={window.__resources.alfieFront} width={100} height={128} style={{objectFit:'contain'}}/>
+                </div>
+              </div>
+
+              {/* Bubble + CTA */}
+              <div>
+                <div className="br-bubble tail-left" style={{padding:'16px 20px', borderRadius:16, marginBottom:16}}>
+                  <div className="br-cap" style={{color:BR.teal, marginBottom:5}}>Alfie · Your guide</div>
+                  <div className="br-body" style={{fontSize:16}}>
+                    Welcome, traveler! Four paths lie ahead — each a project. Hover any zone to glimpse what Mai's been up to. Click a zone to walk it and read the full tale.
+                  </div>
+                </div>
+                <button className="br-btn primary" onClick={() => setRevealed(true)} style={{fontSize:14, padding:'10px 20px'}}>
+                  Start exploring <Icon name="arrow-right" size={15}/>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+      </div>{/* closes position:relative wrapper */}
     </section>
   );
 }
