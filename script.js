@@ -264,21 +264,17 @@ const PROJECTS = [
       },
       { name:'Approach', icon:'compass',
         layout:'approach',
-        intro:'The Alpha had hard constraints. Engineering limitations were largely fixed, the timeline was tight, and the project had CEO-level visibility. Direct pushback on the designs wasn\'t an option, so I structured the research to do the advocating. The core tension: measuring adoption potential while showing sellers an experience full of friction. Without careful design, any drop-off would be unreadable — was it low demand, or just bad UX? The research needed to separate those two signals, so findings could clearly attribute friction to specific constraints and make the case that those constraints weren\'t as fixed as they seemed. I developed a 3-track research program across two audiences, two product surfaces, and two partner researchers — comprehensive enough for CEO-level visibility, tight enough to hit a 3-month Alpha launch.',
-        bullets:[
-          'I brought in a quant UXR to run a discrete choice and a rapid researcher for the buyer usability test to stay within the timeline without sacrificing depth.',
-          'I included buyer research to gauge comprehension of the multi-step payment flow, ensuring B2C signal wasn\'t crowded out by the seller workstreams.',
-          'I chose a moderated interview for the seller flow because it had constraints that needed explaining, required deep probing, and needed discovery questions to capture off-platform X behaviors and mental models.',
-          'Delivered as a shareable document — anticipated to be broadly shared across the org, presented to executive and director-level stakeholders, and cited in a company-wide strategy presentation.',
-        ],
+        intro:'The Alpha had hard constraints. Engineering limitations were largely fixed, the timeline was tight, and the project had CEO-level visibility. Direct pushback on the designs wasn\'t an option, so I structured the research to do the advocating.',
+        intro2:'The core tension: measuring adoption potential while showing sellers an experience full of friction. Without careful design, any drop-off would be unreadable — was it low demand, or just bad UX? The research needed to separate those two signals, so findings could clearly attribute friction to specific constraints and make the case that those constraints weren\'t as fixed as they seemed.',
+        intro3:'I developed a 3-track research program across two audiences and two product surfaces — comprehensive enough for CEO-level visibility, tight enough to hit a 3-month Alpha launch. I brought in a quant UXR and a rapid researcher to stay within the timeline without sacrificing depth.',
         methods:[
           { num:'1/', title:'Seller Experience (Led by me!)',
             bg:'#1B4D5C',
-            body:'n=9 moderated interviews with Square Invoices sellers who currently use Y · 60-min sessions including prototype test · 4 weeks' },
+            body:'Moderated interviews to capture off-platform behaviors, mental models, and friction points the prototype alone couldn\'t surface. n=9 moderated interviews with Square Invoices sellers who currently use Y · 60-min sessions including prototype test · 4 weeks' },
           { num:'2/', title:'Pricing Survey',
-            body:'n=1,000 · Discrete Choice · 3 concepts across 3 pricing structures · 4 weeks' },
+            body:'Discrete choice to isolate willingness to pay from product experience — keeping demand signal separate from UX friction. n=1,000 · Discrete Choice · 3 concepts across 3 pricing structures · 4 weeks' },
           { num:'3/', title:'Buyer Experience',
-            body:'n=8 buyers who use Y and have paid with a Square invoice · Unmoderated usability test via UserTesting · 1 week' },
+            body:'Included buyer research to ensure B2C friction wasn\'t deprioritized, as the buyer experience was equally important to successful adoption. n=8 buyers who use Y and have paid with a Square invoice · Unmoderated usability test via UserTesting · 1 week' },
         ],
       },
       { name:'Seller Experience Findings', icon:'bulb',
@@ -330,6 +326,7 @@ const PROJECTS = [
         body:'Identify if, and where, voice AI fit in user workflows across the use cases that teams were already exploring.',
       },
       { name:'Approach', icon:'compass',
+        bodyBold: true,
         body:'A qualitative approach would have generated hypotheses. I needed evidence, fast. Teams were already mid-build — waiting on a larger study wasn\'t an option.',
         body2:'I chose a quick-turn quantitative survey (n=400 across 4 industries) because the findings had to be both timely and defensible. The industries mapped directly to Square\'s product structure so findings landed with each stakeholder.',
         body3:'Shared as a deck and recording to accommodate holiday timing. Supplemented with individual readouts for teams with immediate decisions to make.',
@@ -494,7 +491,6 @@ function Hero() {
                 background:'linear-gradient(180deg, #fff 0%, #FFFBEB 100%)',
                 borderLeft:`4px solid ${BR.gold}`, borderRadius:12,
               }}>
-                <div className="br-cap" style={{color:'#A07820', marginBottom:6}}>Evidence</div>
                 <div className="br-body" style={{fontSize:16}}>
                   <Editable id={`evidence_${activeS}`}
                     defaultValue={STRENGTHS[activeS].evidence}/>
@@ -705,6 +701,8 @@ function IslandMap({ onOpen }) {
           Hover any zone · Click for details
         </div>
       </div>
+
+      <Cartographer/>
 
       <div className="mob-map-grid" style={{display:'grid', gridTemplateColumns:'300px 1fr', gap:20, alignItems:'stretch'}}>
         <MapContext/>
@@ -1418,6 +1416,8 @@ function SceneCard({ idx, scene, pid, accent }) {
             <p className="br-body" style={{
               color:BR.deep, margin:'0 0 20px 0', fontWeight:700,
             }}>{scene.intro}</p>
+            {scene.intro2 && <p className="br-body" style={{color:BR.deep, margin:'-4px 0 20px 0', fontWeight:700}}>{scene.intro2}</p>}
+            {scene.intro3 && <p className="br-body" style={{color:BR.deep, margin:'-4px 0 20px 0', fontWeight:700}}>{scene.intro3}</p>}
 
             {/* Optional pre-speech (left-anchored, stops ~halfway) */}
             {scene.preSpeech && (
@@ -1557,7 +1557,7 @@ function SceneCard({ idx, scene, pid, accent }) {
           </div>
         ) : scene.body ? (
           <>
-            <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:0, lineHeight:1.65}}>{scene.body}</p>
+            <p className="br-body" style={{fontSize:15, color: scene.bodyBold ? BR.deep : BR.deep70, margin:0, lineHeight:1.65, ...(scene.bodyBold ? {fontWeight:700} : {})}}>{scene.body}</p>
             {scene.body2 && (
               <p className="br-body" style={{fontSize:15, color:BR.deep70, margin:'12px 0 0 0', lineHeight:1.65}}>{scene.body2}</p>
             )}
@@ -2259,7 +2259,6 @@ function AdventureApp() {
       <div className="mob-root-wrap" style={{maxWidth:1200, margin:'0 auto', padding:'0 24px 60px'}}>
         <Nav onOpen={setDrawer}/>
         <Hero/>
-        <Cartographer/>
         <IslandMap onOpen={setQuest}/>
         <SideQuests/>
         <ResearchToolkits/>
