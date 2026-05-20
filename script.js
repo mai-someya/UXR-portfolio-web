@@ -476,7 +476,13 @@ function Hero() {
               {STRENGTHS.map((s,i)=>(
                 <button key={i}
                   className={`br-chip ${activeS===i?'active':''}`}
-                  onClick={()=>setActiveS(activeS===i?null:i)}>
+                  onClick={()=>{
+                    const next = activeS === i ? null : i;
+                    setActiveS(next);
+                    if (next !== null && typeof gtag === 'function') {
+                      gtag('event', 'open_strength', { event_category: 'Portfolio', event_label: s.label });
+                    }
+                  }}>
                   <Editable id={`strength_${i}`} defaultValue={s.label}/>
                   <Icon name={activeS===i?'chevron-down':'chevron-right'} size={14}/>
                 </button>
@@ -1188,6 +1194,11 @@ function QuestPage({ project, onClose, onNavigate }) {
   const scrollRef = aUseRef(null);
   aUseEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = 0; }, [project]);
   aUseEffect(() => {
+    if (project && typeof gtag === 'function') {
+      gtag('event', 'open_project', { event_category: 'Portfolio', event_label: project.title });
+    }
+  }, [project]);
+  aUseEffect(() => {
     const handler = e => {
       if (e.key === 'Escape')     onClose();
       if (e.key === 'ArrowLeft')  onNavigate(prev);
@@ -1877,6 +1888,11 @@ function HoverTooltip({ text, label }) {
 function SideQuestPage({ category, onClose, cats, onNavigate }) {
   const scrollRef = aUseRef(null);
   aUseEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = 0; }, [category]);
+  aUseEffect(() => {
+    if (category && typeof gtag === 'function') {
+      gtag('event', 'open_side_quest', { event_category: 'Portfolio', event_label: category.label });
+    }
+  }, [category]);
   aUseEffect(() => {
     const handler = e => {
       if (e.key === 'Escape')     onClose();
