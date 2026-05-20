@@ -256,15 +256,15 @@ const PROJECTS = [
     bg:'linear-gradient(180deg, #C5D5D8 0%, #8FA8AB 100%)',
     scenes:[
       { name:'Intro', icon:'file-text',
-        body:'Square\'s core business is card processing, but an estimated $XB annually was flowing off-platform through X, and sellers had been asking for a native integration for years. The opportunity was real, but so was the tension: the integration needed to deliver business value without cannibalizing card revenue.',
+        body:'Square\'s core business is card processing, but an estimated $XB annually was flowing off-platform through Y, and sellers had been asking for a native integration for years. The opportunity was real, but so was the tension: the integration needed to deliver business value without cannibalizing card revenue.',
         body2:'Two levers were on the table: a transaction fee and a Square Checking requirement. Engineering constraints meant the Alpha couldn\'t support auto-reconciliation. The team suspected all three would muddy the Alpha signal — making it impossible to tell whether low adoption meant the product didn\'t work, or just that the friction did. A successful Alpha would unlock expansion beyond Invoices into higher-volume surfaces like in-person checkout.',
       },
       { name:'Objective', icon:'flag',
-        body:'The objectives were two-fold: understand the adoption potential for a native X integration, and optimize the product experience to reflect real user expectations within the constraints of what was business and engineering feasible.',
+        body:'The objectives were two-fold: understand the adoption potential for a native Y integration, and optimize the product experience to reflect real user expectations within the constraints of what was business and engineering feasible.',
       },
       { name:'Approach', icon:'compass',
         layout:'approach',
-        intro:'I structured the research to pressure-test the assumptions and friction points most likely to distort the Alpha signal, so any drop-off would reflect real demand — not bad UX.',
+        intro:'The Alpha had hard constraints. Engineering limitations were largely fixed, the timeline was tight, and the project had CEO-level visibility. Direct pushback on the designs wasn\'t an option, so I structured the research to do the advocating. The core tension: measuring adoption potential while showing sellers an experience full of friction. Without careful design, any drop-off would be unreadable — was it low demand, or just bad UX? The research needed to separate those two signals, so findings could clearly attribute friction to specific constraints and make the case that those constraints weren\'t as fixed as they seemed. I developed a 3-track research program across two audiences, two product surfaces, and two partner researchers — comprehensive enough for CEO-level visibility, tight enough to hit a 3-month Alpha launch.',
         bullets:[
           'I brought in a quant UXR to run a discrete choice and a rapid researcher for the buyer usability test to stay within the timeline without sacrificing depth.',
           'I included buyer research to gauge comprehension of the multi-step payment flow, ensuring B2C signal wasn\'t crowded out by the seller workstreams.',
@@ -274,17 +274,17 @@ const PROJECTS = [
         methods:[
           { num:'1/', title:'Seller Experience (Led by me!)',
             bg:'#1B4D5C',
-            body:'n=9 moderated interviews with Square Invoices sellers who currently use X · 60-min sessions including prototype test · 4 weeks' },
+            body:'n=9 moderated interviews with Square Invoices sellers who currently use Y · 60-min sessions including prototype test · 4 weeks' },
           { num:'2/', title:'Pricing Survey',
             body:'n=1,000 · Discrete Choice · 3 concepts across 3 pricing structures · 4 weeks' },
           { num:'3/', title:'Buyer Experience',
-            body:'n=8 buyers who use X and have paid with a Square invoice · Unmoderated usability test via UserTesting · 1 week' },
+            body:'n=8 buyers who use Y and have paid with a Square invoice · Unmoderated usability test via UserTesting · 1 week' },
         ],
       },
       { name:'Seller Experience Findings', icon:'bulb',
         bullets:[
-          'A fee kills the value proposition: sellers view X\'s no-fee model as its core benefit. Introducing a charge doesn\'t reduce adoption — it eliminates it.',
-          'Auto-reconciliation isn\'t a nice-to-have — it\'s a table stake. Sellers expect X in Square to behave like every other payment method: funds land automatically, invoice status updates instantly. Manual reconciliation made the integration feel less reliable than using X directly.',
+          'A fee kills the value proposition: sellers view Y\'s no-fee model as its core benefit. Introducing a charge doesn\'t reduce adoption — it eliminates it.',
+          'Auto-reconciliation isn\'t a nice-to-have — it\'s a table stake. Sellers expect Y in Square to behave like every other payment method: funds land automatically, invoice status updates instantly. Manual reconciliation made the integration feel less reliable than using Y directly.',
           'Square Checking was assumed to have fees or lack core banking features. This misconception reframed the adoption decision from "try a new feature" to "switch my bank" before sellers even evaluated the integration. New messaging highlighting "free" and the ability to deposit checks & cash directly drove copy and value prop updates.',
         ],
         quotesGroupLabel:'Seller Quotes',
@@ -308,7 +308,7 @@ const PROJECTS = [
         quotes:[{
           char:'images/captain.png',
           label:'Senior Design Partner',
-          text:"Working with Mai on the X Alpha research project has been a genuine pleasure. She is an incredibly talented and dedicated research partner, and I've enjoyed collaborating and learning from her... The key findings she delivered were instrumental in shaping the Alpha and continue to be referenced and shared with cross-functional partners almost weekly. Mai also played a key role in refining the initial end-to-end flows for the X MVP. Even with significant implementation constraints, she used seller insights to surface flaws in the proposed MVP experience, which ultimately secured buy-in and guided the team toward a much stronger MVP direction.",
+          text:"Working with Mai on the Y Alpha research project has been a genuine pleasure. She is an incredibly talented and dedicated research partner, and I've enjoyed collaborating and learning from her... The key findings she delivered were instrumental in shaping the Alpha and continue to be referenced and shared with cross-functional partners almost weekly. Mai also played a key role in refining the initial end-to-end flows for the Y MVP. Even with significant implementation constraints, she used seller insights to surface flaws in the proposed MVP experience, which ultimately secured buy-in and guided the team toward a much stronger MVP direction.",
         }],
       },
     ],
@@ -343,14 +343,14 @@ const PROJECTS = [
       },
       { name:'Impact', icon:'rocket',
         bullets:[
-          '3 different product teams scoped down or removed voice AI from their product roadmap based on findings.',
+          'Redirected 3 product teams from seller-facing voice AI features toward back-office use cases where adoption barriers were lowest — aligning roadmaps to where the technology could actually land.',
           'Direct team saved an estimated ½ to 1 quarter of misallocated resources.',
           'Cited in, and strengthened, a company-wide AI framework.',
         ],
         quotes:[{
           char:'images/queen.png',
           label:'Manager (Annual Review Feedback)',
-          text:"You showed good instincts for where research was or wasn't needed, including flagging a need for Voice AI research. Your openness to broadening the scope and lens of that research helped it become a valuable input to decisions being made across Square ([redacted], inventory, etc.), not just their direct team.",
+          text:"You showed good instincts for where research was or wasn't needed, including flagging a need for Voice AI research. Your openness to broadening the scope and lens of that research helped it become a valuable input to decisions being made across Square ([redacted], inventory, etc.), not just your direct team.",
         }],
       },
     ],
@@ -622,7 +622,7 @@ function Cartographer() {
             </div>
             <div className="br-body" style={{fontSize:18}}>
               <Editable id="npc_line" multiline
-                defaultValue="Welcome, traveler! Four paths lie ahead — each a project. Hover above any zone to glimpse what Mai\'s been up to. Click a zone to walk it and read the full tale."/>
+                defaultValue="Welcome, traveler! Four paths lie ahead — each a project. Hover above any zone to glimpse what Mai's been up to. Click a zone to walk it and read the full tale."/>
             </div>
           </div>
         </div>
