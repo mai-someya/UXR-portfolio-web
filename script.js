@@ -156,7 +156,7 @@ const PROJECTS = [
         body:'Understand how service-based businesses adopt tools across their workflow, identify the jobs those tools are hired to do, and determine where Square has the strongest opportunity to close the gap — so the team could prioritize the product roadmap with confidence rather than assumption.' },
       { name:'Approach', icon:'compass',
         layout:'approach',
-        intro:'Foundational research requires rigor. I designed a multi-method approach to ensure comprehensive coverage before drawing conclusions.',
+        intro:'Previous research had gone deep on individual service audiences — but what was missing was a horizontal view across the full segment. With reorgs consolidating those audiences onto one team, and competitors moving fast to bundle business tools as payments became commoditized, the question shifted from \'who are our sellers\' to \'what jobs are they hiring tools to do\' — and where is Square leaving them to cobble together solutions.',
         preSpeech:'I initially tried to explore internal data, but realized we need primary research since it was common that tool usage happened outside of Square.',
         postSpeech:'The workshop added critical nuance to our hypothesis that leads management was the biggest opportunity, breaking it into two distinct jobs: generating leads and managing leads. Generating leads pointed to API and partnership conversations for marketing, while managing leads was something the product team could build and solve for.',
         methods:[
@@ -1416,8 +1416,8 @@ function SceneCard({ idx, scene, pid, accent }) {
             <p className="br-body" style={{
               color:BR.deep, margin:'0 0 20px 0', fontWeight:700,
             }}>{scene.intro}</p>
-            {scene.intro2 && <p className="br-body" style={{color:BR.deep, margin:'-4px 0 20px 0', fontWeight:700}}>{scene.intro2}</p>}
-            {scene.intro3 && <p className="br-body" style={{color:BR.deep, margin:'-4px 0 20px 0', fontWeight:700}}>{scene.intro3}</p>}
+            {scene.intro2 && <p className="br-body" style={{color:BR.deep70, margin:'-4px 0 20px 0'}}>{scene.intro2}</p>}
+            {scene.intro3 && <p className="br-body" style={{color:BR.deep70, margin:'-4px 0 20px 0'}}>{scene.intro3}</p>}
 
             {/* Optional pre-speech (left-anchored, stops ~halfway) */}
             {scene.preSpeech && (
