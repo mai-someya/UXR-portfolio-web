@@ -2196,6 +2196,7 @@ const TOOLKITS = [
 ];
 
 function ResearchToolkits() {
+  const [activeId, setActiveId] = aUseState(null);
   return (
     <section id="toolkits" className="br-fadeup" style={{padding:'12px 0 60px'}}>
       <div style={{display:'flex', alignItems:'baseline', justifyContent:'space-between', marginBottom:18}}>
@@ -2217,16 +2218,18 @@ function ResearchToolkits() {
             padding:'24px 22px', borderRadius:16,
             borderTop:`4px solid ${t.accent}`,
             gridColumn:`span ${t.span}`,
-          }}>
+          }}
+            onClick={() => setActiveId(activeId === t.id ? null : t.id)}
+          >
             <div style={{display:'flex', alignItems:'center', gap:10, marginBottom:16}}>
               <div style={{
                 width:10, height:10, borderRadius:'50%',
                 background:t.accent, flexShrink:0,
                 boxShadow:`0 0 0 3px ${t.accent}30`,
               }}/>
-              <h3 className="br-h3" style={{margin:0, color:BR.deep}}>{t.title}</h3>
+              <h3 className="br-display" style={{margin:0, color:BR.deep, flex:1, fontSize:24, lineHeight:1.15}}>{t.title}</h3>
             </div>
-            <ul style={{margin:0, padding:'0 0 0 16px', display:'flex', flexDirection:'column', gap:8}}>
+            <ul className={`mob-tk-bullets${activeId === t.id ? ' active' : ''}`} style={{margin:0, padding:'0 0 0 16px', display:'flex', flexDirection:'column', gap:8}}>
               {t.bullets.map((b, i) => (
                 <li key={i} className="br-body" style={{fontSize:14, color:BR.deep70, lineHeight:1.6}}>
                   {typeof b === 'string' ? b : (
@@ -2242,6 +2245,10 @@ function ResearchToolkits() {
                 </li>
               ))}
             </ul>
+            <div className="mob-tk-seemore">
+              <span>{activeId === t.id ? 'See less' : 'See more'}</span>
+              <Icon name={activeId === t.id ? 'chevron-down' : 'arrow-right'} size={14}/>
+            </div>
           </div>
         ))}
       </div>
