@@ -2215,7 +2215,8 @@ function SideQuests() {
 
 // ─── Research Toolkits ────────────────────────────────────────────────────
 const TOOLKITS = [
-  { id:'qual',     span:3, accent:'#6FB370', title:'Qualitative Research',
+  { id:'qual',     accent:'#6FB370', image:'images/Qualitative.png',
+    title:'Qualitative Research',
     bullets:[
       'Moderated & unmoderated interviews',
       'Journey mapping, personas and framework development',
@@ -2224,7 +2225,8 @@ const TOOLKITS = [
       'Stakeholder co-creation workshops, brainstorms',
       'Secondary research synthesis: Literature and competitive reviews',
     ] },
-  { id:'quant',    span:3, accent:'#56AFC1', title:'Quantitative Research',
+  { id:'quant',    accent:'#56AFC1', image:'images/Quantitative.png',
+    title:'Quantitative Research',
     bullets:[
       'Survey design and methodology',
       'Longitudinal tracking programs (NPS, CSAT, brand tracker)',
@@ -2232,20 +2234,23 @@ const TOOLKITS = [
       'Behavioral and product data analysis',
       'Basic statistics & application of advanced statistics: Discrete Choice, MaxDiff, KANO, TURF, segmentation',
     ] },
-  { id:'strategy', span:2, accent:'#C99E25', title:'Research Strategy & Operations',
+  { id:'strategy', accent:'#C99E25', image:'images/Research Strategy & Operations.png',
+    title:'Research Strategy & Operations',
     bullets:[
       'Multi-phase, mixed-methods research planning from ambiguous briefs',
       'Proactive research gap identification and direct influence on product roadmap & strategy',
       'Research ops: recruitment, panel & vendor management, templates, repositories, budget',
       'Stakeholder education: coached PMs, designers, and junior researchers on study design, methodologies, analysis',
     ] },
-  { id:'ai',       span:2, accent:'#3BBFB0', title:'AI Methods & Product Research',
+  { id:'ai',       accent:'#3BBFB0', image:'images/AI Methods & Product Research.png',
+    title:'AI Methods & Product Research',
     bullets:[
       'Built and socialized AI-assisted workflows: agents for charts, survey and discussion guides',
       'Researched AI adoption and user demand',
       { pre:'Published ', linkText:'white paper on voice AI commerce adoption (2020)', url:'https://www.ipsos.com/sites/default/files/ct/publication/documents/2020-11/ipsos_cracking_the_code_for_vcomm_nov_3.pdf' },
     ] },
-  { id:'domain',   span:2, accent:'#8FA8AB', title:'Domain Expertise',
+  { id:'domain',   accent:'#8FA8AB', image:'images/Domain Expertise.png',
+    title:'Domain Expertise',
     bullets:[
       'B2B/B2B2C: Fintech, payments, and commerce',
       'Service-based business: Professional Services, Home & Repair, Health & Beauty',
@@ -2254,62 +2259,116 @@ const TOOLKITS = [
 ];
 
 function ResearchToolkits() {
-  const [activeId, setActiveId] = aUseState(null);
+  const [idx, setIdx] = aUseState(0);
+  const t = TOOLKITS[idx];
+  const prev = () => setIdx(i => (i - 1 + TOOLKITS.length) % TOOLKITS.length);
+  const next = () => setIdx(i => (i + 1) % TOOLKITS.length);
+
+  const renderBullets = () => (
+    <ul style={{margin:0, padding:'0 0 0 18px', display:'flex', flexDirection:'column', gap:10}}>
+      {t.bullets.map((b, i) => (
+        <li key={i} className="br-body" style={{fontSize:15, color:BR.deep70, lineHeight:1.65}}>
+          {typeof b === 'string' ? b : (
+            <>
+              {b.pre}
+              <a href={b.url} target="_blank" rel="noopener noreferrer"
+                style={{color:BR.teal, textDecoration:'underline', textUnderlineOffset:'2px'}}>
+                {b.linkText}
+              </a>
+              {b.post || ''}
+            </>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+
+  const Nav = () => (
+    <div style={{display:'flex', justifyContent:'center', alignItems:'center', gap:14, marginTop:28}}>
+      <button className="br-btn outline" onClick={prev}
+        style={{width:44, height:44, padding:0, borderRadius:999, display:'grid', placeItems:'center', flexShrink:0}}>
+        <Icon name="arrow-left" size={18}/>
+      </button>
+      <div style={{display:'flex', gap:8, alignItems:'center'}}>
+        {TOOLKITS.map((_, i) => (
+          <button key={i} onClick={() => setIdx(i)} style={{
+            width: i === idx ? 24 : 8, height:8,
+            borderRadius:999, border:'none', cursor:'pointer', padding:0,
+            background: i === idx ? BR.teal : BR.deep20,
+            transition:'all .3s ease',
+          }}/>
+        ))}
+      </div>
+      <button className="br-btn outline" onClick={next}
+        style={{width:44, height:44, padding:0, borderRadius:999, display:'grid', placeItems:'center', flexShrink:0}}>
+        <Icon name="arrow-right" size={18}/>
+      </button>
+    </div>
+  );
+
   return (
     <section id="toolkits" className="br-fadeup" style={{padding:'12px 0 60px'}}>
-      <div style={{display:'flex', alignItems:'baseline', justifyContent:'space-between', marginBottom:18}}>
-        <div>
-          <div className="br-cap" style={{color:BR.teal, marginBottom:6}}>
-            <Icon name="tools" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
-            Research Toolkits
+      <div style={{marginBottom:28}}>
+        <div className="br-cap" style={{color:BR.teal, marginBottom:6}}>
+          <Icon name="tools" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
+          Research Toolkits
+        </div>
+        <h2 className="br-h2">
+          The methods{' '}
+          <span className="br-display italic" style={{color:BR.teal}}>behind the work.</span>
+        </h2>
+      </div>
+
+      {/* ── Desktop: image left + overlapping card right ── */}
+      <div className="tk-desktop" style={{display:'flex', alignItems:'center', position:'relative'}}>
+        <div style={{
+          width:420, height:420, borderRadius:24, overflow:'hidden', flexShrink:0,
+          background:BR.deep10, boxShadow:'0 4px 24px rgba(26,58,58,.14)',
+        }}>
+          <img key={idx} src={t.image} alt={t.title} className="tk-fade"
+            style={{width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block'}}/>
+        </div>
+        <div key={`d${idx}`} className="br-card tk-fade" style={{
+          marginLeft:-80, zIndex:1, flex:1,
+          padding:'32px 32px 28px',
+          borderTop:`4px solid ${t.accent}`,
+          borderRadius:20,
+          boxShadow:'0 8px 40px rgba(26,58,58,.14)',
+        }}>
+          <div style={{display:'flex', alignItems:'center', gap:10, marginBottom:20}}>
+            <div style={{
+              width:12, height:12, borderRadius:'50%', flexShrink:0,
+              background:t.accent, boxShadow:`0 0 0 4px ${t.accent}28`,
+            }}/>
+            <h3 className="br-display" style={{margin:0, color:BR.deep, fontSize:26, lineHeight:1.1}}>{t.title}</h3>
           </div>
-          <h2 className="br-h2">
-            The methods{' '}
-            <span className="br-display italic" style={{color:BR.teal}}>behind the work.</span>
-          </h2>
+          {renderBullets()}
         </div>
       </div>
 
-      <div className="mob-tk-grid" style={{display:'grid', gridTemplateColumns:'repeat(6, 1fr)', gap:20}}>
-        {TOOLKITS.map(t => (
-          <div key={t.id} className="br-card mob-tk-card" style={{
-            padding:'24px 22px', borderRadius:16,
-            borderTop:`4px solid ${t.accent}`,
-            gridColumn:`span ${t.span}`,
-          }}
-            onClick={() => setActiveId(activeId === t.id ? null : t.id)}
-          >
-            <div style={{display:'flex', alignItems:'center', gap:10, marginBottom:16}}>
-              <div style={{
-                width:10, height:10, borderRadius:'50%',
-                background:t.accent, flexShrink:0,
-                boxShadow:`0 0 0 3px ${t.accent}30`,
-              }}/>
-              <h3 className="br-display" style={{margin:0, color:BR.deep, flex:1, fontSize:24, lineHeight:1.15}}>{t.title}</h3>
-            </div>
-            <ul className={`mob-tk-bullets${activeId === t.id ? ' active' : ''}`} style={{margin:0, padding:'0 0 0 16px', display:'flex', flexDirection:'column', gap:8}}>
-              {t.bullets.map((b, i) => (
-                <li key={i} className="br-body" style={{fontSize:14, color:BR.deep70, lineHeight:1.6}}>
-                  {typeof b === 'string' ? b : (
-                    <>
-                      {b.pre}
-                      <a href={b.url} target="_blank" rel="noopener noreferrer"
-                        style={{color:BR.teal, textDecoration:'underline', textUnderlineOffset:'2px'}}>
-                        {b.linkText}
-                      </a>
-                      {b.post || ''}
-                    </>
-                  )}
-                </li>
-              ))}
-            </ul>
-            <div className="mob-tk-seemore">
-              <span>{activeId === t.id ? 'See less' : 'See more'}</span>
-              <Icon name={activeId === t.id ? 'chevron-down' : 'arrow-right'} size={14}/>
-            </div>
+      {/* ── Mobile: image top + card below ── */}
+      <div className="tk-mobile" style={{display:'none'}}>
+        <div style={{borderRadius:20, overflow:'hidden', marginBottom:16, background:BR.deep10, aspectRatio:'4/3'}}>
+          <img key={`mi${idx}`} src={t.image} alt={t.title} className="tk-fade"
+            style={{width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block'}}/>
+        </div>
+        <div key={`mc${idx}`} className="br-card tk-fade" style={{
+          padding:'22px 20px',
+          borderTop:`4px solid ${t.accent}`,
+          borderRadius:16,
+        }}>
+          <div style={{display:'flex', alignItems:'center', gap:10, marginBottom:16}}>
+            <div style={{
+              width:10, height:10, borderRadius:'50%', flexShrink:0,
+              background:t.accent, boxShadow:`0 0 0 3px ${t.accent}28`,
+            }}/>
+            <h3 className="br-display" style={{margin:0, color:BR.deep, fontSize:22, lineHeight:1.1}}>{t.title}</h3>
           </div>
-        ))}
+          {renderBullets()}
+        </div>
       </div>
+
+      <Nav/>
     </section>
   );
 }

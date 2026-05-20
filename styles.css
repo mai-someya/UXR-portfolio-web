@@ -171,6 +171,14 @@ kbd { font-family: inherit; }
 /* ─── Selection ──────────────────────────────────────────────────────── */
 ::selection { background: #F5C842; color: #1A3A3A; }
 
+/* ─── Toolkit carousel ───────────────────────────────────────────────── */
+@keyframes tk-fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.tk-fade   { animation: tk-fade .35s ease both; }
+.tk-mobile { display: none; }
+
 /* ─── Toolkit accordion (mobile-only elements hidden on desktop) ─────── */
 .mob-tk-chevron { display: none; }
 .mob-tk-seemore { display: none; }
@@ -207,22 +215,9 @@ kbd { font-family: inherit; }
   /* Side Quests: 2-column */
   .mob-sq-grid { grid-template-columns: repeat(2, 1fr) !important; }
 
-  /* Research Toolkits: 2-column, reset all spans, accordion */
-  .mob-tk-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  .mob-tk-card { grid-column: span 1 !important; cursor: pointer; }
-  .mob-tk-chevron { display: block !important; flex-shrink: 0; }
-  .mob-tk-bullets { display: none !important; }
-  .mob-tk-bullets.active { display: flex !important; margin-top: 12px; }
-  .mob-tk-seemore {
-    display: flex !important;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-    color: #3BBFB0;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-  }
+  /* Research Toolkits: swap to mobile carousel layout */
+  .tk-desktop { display: none !important; }
+  .tk-mobile  { display: block !important; }
 
   /* Project/Side-Quest modals */
   .mob-modal-content { margin: 20px auto !important; width: calc(100% - 24px) !important; }
@@ -275,8 +270,7 @@ kbd { font-family: inherit; }
   /* Side Quests: single column */
   .mob-sq-grid { grid-template-columns: 1fr !important; }
 
-  /* Research Toolkits: single column */
-  .mob-tk-grid { grid-template-columns: 1fr !important; }
+  /* Research Toolkits carousel already single-column on mobile */
 
   /* Approach methods: single column */
   .mob-methods-grid { grid-template-columns: 1fr !important; }
