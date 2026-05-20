@@ -2234,7 +2234,7 @@ const TOOLKITS = [
       'Behavioral and product data analysis',
       'Basic statistics & application of advanced statistics: Discrete Choice, MaxDiff, KANO, TURF, segmentation',
     ] },
-  { id:'strategy', accent:'#C99E25', image:'images/Research Strategy & Operations.png',
+  { id:'strategy', accent:'#C99E25', image:'images/Research Strategy.png',
     title:'Research Strategy & Operations',
     bullets:[
       'Multi-phase, mixed-methods research planning from ambiguous briefs',
@@ -2242,14 +2242,14 @@ const TOOLKITS = [
       'Research ops: recruitment, panel & vendor management, templates, repositories, budget',
       'Stakeholder education: coached PMs, designers, and junior researchers on study design, methodologies, analysis',
     ] },
-  { id:'ai',       accent:'#3BBFB0', image:'images/AI Methods & Product Research.png',
+  { id:'ai',       accent:'#3BBFB0', image:'images/AI Methods.png',
     title:'AI Methods & Product Research',
     bullets:[
       'Built and socialized AI-assisted workflows: agents for charts, survey and discussion guides',
       'Researched AI adoption and user demand',
       { pre:'Published ', linkText:'white paper on voice AI commerce adoption (2020)', url:'https://www.ipsos.com/sites/default/files/ct/publication/documents/2020-11/ipsos_cracking_the_code_for_vcomm_nov_3.pdf' },
     ] },
-  { id:'domain',   accent:'#8FA8AB', image:'images/Domain Expertise.png',
+  { id:'domain',   accent:'#8FA8AB', image:'images/Domain.png', imagePadding:36,
     title:'Domain Expertise',
     bullets:[
       'B2B/B2B2C: Fintech, payments, and commerce',
@@ -2323,10 +2323,12 @@ function ResearchToolkits() {
       <div className="tk-desktop" style={{display:'flex', alignItems:'center', position:'relative'}}>
         <div style={{
           width:420, height:420, borderRadius:24, overflow:'hidden', flexShrink:0,
-          background:BR.deep10, boxShadow:'0 4px 24px rgba(26,58,58,.14)',
+          background:'#edf7f5', boxShadow:'0 4px 24px rgba(26,58,58,.14)',
+          display:'flex', alignItems:'center', justifyContent:'center',
+          padding: t.imagePadding || 0,
         }}>
           <img key={idx} src={t.image} alt={t.title} className="tk-fade"
-            style={{width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block'}}/>
+            style={{width:'100%', height:'100%', objectFit:'contain', objectPosition:'center', display:'block'}}/>
         </div>
         <div key={`d${idx}`} className="br-card tk-fade" style={{
           marginLeft:-80, zIndex:1, flex:1,
@@ -2335,11 +2337,7 @@ function ResearchToolkits() {
           borderRadius:20,
           boxShadow:'0 8px 40px rgba(26,58,58,.14)',
         }}>
-          <div style={{display:'flex', alignItems:'center', gap:10, marginBottom:20}}>
-            <div style={{
-              width:12, height:12, borderRadius:'50%', flexShrink:0,
-              background:t.accent, boxShadow:`0 0 0 4px ${t.accent}28`,
-            }}/>
+          <div style={{marginBottom:20}}>
             <h3 className="br-display" style={{margin:0, color:BR.deep, fontSize:26, lineHeight:1.1}}>{t.title}</h3>
           </div>
           {renderBullets()}
@@ -2357,11 +2355,7 @@ function ResearchToolkits() {
           borderTop:`4px solid ${t.accent}`,
           borderRadius:16,
         }}>
-          <div style={{display:'flex', alignItems:'center', gap:10, marginBottom:16}}>
-            <div style={{
-              width:10, height:10, borderRadius:'50%', flexShrink:0,
-              background:t.accent, boxShadow:`0 0 0 3px ${t.accent}28`,
-            }}/>
+          <div style={{marginBottom:16}}>
             <h3 className="br-display" style={{margin:0, color:BR.deep, fontSize:22, lineHeight:1.1}}>{t.title}</h3>
           </div>
           {renderBullets()}
