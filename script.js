@@ -60,6 +60,7 @@ const ICONS = {
   'users':         <><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></>,
   'chart-bar':     <><path d="M3 12h4v9h-4z"/><path d="M9 7h4v14h-4z"/><path d="M15 3h4v18h-4z"/></>,
   'wrench':        <><path d="M8.56 2.9a4 4 0 0 1 4.433 6.461l-8 8a2 2 0 0 1 -2.828 -2.828l8 -8a4 4 0 0 1 -1.605 -3.633z"/><path d="M17.5 15.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"/></>,
+  'hammer':        <><path d="M11.414 10l-7.383 7.418a2.091 2.091 0 0 0 0 2.967a2.11 2.11 0 0 0 2.976 0l7.407 -7.385"/><path d="M18.121 15.192l3.535 -3.535l-3.535 -3.536l-1.768 1.768l.707 .707l-1.414 1.414l-.707 -.707l-1.768 1.768z"/></>,
   'laptop':        <><path d="M3 19l18 0"/><path d="M5 6m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z"/></>,
 };
 
@@ -365,12 +366,15 @@ const PROJECTS = [
     pos:{ x:80, y:28 },
     bg:'linear-gradient(180deg, #C5D5D8 0%, #8FA8AB 100%)',
     scenes:[
-      { name:'Highlights', icon:'chart-bar',
+      { name:'Highlights', icon:'chart-bar', simpleHeader:true,
         bullets:[
           'Designed and launched Square\'s first consolidated CSAT program spanning 38 products and 4,000+ respondents, replacing siloed per-team surveys. Program was among the first internal signals to identify churn as a company-wide risk, directly informing executive annual planning up to the CEO level.',
           'Fielded a large-scale survey (n=628) among hair salon sellers to quantify feature prioritization preferences for a calendar redesign serving 500K+ users, integrating findings with 10 moderated interviews to influence prioritization of five roadmap features and drive a 5% post-launch improvement in customer satisfaction.',
         ],
-        cta:{ text:'Learn more about my quant roots', href:'#projects' },
+        ctas:[
+          { text:'Learn More About My Quant Roots', href:'#projects', action:'open-side-quest', actionData:'market' },
+          { text:'See Quant Research Toolkit', href:'#toolkits', action:'toolkit-slide', actionData:1 },
+        ],
       },
     ],
   },
@@ -380,7 +384,7 @@ const STRENGTHS = [
   { label: 'Product Strategist',
     evidence: 'I translate research into decisions that stick — challenging pricing assumptions, redirecting roadmaps, and reframing engineering constraints as launch risks before teams build in the wrong direction.' },
   { label: 'Dot Connector',
-    evidence: 'I connect the dots others miss because I’m equally fluent in qual and quant. From behavioral data and large-scale surveys to usability testing and moderating in-depth interviews — I bring it all into one cohesive story.'},
+    evidence: 'I connect the dots others miss because I\'m equally fluent in qual and quant. From behavioral data and large-scale surveys to usability testing and moderating in-depth interviews — I bring it all into one cohesive story.'},
   { label: 'AI-Powered Researcher',
     evidence: 'AI handles the operational, I handle the human. I use it to move faster — automating charts, writing SQL queries, and scraping data with R and Python scripts. That speed buys me time for what AI can\'t touch: understanding business context and building the relationships that make research actually land.' },
 ];
@@ -391,7 +395,7 @@ const TAGLINE_DEFAULT = `Pick a destination and see what I've accomplished'.`;
 const NAV_ITEMS = [
   { label:'Projects',    href:'#map',      icon:'map' },
   { label:'Side Quests', href:'#projects', icon:'compass' },
-  { label:'Toolkits',    href:'#toolkits', icon:'wrench' },
+  { label:'Research Toolkit', href:'#toolkits', icon:'wrench' },
   { label:'LinkedIn',    href:'https://www.linkedin.com/in/mai-someya/', icon:'laptop', external:true },
   { label:'Resume',      href:'https://drive.google.com/file/d/1FI5s8yIk56g6DIPGYpn6A01yYOdvoXWb/view?usp=sharing', icon:'file-text', external:true },
 ];
@@ -525,7 +529,7 @@ function Hero() {
               From identifying research gaps to building long lasting frameworks, I have a proven track record driving product and roadmap decisions across fintech and consumer products at a global scale.
             </p>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
-              At my core, I'm a learner and adventurer . I’m always reaching for new tools, methods, and ways of thinking. My newest adventure is this portfolio, built from scratch using Claude Code, VS Code, HTML, and JavaScript.
+              At my core, I'm a learner and adventurer . I'm always reaching for new tools, methods, and ways of thinking. My newest adventure is this portfolio, built from scratch using Claude Code, VS Code, HTML, and JavaScript.
             </p>
           </div>
 
@@ -726,6 +730,133 @@ function MapContext() {
         </div>
       </div>
     </div>
+  );
+}
+
+// ─── Testimonials ─────────────────────────────────────────────────────────
+const TESTIMONIALS_DATA = [
+  {
+    type:'user',
+    quote:"Your Tool Adoption Research was not only thorough and reflective of critical business priorities but also recognized by the XNFL team as highly impactful in shaping GTM strategy and product roadmap prioritization. This demonstrated your ability to generate insights that resonate across cross-functional stakeholders and directly influence business strategy.",
+    name:'Lead/Principal PM',
+    projectId:'forest', projectLabel:'Services Tool Adoption',
+  },
+  {
+    type:'quote',
+    quote:"Working with Mai has been a genuine pleasure. She is an incredibly talented and dedicated research partner, and I've enjoyed collaborating and learning from her. The key findings she delivered were instrumental in shaping the Alpha and continue to be referenced and shared with cross-functional partners almost weekly... Even with significant implementation constraints, she used seller insights to surface flaws in the proposed MVP experience, which ultimately secured buy-in and guided the team toward a much stronger MVP direction.",
+    name:'Senior Design Partner',
+    projectId:'mountain', projectLabel:'P2P Integration',
+  },
+  {
+    type:'user',
+    quote:"You showed good instincts for where research was or wasn't needed... Your openness to broadening the scope and lens of that research helped it become a valuable input to decisions being made across Square — not just their direct team.",
+    name:'Manager',
+    projectId:'town', projectLabel:'Voice AI',
+  },
+];
+
+function TestimonialQuoteIcon() {
+  return (
+    <svg width="36" height="27" viewBox="0 0 48 36" fill="none"
+      style={{flexShrink:0, color:BR.teal, opacity:.45}}>
+      <path d="M14.9951 36C12.4951 36 10.2285 35.0167 8.19513 33.05C6.1618 31.0833 5.14513 28.8333 5.14513 26.3C5.14513 22.8 6.2118 19.4833 8.34513 16.35C10.4785 13.2167 13.2285 10.1 16.5951 7L21.4951 11.25C19.3618 13.1333 17.6785 14.8833 16.4451 16.5C15.2118 18.1167 14.5951 19.9833 14.5951 22.1H19.9951V36H14.9951ZM37.9951 36C35.4951 36 33.2285 35.0167 31.1951 33.05C29.1618 31.0833 28.1451 28.8333 28.1451 26.3C28.1451 22.8 29.2118 19.4833 31.3451 16.35C33.4785 13.2167 36.2285 10.1 39.5951 7L44.4951 11.25C42.3618 13.1333 40.6785 14.8833 39.4451 16.5C38.2118 18.1167 37.5951 19.9833 37.5951 22.1H42.9951V36H37.9951Z"
+        fill="currentColor"/>
+    </svg>
+  );
+}
+
+function TestimonialCard({ t }) {
+  return (
+    <div style={{
+      display:'flex', flexDirection:'column', alignItems:'center',
+      justifyContent:'center', textAlign:'center',
+      padding:'36px 32px',
+      background:`linear-gradient(135deg, ${BR.sky}28 0%, ${BR.meadow}22 100%)`,
+      borderRadius:20, boxSizing:'border-box',
+    }}>
+      <TestimonialQuoteIcon/>
+      <p className="br-body" style={{
+        fontSize:16, lineHeight:1.8, color:BR.deep, fontStyle:'italic',
+        margin:'18px 0 22px',
+      }}>{t.quote}</p>
+      <div className="br-cap" style={{color:BR.deep50}}>{t.name}</div>
+      {t.projectId && (
+        <button onClick={() => document.dispatchEvent(new CustomEvent('open-project', {detail: t.projectId}))}
+          style={{marginTop:6, background:'none', border:'none', cursor:'pointer', padding:0,
+            fontFamily:'Nunito', fontWeight:600, fontSize:11, letterSpacing:'.08em',
+            textTransform:'uppercase', color:BR.teal, textDecoration:'underline', textUnderlineOffset:'3px'}}>
+          {t.projectLabel}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function Testimonials() {
+  const [idx, setIdx] = aUseState(0);
+  const total = TESTIMONIALS_DATA.length;
+  const prev = () => setIdx(i => (i - 1 + total) % total);
+  const next = () => setIdx(i => (i + 1) % total);
+
+  return (
+    <section className="br-fadeup" style={{padding:'12px 0 48px'}}>
+      <div style={{marginBottom:28, textAlign:'center'}}>
+        <h2 className="br-h2">
+          In their{' '}
+          <span className="br-display italic" style={{color:BR.teal}}>own words.</span>
+        </h2>
+      </div>
+
+      {/* Carousel — single layout for desktop and mobile */}
+      <div style={{maxWidth:680, margin:'0 auto'}}>
+        <div style={{position:'relative', paddingBottom:4}}>
+          {/* Stack layers */}
+          <div style={{
+            position:'absolute', left:14, right:14, top:10, bottom:0,
+            borderRadius:20,
+            background:`linear-gradient(135deg, ${BR.sky}14 0%, ${BR.meadow}10 100%)`,
+            zIndex:0,
+          }}/>
+          <div style={{
+            position:'absolute', left:7, right:7, top:5, bottom:0,
+            borderRadius:20,
+            background:`linear-gradient(135deg, ${BR.sky}20 0%, ${BR.meadow}16 100%)`,
+            zIndex:1,
+          }}/>
+          {/* Active card */}
+          <div key={idx} className="tk-fade" style={{position:'relative', zIndex:2}}>
+            <TestimonialCard t={TESTIMONIALS_DATA[idx]}/>
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center', gap:16, marginTop:24}}>
+          <button onClick={prev} style={{
+            width:36, height:36, borderRadius:'50%', cursor:'pointer',
+            border:`1.5px solid ${BR.deep20}`, background:'#fff',
+            display:'grid', placeItems:'center',
+            fontFamily:'Nunito', fontWeight:700, fontSize:20, color:BR.deep,
+            boxShadow:'0 2px 8px rgba(26,58,58,.08)', lineHeight:1,
+          }}>&#8249;</button>
+          <div style={{display:'flex', gap:6, alignItems:'center'}}>
+            {TESTIMONIALS_DATA.map((_, i) => (
+              <div key={i} onClick={() => setIdx(i)} style={{
+                width: i===idx ? 20 : 6, height:6, borderRadius:999,
+                background: i===idx ? BR.teal : BR.deep20,
+                transition:'all .3s ease', cursor:'pointer',
+              }}/>
+            ))}
+          </div>
+          <button onClick={next} style={{
+            width:36, height:36, borderRadius:'50%', cursor:'pointer',
+            border:`1.5px solid ${BR.deep20}`, background:'#fff',
+            display:'grid', placeItems:'center',
+            fontFamily:'Nunito', fontWeight:700, fontSize:20, color:BR.deep,
+            boxShadow:'0 2px 8px rgba(26,58,58,.08)', lineHeight:1,
+          }}>&#8250;</button>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -1504,23 +1635,26 @@ function SceneCard({ idx, scene, pid, accent, onClose }) {
       {/* Quest chapter header */}
       <div style={{
         padding:'16px 22px 14px',
-        background:`linear-gradient(135deg, ${accent}22 0%, rgba(242,248,248,0) 60%)`,
         borderBottom:`1px solid rgba(26,58,58,.07)`,
         display:'flex', alignItems:'center', gap:16,
         background:'#fff',
       }}>
-        <div style={{
-          width:46, height:46, borderRadius:14, flexShrink:0,
-          background:accent,
-          display:'grid', placeItems:'center',
-          boxShadow:`0 4px 12px ${accent}55`,
-        }}>
-          <Icon name={scene.icon} size={22} color="#fff" stroke={1.8}/>
-        </div>
-        <div>
-          <div className="br-cap" style={{color:BR.deep50, marginBottom:3}}>
-            Chapter {String(idx+1).padStart(2,'0')}
+        {!scene.simpleHeader && (
+          <div style={{
+            width:46, height:46, borderRadius:14, flexShrink:0,
+            background:accent,
+            display:'grid', placeItems:'center',
+            boxShadow:`0 4px 12px ${accent}55`,
+          }}>
+            <Icon name={scene.icon} size={22} color="#fff" stroke={1.8}/>
           </div>
+        )}
+        <div>
+          {!scene.simpleHeader && (
+            <div className="br-cap" style={{color:BR.deep50, marginBottom:3}}>
+              Chapter {String(idx+1).padStart(2,'0')}
+            </div>
+          )}
           <h3 className="br-display" style={{fontSize:22, lineHeight:1.1, color:BR.deep, margin:0}}>
             {scene.name}
           </h3>
@@ -1755,13 +1889,18 @@ function SceneCard({ idx, scene, pid, accent, onClose }) {
         )}
 
         {/* CTA button — e.g. "Learn more about my quant roots" */}
-        {scene.cta && (
-          <div style={{marginTop:24}}>
-            <a className="br-btn outline" href={scene.cta.href}
-              onClick={onClose}
-              style={{textDecoration:'none', display:'inline-flex', gap:8}}>
-              {scene.cta.text} <Icon name="arrow-right" size={15}/>
-            </a>
+        {(scene.cta || scene.ctas) && (
+          <div style={{marginTop:24, display:'flex', flexWrap:'wrap', gap:10}}>
+            {(scene.ctas || [scene.cta]).map((cta, i) => (
+              <a key={i} className={`br-btn ${cta.variant || (i === 0 ? 'sky' : 'accent')}`} href={cta.href}
+                onClick={() => {
+                  if (cta.action) document.dispatchEvent(new CustomEvent(cta.action, { detail: cta.actionData }));
+                  if (onClose) onClose();
+                }}
+                style={{textDecoration:'none', display:'inline-flex'}}>
+                {cta.text}
+              </a>
+            ))}
           </div>
         )}
       </div>
@@ -1885,8 +2024,9 @@ const SIDE_QUEST_CATS = [
     sections:[],
     bullets:[
       'Redefined Square Invoices\' ideal customer profile by leading a qualitative research program across 20 sellers, replacing a volume-only audience definition with a complexity-based segmentation framework adopted by leadership, marketing, and sales — directly shifting campaign targeting strategy and informing pitch deck content for prospective customers.',
+      'Managed end-to-end execution of Square\'s quarterly NPS program and Global Brand Tracker across 10 international markets, including survey programming, sampling, vendor coordination, analysis, and reporting to 50+ senior stakeholders including the CMO.',
       'Conducted rapid 10-day qualitative research for the CMO to diagnose abnormal acquisition patterns during COVID, analyzing 15 unmoderated interviews to surface macro and micro behavioral shifts that directly informed future marketing strategy timing.',
-      'Identified a gap in insight velocity and built Square’s Global Monthly Quantitative Research Program (n=500) from scratch — cut turnaround from 3 months to 4 weeks, scaled from US-only to 10+ international markets, adopted across 20+ teams; established panel management, survey templates, and tagging conventions that became the team’s reusable research ops foundation.',
+      'Identified a gap in insight velocity and built Square\'s Global Monthly Quantitative Research Program (n=500) from scratch — cut turnaround from 3 months to 4 weeks, scaled from US-only to 10+ international markets, adopted across 20+ teams; established panel management, survey templates, and tagging conventions that became the team\'s reusable research ops foundation.',
       'Led 50+ consumer research studies across journey mapping, segmentation, and benchmarking for Fortune 100 clients (Google, Samsung, Philips, Bank of America) — applied Discrete Choice, MaxDiff, KANO, TURF, and Segmentation to answer complex product, pricing, and positioning questions.',
     ],
   },
@@ -2288,6 +2428,14 @@ function SideQuestTile({ cat, onClick }) {
 function SideQuests() {
   const [selected, setSelected] = aUseState(null);
   const filteredCats = SIDE_QUEST_CATS.filter(c => c.id !== 'consumer' && c.id !== 'quant');
+  aUseEffect(() => {
+    const handler = e => {
+      const cat = SIDE_QUEST_CATS.find(c => c.id === e.detail);
+      if (cat) setSelected(cat);
+    };
+    document.addEventListener('open-side-quest', handler);
+    return () => document.removeEventListener('open-side-quest', handler);
+  }, []);
   return (
     <>
       <section id="projects" className="br-fadeup" style={{padding:'12px 0 60px'}}>
@@ -2362,6 +2510,17 @@ function ResearchToolkits() {
   const t = TOOLKITS[idx];
   const prev = () => setIdx(i => (i - 1 + TOOLKITS.length) % TOOLKITS.length);
   const next = () => setIdx(i => (i + 1) % TOOLKITS.length);
+  aUseEffect(() => {
+    const handler = e => {
+      setIdx(e.detail);
+      setTimeout(() => {
+        const el = document.getElementById('toolkits');
+        if (el) el.scrollIntoView({ behavior:'smooth' });
+      }, 100);
+    };
+    document.addEventListener('toolkit-slide', handler);
+    return () => document.removeEventListener('toolkit-slide', handler);
+  }, []);
 
   const renderBullets = () => (
     <ul style={{margin:0, padding:'0 0 0 18px', display:'flex', flexDirection:'column', gap:10}}>
@@ -2409,8 +2568,8 @@ function ResearchToolkits() {
     <section id="toolkits" className="br-fadeup" style={{padding:'12px 0 60px'}}>
       <div style={{marginBottom:28}}>
         <div className="br-cap" style={{color:BR.teal, marginBottom:6}}>
-          <Icon name="tools" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
-          Research Toolkits
+          <Icon name="hammer" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
+          Research Toolkit
         </div>
         <h2 className="br-h2">
           The methods{' '}
@@ -2470,12 +2629,21 @@ function ResearchToolkits() {
 function AdventureApp() {
   const [drawer, setDrawer] = aUseState(null);
   const [quest, setQuest]   = aUseState(null);
+  aUseEffect(() => {
+    const handler = e => {
+      const proj = PROJECTS.find(p => p.id === e.detail);
+      if (proj) setQuest(proj);
+    };
+    document.addEventListener('open-project', handler);
+    return () => document.removeEventListener('open-project', handler);
+  }, []);
 
   return (
     <div className="br-root" style={{minHeight:'100vh'}}>
       <div className="mob-root-wrap" style={{maxWidth:1200, margin:'0 auto', padding:'0 24px 60px'}}>
         <Nav onOpen={setDrawer}/>
         <Hero/>
+        <Testimonials/>
         <IslandMap onOpen={setQuest}/>
         <SideQuests/>
         <ResearchToolkits/>

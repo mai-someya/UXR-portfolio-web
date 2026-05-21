@@ -214,6 +214,9 @@ kbd { font-family: inherit; }
   .mob-map-hint   { display: none !important; }
   .mob-map-grid   { grid-template-columns: 1fr !important; }
 
+  /* Testimonials carousel: full width on mobile */
+  .mob-test-carousel { display: block !important; }
+
   /* Side Quests: 2-column */
   .mob-sq-grid { grid-template-columns: repeat(2, 1fr) !important; }
 
