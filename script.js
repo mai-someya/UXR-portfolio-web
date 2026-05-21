@@ -1879,7 +1879,7 @@ const SIDE_QUEST_CATS = [
     ],
   },
   {
-    id:'market', label:'Market Research', icon:'users',
+    id:'market', label:'Market Research', icon:'users', image:'images/market research.png', imgPosition:'center 20%',
     colorDk:'#56AFC1',
     bg:'linear-gradient(135deg, rgba(125,212,224,.18) 0%, #F2F8F8 100%)',
     sections:[],
@@ -1901,7 +1901,7 @@ const SIDE_QUEST_CATS = [
     ],
   },
   {
-    id:'life', label:'Real Life Adventures', icon:'mountain',
+    id:'life', label:'Real Life Adventures', icon:'mountain', image:'images/real life adventures.jpeg', imgPosition:'center 80%',
     colorDk:'#C99E25',
     bg:'linear-gradient(135deg, rgba(245,200,66,.22) 0%, #F2F8F8 100%)',
     sections:[],
@@ -2205,26 +2205,79 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
               );
             })}
 
-            {(prev || next) && (
+            {next && (
               <div style={{display:'flex', justifyContent:'center', gap:12, paddingTop:8}}>
-                {prev && (
-                  <button className="br-btn outline mob-nav-btn" onClick={()=>onNavigate(prev)} style={{
-                    width:220, justifyContent:'flex-start', padding:'10px 16px', borderRadius:12, flexShrink:0,
-                  }}>
-                    <Icon name="arrow-left" size={15}/>
-                    <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{prev.label}</span>
-                  </button>
-                )}
-                {next && (
-                  <button className="br-btn outline mob-nav-btn" onClick={()=>onNavigate(next)} style={{
-                    width:220, justifyContent:'space-between', padding:'10px 16px', borderRadius:12, flexShrink:0,
-                  }}>
-                    <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{next.label}</span>
-                    <Icon name="arrow-right" size={15}/>
-                  </button>
-                )}
+                <button className="br-btn outline mob-nav-btn" onClick={()=>onNavigate(next)} style={{
+                  width:220, justifyContent:'space-between', padding:'10px 16px', borderRadius:12, flexShrink:0,
+                }}>
+                  <span style={{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{next.label}</span>
+                  <Icon name="arrow-right" size={15}/>
+                </button>
               </div>
             )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SideQuestTile({ cat, onClick }) {
+  const [tilt, setTilt] = aUseState({ x:0, y:0 });
+  const ref = aUseRef(null);
+
+  const onMove = (e) => {
+    if (!ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width  - 0.5;
+    const y = (e.clientY - r.top)  / r.height - 0.5;
+    setTilt({ x: x * 9, y: -y * 9 });
+  };
+
+  return (
+    <div style={{perspective:'1000px'}}>
+      <div ref={ref} onClick={onClick} onMouseMove={onMove}
+        onMouseLeave={() => setTilt({x:0,y:0})}
+        style={{
+          position:'relative', height:320, borderRadius:18, overflow:'hidden',
+          cursor:'pointer',
+          transform:`rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
+          transition:'transform .15s ease',
+          boxShadow:'0 8px 36px rgba(26,58,58,.22)',
+        }}>
+        <img src={cat.image} alt={cat.label} style={{
+          position:'absolute', inset:0, width:'100%', height:'100%',
+          objectFit:'cover', objectPosition: cat.imgPosition || 'center', display:'block',
+        }}/>
+        <div style={{
+          position:'absolute', inset:0,
+          background:'linear-gradient(180deg, rgba(0,0,0,.18) 0%, transparent 38%, rgba(0,0,0,.62) 100%)',
+        }}/>
+        <div style={{
+          position:'absolute', inset:0, padding:22,
+          display:'flex', flexDirection:'column', justifyContent:'space-between',
+        }}>
+          <span className="br-tag" style={{
+            background:'rgba(255,255,255,.18)', color:'#fff',
+            borderColor:'rgba(255,255,255,.35)', backdropFilter:'blur(4px)',
+            width:'fit-content',
+          }}>
+            <Icon name={cat.icon} size={11}/> Side Quest
+          </span>
+          <div>
+            <div className="br-display" style={{
+              fontSize:26, lineHeight:1.1, marginBottom:12, color:'#fff',
+              textShadow:'0 2px 10px rgba(0,0,0,.4)',
+            }}>{cat.label}</div>
+            <div style={{
+              display:'inline-flex', alignItems:'center', gap:8,
+              padding:'10px 18px', borderRadius:10,
+              background:'rgba(255,255,255,.14)', backdropFilter:'blur(8px)',
+              border:'1px solid rgba(255,255,255,.25)',
+              color:'#fff', fontFamily:'Nunito', fontWeight:700, fontSize:14,
+            }}>
+              Explore <Icon name="arrow-right" size={16}/>
+            </div>
           </div>
         </div>
       </div>
@@ -2250,38 +2303,7 @@ function SideQuests() {
         </div>
         <div className="mob-sq-grid" style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:20}}>
           {filteredCats.map(cat=>(
-            <button key={cat.id} onClick={()=>setSelected(cat)} className="br-card hover" style={{
-              textAlign:'left', padding:0, overflow:'hidden', cursor:'pointer',
-              border:'none', borderRadius:18,
-            }}>
-              <div style={{
-                height:100, background:cat.bg,
-                display:'flex', alignItems:'center', justifyContent:'space-between',
-                padding:'0 22px',
-                borderBottom:`2px solid rgba(26,58,58,.06)`,
-              }}>
-                <span className="br-tag" style={{
-                  background:'rgba(255,255,255,.75)', color:BR.deep, borderColor:'rgba(255,255,255,.5)',
-                }}>
-                  <Icon name={cat.icon} size={11}/> Side Quest
-                </span>
-                <div style={{
-                  width:60, height:60, borderRadius:'50%',
-                  background:'rgba(255,255,255,.65)', display:'grid', placeItems:'center',
-                }}>
-                  <Icon name={cat.icon} size={28} color={cat.colorDk} stroke={1.8}/>
-                </div>
-              </div>
-              <div style={{padding:'20px 22px'}}>
-                <div className="br-display" style={{fontSize:24, lineHeight:1.15, marginBottom:8, color:BR.deep}}>
-                  {cat.label}
-                </div>
-                <div style={{display:'flex', alignItems:'center', gap:8,
-                  color:BR.teal, fontFamily:'Nunito', fontWeight:700, fontSize:14}}>
-                  Explore <Icon name="arrow-right" size={16}/>
-                </div>
-              </div>
-            </button>
+            <SideQuestTile key={cat.id} cat={cat} onClick={()=>setSelected(cat)}/>
           ))}
         </div>
       </section>
