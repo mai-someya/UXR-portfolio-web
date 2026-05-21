@@ -352,6 +352,28 @@ const PROJECTS = [
       },
     ],
   },
+  { id:'quant', tag:'Quantitative Research', icon:'chart-bar',
+    title:'Quantitative Research',
+    subtitle:'Highlights of my quantitative experience',
+    popoverTag:'Bonus',
+    popoverSubtitle:'Highlight of my quantitative experience',
+    popoverSimple:true,
+    timeline:'Across 8 years',
+    method:'CSAT · survey design · discrete choice · behavioral analysis',
+    highlight:'CEO-level visibility',
+    color:'#D0DFE2', colorDk:'#6D8A8E',
+    pos:{ x:80, y:28 },
+    bg:'linear-gradient(180deg, #C5D5D8 0%, #8FA8AB 100%)',
+    scenes:[
+      { name:'Highlights', icon:'chart-bar',
+        bullets:[
+          'Designed and launched Square\'s first consolidated CSAT program spanning 38 products and 4,000+ respondents, replacing siloed per-team surveys. Program was among the first internal signals to identify churn as a company-wide risk, directly informing executive annual planning up to the CEO level.',
+          'Fielded a large-scale survey (n=628) among hair salon sellers to quantify feature prioritization preferences for a calendar redesign serving 500K+ users, integrating findings with 10 moderated interviews to influence prioritization of five roadmap features and drive a 5% post-launch improvement in customer satisfaction.',
+        ],
+        cta:{ text:'Learn more about my quant roots', href:'#projects' },
+      },
+    ],
+  },
 ];
 
 const STRENGTHS = [
@@ -390,7 +412,8 @@ function Nav({ onOpen }) {
   return (
     <header className="mob-header" style={{
       display:'flex', alignItems:'center', justifyContent:'flex-end', gap:10,
-      padding:'14px 0', position:'relative', zIndex:5,
+      padding:'14px 24px', position:'sticky', top:0, zIndex:50,
+      background:'#F2F8F8', backdropFilter:'blur(8px)',
     }}>
 
       {/* Sliding pill nav */}
@@ -724,6 +747,7 @@ function IslandMap({ onOpen }) {
     { id:'forest',   zIndex:4, style:{ left:'10%', top:'15%', width:'31%', height:'55%' } }, // Forest (left)
     { id:'town',     zIndex:4, style:{ left:'55%', top:'30%', width:'40%', height:'50%' } }, // City (right)
     { id:'mountain', zIndex:6, style:{ left:'25%', top:'65%', width:'28%', height:'30%' } }, // Beach (bottom)
+    { id:'quant',    zIndex:7, style:{ left:'77%', top:'5%',  width:'14%', height:'22%' } }, // Small island (top right)
   ];
 
   return (
@@ -1201,18 +1225,20 @@ function HoverPopover({ project }) {
       }}>
         <div style={{marginBottom:8}}>
           <span className="br-tag gold">
-            <Icon name="map-pin" size={11} color={BR.deep}/> {project.tag}
+            <Icon name="map-pin" size={11} color={BR.deep}/> {project.popoverTag || project.tag}
           </span>
         </div>
         <div className="br-h3" style={{fontSize:18, marginBottom:4}}>{project.title}</div>
-        <div className="br-body" style={{fontSize:14, color:BR.deep70, marginBottom:10}}>
-          {project.subtitle}
+        <div className="br-body" style={{fontSize:14, color:BR.deep70, marginBottom: project.popoverSimple ? 0 : 10}}>
+          {project.popoverSubtitle || project.subtitle}
         </div>
-        <div style={{display:'flex', flexDirection:'column', gap:4, fontSize:13}}>
-          <Row icon="eye"    label="Timeline"   value={project.timeline}/>
-          <Row icon="tools"  label="Method" value={project.method}/>
-          <Row icon="flag"   label="Highlight" value={project.highlight}/>
-        </div>
+        {!project.popoverSimple && (
+          <div style={{display:'flex', flexDirection:'column', gap:4, fontSize:13}}>
+            <Row icon="eye"    label="Timeline"   value={project.timeline}/>
+            <Row icon="tools"  label="Method" value={project.method}/>
+            <Row icon="flag"   label="Highlight" value={project.highlight}/>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1352,7 +1378,7 @@ function QuestPage({ project, onClose, onNavigate }) {
                     textTransform:'capitalize', whiteSpace:'nowrap', flexShrink:0,
                   }}>{text}</span>
                 );
-                return (
+                return project.id === 'quant' ? null : (
                   <div className="mob-pills" style={{marginTop:18, display:'flex', gap:6, flexWrap:'nowrap', alignItems:'center'}}>
                     {pill(project.tag, 'rgba(59,191,176,.2)', '#0F5E55', 'rgba(59,191,176,.4)')}
                     {methods.map(m =>
@@ -1397,11 +1423,8 @@ function QuestPage({ project, onClose, onNavigate }) {
             display:'flex', flexDirection:'column', gap:18,
           }}>
             {SCENES.map((sc,i)=>(
-              <SceneCard key={sc.name} idx={i} scene={sc} pid={project.id} accent={project.colorDk}/>
+              <SceneCard key={sc.name} idx={i} scene={sc} pid={project.id} accent={project.colorDk} onClose={onClose}/>
             ))}
-            <div style={{display:'grid', placeItems:'center', padding:'16px 0'}}>
-              <Icon name="flag" size={32} color={BR.teal}/>
-            </div>
 
             {(prev || next) && (
               <div style={{display:'flex', justifyContent:'center', gap:12, paddingTop:4}}>
@@ -1471,7 +1494,7 @@ function CharSpeech({ text }) {
   );
 }
 
-function SceneCard({ idx, scene, pid, accent }) {
+function SceneCard({ idx, scene, pid, accent, onClose }) {
   const hasContent = scene.body || scene.bullets || scene.layout;
   return (
     <div style={{
@@ -1730,6 +1753,17 @@ function SceneCard({ idx, scene, pid, accent }) {
             </div>
           </div>
         )}
+
+        {/* CTA button — e.g. "Learn more about my quant roots" */}
+        {scene.cta && (
+          <div style={{marginTop:24}}>
+            <a className="br-btn outline" href={scene.cta.href}
+              onClick={onClose}
+              style={{textDecoration:'none', display:'inline-flex', gap:8}}>
+              {scene.cta.text} <Icon name="arrow-right" size={15}/>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1851,8 +1885,9 @@ const SIDE_QUEST_CATS = [
     sections:[],
     bullets:[
       'Redefined Square Invoices\' ideal customer profile by leading a qualitative research program across 20 sellers, replacing a volume-only audience definition with a complexity-based segmentation framework adopted by leadership, marketing, and sales — directly shifting campaign targeting strategy and informing pitch deck content for prospective customers.',
-      'Led 50+ consumer research studies across journey mapping, segmentation, and benchmarking for Fortune 100 clients (Google, Samsung, Philips, Bank of America) — applied Discrete Choice, MaxDiff, KANO, TURF, and Segmentation to answer complex product, pricing, and positioning questions.',
       'Conducted rapid 10-day qualitative research for the CMO to diagnose abnormal acquisition patterns during COVID, analyzing 15 unmoderated interviews to surface macro and micro behavioral shifts that directly informed future marketing strategy timing.',
+      'Identified a gap in insight velocity and built Square’s Global Monthly Quantitative Research Program (n=500) from scratch — cut turnaround from 3 months to 4 weeks, scaled from US-only to 10+ international markets, adopted across 20+ teams; established panel management, survey templates, and tagging conventions that became the team’s reusable research ops foundation.',
+      'Led 50+ consumer research studies across journey mapping, segmentation, and benchmarking for Fortune 100 clients (Google, Samsung, Philips, Bank of America) — applied Discrete Choice, MaxDiff, KANO, TURF, and Segmentation to answer complex product, pricing, and positioning questions.',
     ],
   },
   {
@@ -1863,7 +1898,6 @@ const SIDE_QUEST_CATS = [
     bullets:[
       'Designed and launched Square\'s first consolidated CSAT program spanning 38 products and 4,000+ respondents, replacing siloed per-team surveys. Program was among the first internal signals to identify churn as a company-wide risk, directly informing executive annual planning up to the CEO level.',
       'Fielded a large-scale survey (n=628) among hair salon sellers to quantify feature prioritization preferences for a calendar redesign serving 500K+ users, integrating findings with 10 moderated interviews to influence prioritization of five roadmap features and drive a 5% post-launch improvement in customer satisfaction.',
-      'Identified a gap in insight velocity and built Square’s Global Monthly Quantitative Research Program (n=500) from scratch — cut turnaround from 3 months to 4 weeks, scaled from US-only to 10+ international markets, adopted across 20+ teams; established panel management, survey templates, and tagging conventions that became the team’s reusable research ops foundation.',
     ],
   },
   {
@@ -2200,7 +2234,7 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
 
 function SideQuests() {
   const [selected, setSelected] = aUseState(null);
-  const filteredCats = SIDE_QUEST_CATS.filter(c => c.id !== 'consumer');
+  const filteredCats = SIDE_QUEST_CATS.filter(c => c.id !== 'consumer' && c.id !== 'quant');
   return (
     <>
       <section id="projects" className="br-fadeup" style={{padding:'12px 0 60px'}}>
@@ -2210,11 +2244,11 @@ function SideQuests() {
             Side Quests
           </div>
           <h2 className="br-h2">
-            Life outside of{' '}
+            Outside of{' '}
             <span className="br-display italic" style={{color:BR.teal}}>UXR</span>
           </h2>
         </div>
-        <div className="mob-sq-grid" style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:20}}>
+        <div className="mob-sq-grid" style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:20}}>
           {filteredCats.map(cat=>(
             <button key={cat.id} onClick={()=>setSelected(cat)} className="br-card hover" style={{
               textAlign:'left', padding:0, overflow:'hidden', cursor:'pointer',
@@ -2275,7 +2309,7 @@ const TOOLKITS = [
       'Longitudinal tracking programs (NPS, CSAT, brand tracker)',
       'A/B testing, card sort, tree testing',
       'Behavioral and product data analysis',
-      'Basic statistics & application of advanced statistics: Discrete Choice, MaxDiff, KANO, TURF, segmentation',
+      'Basic statistics & application of advanced statistics: Discrete Choice, MaxDiff, KANO, TURF, and regression, factor, and driver analysis',
     ] },
   { id:'strategy', accent:'#C99E25', image:'images/Research Strategy.png',
     title:'Research Strategy & Operations',
