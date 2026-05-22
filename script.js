@@ -219,7 +219,7 @@ const PROJECTS = [
       { name:'Approach', icon:'compass',
         layout:'approach',
         intro:'The original ask was big: a foundational discovery AND market sizing but we had no time to do both rigorously. I pushed back — we agreed to deprioritize market sizing and focus on qualitative discovery. The website audit changed that. It gave us a starting point for the discussion guide and revealed that market sizing was answerable without a full quant study.',
-        preSpeech:'It was an ambiguous ask so I started with what we knew & had access to: existing research and business websites to answer what we could before interviews and to inform the discussion guide.',
+        preSpeech:'It was an ambiguous ask so I started with what we had access to: existing research and business websites to inform the discussion guide.',
         methods:[
           { num:'1/', title:'Website Audit', body:'Reviewed 20 websites to confirm language differences across 3 industries before committing to a larger sizing exercise.' },
           { num:'2/', title:'Sizing',        body:'Computational Web Scraping (1,000+ sites, AI-assisted): used AI to generate Python and R scripts to quantify language as a market-sizing proxy.' },
