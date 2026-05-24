@@ -529,7 +529,7 @@ function Hero() {
               From identifying research gaps to building long lasting frameworks, I have a proven track record driving product and roadmap decisions across fintech and consumer products at a global scale.
             </p>
             <p className="br-body" style={{color:BR.deep70, margin:0}}>
-              At my core, I'm a learner and adventurer . I'm always reaching for new tools, methods, and ways of thinking. My newest adventure is this portfolio, built from scratch using Claude Code, VS Code, HTML, and JavaScript.
+              At my core, I'm a learner and adventurer. I'm always reaching for new tools, methods, and ways of thinking. My newest adventure is this portfolio, built from scratch using Claude Code, VS Code, HTML, and JavaScript.
             </p>
           </div>
 
@@ -749,7 +749,7 @@ const TESTIMONIALS_DATA = [
   },
   {
     type:'user',
-    quote:"You showed good instincts for where research was or wasn't needed... Your openness to broadening the scope and lens of that research helped it become a valuable input to decisions being made across Square — not just their direct team.",
+    quote:"You showed good instincts for where research was or wasn't needed... Your openness to broadening the scope and lens of that research helped it become a valuable input to decisions being made across Square — not just your direct team.",
     name:'Manager',
     projectId:'town', projectLabel:'Voice AI',
   },
