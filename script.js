@@ -1499,24 +1499,23 @@ function QuestPage({ project, onClose, onNavigate }) {
               }}>
                 <Icon name="arrow-left" size={16}/> Back to map
               </button>
-              {(() => {
+              {project.id !== 'quant' && (() => {
                 const methods = project.method
                   ? project.method.split('·').map(m => m.trim())
                   : [];
-                const pill = (text, bg, color, border) => (
-                  <span key={text} className="br-tag" style={{
-                    background:bg, color, borderColor:border,
-                    textTransform:'capitalize', whiteSpace:'nowrap', flexShrink:0,
-                  }}>{text}</span>
-                );
-                return project.id === 'quant' ? null : (
-                  <div className="mob-pills" style={{marginTop:18, display:'flex', gap:6, flexWrap:'nowrap', alignItems:'center'}}>
-                    {pill(project.tag, 'rgba(59,191,176,.2)', '#0F5E55', 'rgba(59,191,176,.4)')}
-                    {methods.map(m =>
-                      pill(m, 'rgba(245,200,66,.28)', '#6A4E00',
-                        project.id === 'town' ? 'rgba(26,58,58,.45)' : 'rgba(245,200,66,.55)')
-                    )}
-                    {project.timeline && pill(project.timeline, 'rgba(125,212,224,.25)', '#1A5A6A', 'rgba(125,212,224,.45)')}
+                const parts = [
+                  project.tag,
+                  ...methods,
+                  ...(project.timeline ? [project.timeline] : []),
+                ].filter(Boolean);
+                return (
+                  <div className="mob-pills" style={{marginTop:18, display:'flex', gap:0, flexWrap:'nowrap', alignItems:'center'}}>
+                    {parts.map((p, i) => (
+                      <React.Fragment key={p}>
+                        {i > 0 && <span style={{margin:'0 8px', color:'rgba(26,58,58,.35)', fontWeight:400}}>&middot;</span>}
+                        <span className="br-cap" style={{color:'rgba(26,58,58,.7)', fontWeight:600, textTransform:'capitalize', whiteSpace:'nowrap'}}>{p}</span>
+                      </React.Fragment>
+                    ))}
                   </div>
                 );
               })()}
@@ -1549,7 +1548,7 @@ function QuestPage({ project, onClose, onNavigate }) {
           </div>
           <div className="br-cap" style={{marginBottom:14, color:BR.teal}}>
             <Icon name="route" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
-            Walk the path · scroll to explore
+            Walk the path · Unfold the story below
           </div>
           <div style={{
             display:'flex', flexDirection:'column', gap:18,
@@ -1653,7 +1652,12 @@ function SceneCard({ idx, scene, pid, accent, onClose }) {
         <div>
           {!scene.simpleHeader && (
             <div className="br-cap" style={{color:BR.deep50, marginBottom:3}}>
-              Chapter {String(idx+1).padStart(2,'0')}
+              {({
+                'Intro':     'Where the journey begins',
+                'Objective': 'What we set out to solve',
+                'Approach':  'How we navigated the terrain',
+                'Impact':    'What the journey made possible',
+              }[scene.name]) || (/findings/i.test(scene.name) ? 'What the expedition uncovered' : `Chapter ${String(idx+1).padStart(2,'0')}`)}
             </div>
           )}
           <h3 className="br-display" style={{fontSize:22, lineHeight:1.1, color:BR.deep, margin:0}}>
@@ -2228,7 +2232,7 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
           )}
           <div className="br-cap" style={{marginBottom:14, color:BR.teal}}>
             <Icon name="route" size={12} style={{verticalAlign:'-2px', marginRight:6}}/>
-            Scroll to explore
+            Unfold the story below
           </div>
           <div style={{display:'flex', flexDirection:'column', gap:18}}>
             {/* Category-level bullets (replaces sections for market / quant) */}
