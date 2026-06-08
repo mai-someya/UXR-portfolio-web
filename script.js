@@ -892,7 +892,7 @@ function IslandMap({ onOpen }) {
           <h2 className="br-h2">
             Pick a destination,{' '}
             <span className="br-display italic" style={{color:BR.teal}}>
-              see what I've accomplished'.
+              see what I've accomplished.
             </span>
           </h2>
         </div>
@@ -1513,7 +1513,8 @@ function QuestPage({ project, onClose, onNavigate }) {
                   <div className="mob-pills" style={{marginTop:18, display:'flex', gap:6, flexWrap:'nowrap', alignItems:'center'}}>
                     {pill(project.tag, 'rgba(59,191,176,.2)', '#0F5E55', 'rgba(59,191,176,.4)')}
                     {methods.map(m =>
-                      pill(m, 'rgba(245,200,66,.28)', '#6A4E00', 'rgba(245,200,66,.55)')
+                      pill(m, 'rgba(245,200,66,.28)', '#6A4E00',
+                        project.id === 'town' ? 'rgba(26,58,58,.45)' : 'rgba(245,200,66,.55)')
                     )}
                     {project.timeline && pill(project.timeline, 'rgba(125,212,224,.25)', '#1A5A6A', 'rgba(125,212,224,.45)')}
                   </div>
