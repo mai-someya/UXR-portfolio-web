@@ -916,9 +916,11 @@ function IslandMap({ onOpen }) {
         <div className="br-card" style={{
           padding:0, overflow:'hidden', position:'relative', borderRadius:24,
           boxShadow:'0 4px 12px rgba(26,58,58,.08), 0 24px 60px rgba(26,58,58,.12)',
+          background:'#1A5870',
+          display:'flex', alignItems:'center',
         }}>
         {/* Ocean teal background fills the side margins from objectFit:contain */}
-        <div style={{position:'relative', aspectRatio:'16/10', userSelect:'none', background:'#1A5870'}}>
+        <div style={{position:'relative', aspectRatio:'16/10', userSelect:'none', background:'#1A5870', width:'100%', flexShrink:0}}>
 
           {/* ── Map image — contain keeps it pixel-perfect with no stretching ── */}
           <img
