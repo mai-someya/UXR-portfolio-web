@@ -2663,5 +2663,6 @@ function AdventureApp() {
 }
 
 // ─── Mount ────────────────────────────────────────────────────────────────
-ReactDOM.createRoot(document.getElementById('root')).render(<AdventureApp/>);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<AdventureApp/>);
 
