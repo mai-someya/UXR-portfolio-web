@@ -1456,6 +1456,9 @@ function QuestPage({ project, onClose, onNavigate }) {
       gtag('event', 'open_project', { event_category: 'Portfolio', event_label: project.title });
     }
   }, [project]);
+  const idx  = project ? PROJECTS.findIndex(p => p.id === project.id) : -1;
+  const prev = idx >= 0 ? PROJECTS[idx > 0 ? idx - 1 : PROJECTS.length - 1] : null;
+  const next = idx >= 0 ? PROJECTS[idx < PROJECTS.length - 1 ? idx + 1 : 0] : null;
   aUseEffect(() => {
     const handler = e => {
       if (e.key === 'Escape')     onClose();
@@ -1466,9 +1469,6 @@ function QuestPage({ project, onClose, onNavigate }) {
     return () => document.removeEventListener('keydown', handler);
   }, [onClose, onNavigate, prev, next]);
   if (!project) return null;
-  const idx  = PROJECTS.findIndex(p => p.id === project.id);
-  const prev = PROJECTS[idx > 0 ? idx - 1 : PROJECTS.length - 1];
-  const next = PROJECTS[idx < PROJECTS.length - 1 ? idx + 1 : 0];
   const DEFAULT_SCENES = [
     { name:'Intro',      icon:'file-text', hint:'Overview and background of the project.' },
     { name:'Objective',  icon:'flag',      hint:'The business question and research goals we were trying to answer.' },
@@ -2175,6 +2175,9 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
       gtag('event', 'open_side_quest', { event_category: 'Portfolio', event_label: category.label });
     }
   }, [category]);
+  const idx  = cats && category ? cats.findIndex(c => c.id === category.id) : -1;
+  const prev = cats && idx >= 0 ? cats[idx > 0 ? idx - 1 : cats.length - 1] : null;
+  const next = cats && idx >= 0 ? cats[idx < cats.length - 1 ? idx + 1 : 0] : null;
   aUseEffect(() => {
     const handler = e => {
       if (e.key === 'Escape')     onClose();
@@ -2185,9 +2188,6 @@ function SideQuestPage({ category, onClose, cats, onNavigate }) {
     return () => document.removeEventListener('keydown', handler);
   }, [onClose, onNavigate, prev, next]);
   if (!category) return null;
-  const idx  = cats ? cats.findIndex(c => c.id === category.id) : -1;
-  const prev = cats && idx >= 0 ? cats[idx > 0 ? idx - 1 : cats.length - 1] : null;
-  const next = cats && idx >= 0 ? cats[idx < cats.length - 1 ? idx + 1 : 0] : null;
   return (
     <div ref={scrollRef} style={{
       position:'fixed', inset:0, background:'rgba(26,58,58,.45)', zIndex:60,
