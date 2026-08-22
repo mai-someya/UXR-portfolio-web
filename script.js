@@ -397,7 +397,7 @@ const NAV_ITEMS = [
   { label:'Side Quests', href:'#projects', icon:'compass' },
   { label:'Research Toolkit', href:'#toolkits', icon:'wrench' },
   { label:'LinkedIn',    href:'https://www.linkedin.com/in/mai-someya/', icon:'laptop', external:true },
-  { label:'Resume',      href:'https://drive.google.com/file/d/1FI5s8yIk56g6DIPGYpn6A01yYOdvoXWb/view?usp=sharing', icon:'file-text', external:true },
+  { label:'Resume',      href:'https://drive.google.com/file/d/1agyCVAlj8cNFWBbHZqUPBpBoJM3R3KED/view?usp=sharing', icon:'file-text', external:true },
 ];
 
 function Nav({ onOpen }) {
